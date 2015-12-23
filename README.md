@@ -1,2 +1,2 @@
 # .vimrc
-vim chips 
+vim chips + плюшки печенюшки
