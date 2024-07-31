@@ -1,0 +1,14 @@
+"--------------------------------------------- БЕКАП
+"set nobackup "Не бекапить
+set noswapfile "Убить свапфайл
+"set undolevels=100 "Память отмен
+"История изменений
+if version >= 700
+    set history=64
+    set undolevels=128
+    set undodir=~/.vim/tmp/
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif
+

@@ -1,0 +1,85 @@
+"--------------------------------------------- СОЧЕТАНИЯ ГОРЯЧИХ КЛАВИШ
+"Выход без сохранения
+map <C-Q> <Esc>:q!<cr>
+
+"Пробел в нормальном режиме перелистывает страницы
+nmap <Space> <PageDown>
+
+"< & > - делаем отступы для блоков
+vmap < <gv
+vmap > >gv
+
+"C-c and C-v -------------------------------------------------- Copy/Paste
+vmap <C-C> "+y
+imap <C-V> <esc>"+gp
+
+"C-a -------------------------------------------------- Выделить все
+nmap <C-a> ggVG<CR>
+imap <C-a> <esc>ggVGG<CR>
+vmap <C-a> <esc>ggVGG<CR>
+
+"C-d -------------------------------------------------- Дублирование текущей строки
+map <C-d> <esc>yyp<CR>
+imap <C-d> <esc>yyp<CR>
+vmap <C-d> <esc>yyp<CR>
+
+"C-x -------------------------------------------------- Вырезать текущую строку
+map <C-x> <esc>S<CR>
+imap <C-x> <esc>S<CR>
+
+
+"--------------------------------------------- ОДИНОЧНЫЕ ГОРЯЧИЕ КЛАВИШИ ---------------------------------------------
+
+"F1 -------------------------------------------------- Save
+nmap <F1> :w!<CR>
+imap <F1> <Esc>:w!<CR>
+vmap <F1> <Esc>:w!<CR>
+
+"F2 -------------------------------------------------- выделить СТРОЧКУ без переноса
+nmap <F2> ^vg_
+set foldmethod=manual
+
+"F3 -------------------------------------------------- удалить пустые строки
+nmap <F3> :g/^s*$/d
+set foldmethod=manual
+
+"F4 -------------------------------------------------- удалить множественные пустые строки, оставить одну
+nmap <F4> :v/./,/./-j
+
+
+"F5 -------------------------------------------------- вставка дата времени
+imap <F5> <C-R>=strftime("%c")<CR>
+
+
+"F7 -------------------------------------------------- Редактировать .vimrc
+map <F7> :vsp $MYVIMRC<CR>
+
+"F8 -------------------------------------------------- Выбор кодировки
+set wildmenu
+set wcm=<Tab>
+colorscheme  afterglow
+menu Encoding.windows-1251 :e ++enc=cp1251 ++ff=dos<CR>
+menu Encoding.utf-8 :e ++enc=utf8 <CR>
+menu Encoding.cp866 :e ++enc=cp866 ++ff=dos<CR>
+menu Encoding.koi8-r :e ++enc=koi8-r ++ff=unix<CR>
+menu Encoding.koi8-u :e ++enc=koi8-u ++ff=unix<CR>
+map <F8> :emenu Encoding.<TAB>
+
+"F9 -------------------------------------------------- Отобразить/Скрыть меню
+set guioptions-=m
+    function MyToggleMenu()
+        let old_guioptions = &guioptions
+        "Если меню в данный момент видимо
+        if stridx(old_guioptions, 'm') != -1
+            set guioptions-=m
+        else
+            set guioptions+=m
+        endif
+    endfunction
+    cmap <F9> <ESC>:call MyToggleMenu()<CR>
+    imap <F9> <ESC>:call MyToggleMenu()<CR>
+    nmap <F9> :call MyToggleMenu()<CR>
+    vmap <F9> <ESC>:call MyToggleMenu()<CR>
+
+
+
