@@ -1,5 +1,5 @@
 # .vimrc-TURBO
-vim chips + плюшки печенюшки
+vim chips + scripts
 
 
 #### VIMRC-COMPLIT.sh 
@@ -8,20 +8,21 @@ vim chips + плюшки печенюшки
 cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
 ```
 
-#### Python скрипты помещаются в 
+- **base** - Basic
+- **key-ru-fix** - Russian layout fix
+- **face** - Design
+- **cursor** - Cursor
+- **statusline** - Status line
+- **search** - Search
+- **backup** - Backup
+- **content** - File content
+- **keys** - Hotkey combinations
+- **html** - css/html
+- **py-script** - Python3 scripts for wrapping html
+
+
+
+#### Python scripts are placed in
 ```HTML
 /.vim/scripts/li.py
 ```
-
-
-- **base** - Основное
-- **key-ru-fix** - Фикс русской раскладки
-- **face** - Оформление
-- **cursor** - Курсор
-- **statusline** - Строка состояния
-- **search** - Поиск
-- **backup** - Бекап
-- **content** - Содержимого файла
-- **keys** - Сочетания горячих клавиш
-- **html** - css/html
-- **py-script** - Скрипты на python3 для оборачивания html
