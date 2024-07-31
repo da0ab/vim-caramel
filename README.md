@@ -1,4 +1,4 @@
-# .vimrc
+# .vimrc-TURBO
 vim chips + плюшки печенюшки
 
 
@@ -6,6 +6,11 @@ vim chips + плюшки печенюшки
 ```HTML
 #!/bin/bash
 cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
+```
+
+#### Python скрипты помещаются в 
+```HTML
+/.vim/scripts/li.py
 ```
 
 
