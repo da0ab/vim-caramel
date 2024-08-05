@@ -1,5 +1,5 @@
                                                                                                                                     
-# .vimrc-TURBO
+# .vimrc-TURBO-HTML
 vim chips + scripts
 
 
@@ -27,3 +27,28 @@ cat base key-ru-fix face cursor statusline search backup content keys html py-sc
 ```HTML
 /.vim/scripts/li.py
 ```
+
+
+#### Hot key insert
+
+media phone - **\mm**
+```HTML
+@media (max-width: 769px)
+```
+media pad - **\mt** 
+```HTML
+@media (min-width: 769px) and (max-width: 1024px)
+```
+media pad portrait - **\mtp**
+```HTML
+@media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait)
+```
+media notebook - **\mn**
+```HTML
+@media only screen and (max-width: 1650px)
+```
+media square - **\ms**
+```HTML
+@media screen and (min-width: 1025px) and (max-width: 1400px)
+```
+
