@@ -37,12 +37,10 @@ def clean_html(html_content):
         for p_tag in td_tag.find_all('p'):
             p_tag.unwrap()  # Удаляем тег <p>, сохраняя его содержимое
 
-
     # Удаление лишних переносов внутри <p> внутри любых тегов
     for tag in soup.find_all('p'):
         for element in tag.find_all(text=True):
             element.replace_with(re.sub(r'\s*\n\s*', ' ', element))
-
 
     # Удаление пустых <p> тегов
     for p_tag in soup.find_all('p'):
@@ -63,37 +61,22 @@ def clean_html(html_content):
     # Заменить </strong>» на »</strong>
     text = re.sub(r'</strong>\s*»', r'»</strong>', text)
 
-
-    # Список знаков препинания, которые нужно обработать
-    #punctuation_marks = r'[.,:;»]'
-# Находим все теги, кроме тегов <a>
-    for tag in soup.find_all(True, recursive=False):
-        if tag.name != 'a':  # Игнорируем теги <a>
-            for elem in tag.find_all(text=True):  # Извлекаем текст из тега
-                new_text = ''
-                for char in elem:
-                    if char in [',', '.', ':', ';', '»']:  # Знаки пунктуации, после которых нужно добавить пробел
-                        new_text += char + ' '
-                    else:
-                        new_text += char
-                elem.replace_with(new_text)
-    text = str(soup)
-
     # Текстовые замены
     text = text.replace('&laquo;', '«')
     text = text.replace('&raquo;', '»')
     text = text.replace('&ndash;', '–')
     text = text.replace('&nbsp;', ' ')
-    #text = text.replace('. ”', '.”')
-    #text = text.replace(', ”', ',”')
-    #text = text.replace('. "', '."')
-    #text = text.replace(', "', ',"')
-    #text = text.replace('. . .', '...')
-    #text = text.replace(' :', ':')
-    #text = text.replace(' »', '»')
-    #text = text.replace(' ,', ',')
-    #text = text.replace('<br />', '<br>')
-    #text = text.replace('<br/>', '<br>')
+    text = text.replace('. ”', '.”')
+    text = text.replace(', ”', ',”')
+    text = text.replace('. "', '."')
+    text = text.replace(', "', ',"')
+    text = text.replace('. . .', '...')
+    text = text.replace(' :', ':')
+    text = text.replace(' »', '»')
+    text = text.replace(' ,', ',')
+    text = text.replace('<br />', '<br>')
+    text = text.replace('<br/>', '<br>')
+    text = text.replace('img src="', 'img src="images/')
     return text
 
 # Чтение входного содержимого
