@@ -3,10 +3,11 @@
 vim chips + scripts
 
 
-#### VIMRC-COMPLIT.sh - build script
+#### VIMRC-COMPLIT.sh - build script and copy python script
 ```HTML
 #!/bin/bash
 cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
+cp -r script/* ~/.vim
 ```
 
 - **base** - Basic
