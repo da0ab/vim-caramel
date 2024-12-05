@@ -1,4 +1,5 @@
 # pip3 install beautifulsoup4
+
 import sys
 import re
 from bs4 import BeautifulSoup
@@ -8,7 +9,7 @@ def clean_html(html_content):
     # Парсинг HTML
     soup = BeautifulSoup(html_content, 'html.parser')
 
-    # Удаление указанных тегов вместе с содержимым
+    # Удаление ненужных тегов с содержимым
     tags_to_remove = ['style', 'xml']
     for tag_name in tags_to_remove:
         for tag in soup.find_all(tag_name):
@@ -19,11 +20,11 @@ def clean_html(html_content):
     for comment in comments:
         comment.extract()
 
-    # Удаление атрибутов class, align, lang, style и других
+    # Удаление ненужных атрибутов
     for tag in soup.find_all(True):
-        tag.attrs = {key: value for key, value in tag.attrs.items() if key not in ['class', 'align', 'lang', 'style', 'type', 'border', 'cellpadding', 'cellspacing', 'nowrap','background','bgcolor','bordercolor','height','width']}
+        tag.attrs = {key: value for key, value in tag.attrs.items() if key not in ['class', 'align', 'lang', 'style']}
 
-    # Удаление всех div, span, font и других тегов, сохраняя их содержимое
+    # Удаление ненужных тегов, сохраняя содержимое
     for tag in soup.find_all(['div', 'span', 'font', 'meta', 'html', 'head', 'body', 'title', 'tbody', 'link']):
         tag.unwrap()
 
@@ -31,56 +32,66 @@ def clean_html(html_content):
     for b_tag in soup.find_all('b'):
         b_tag.name = 'strong'
 
-    # Поиск всех тегов <td>
-    for td_tag in soup.find_all('td'):
-        # Удаление всех тегов <p> внутри <td>
-        for p_tag in td_tag.find_all('p'):
-            p_tag.unwrap()  # Удаляем тег <p>, сохраняя его содержимое
+    # Замена <u> на <strong>
+    for b_tag in soup.find_all('u'):
+        b_tag.name = 'strong'
+
+    # Приведение списков в порядок
+    for ul in soup.find_all('ul'):
+        # Обрабатываем каждый элемент списка
+        for li in ul.find_all('li', recursive=False):
+            # Если внутри <li> есть <p>, перемещаем текст в сам <li>
+            p_tag = li.find('p')
+            if p_tag:
+                li.string = p_tag.get_text(strip=True)
+                p_tag.decompose()
+
+    # Обрабатываем висячие <p> внутри <ul>, превращая их в <li>
+        for p_tag in ul.find_all('p', recursive=False):
+            new_li = soup.new_tag('li')
+            new_li.string = p_tag.get_text(strip=True)
+            p_tag.replace_with(new_li)
+
+    # Удаление пустых тегов <p></p>
+    for p_tag in soup.find_all('p'):
+        if not p_tag.get_text(strip=True):  # Проверка пустого текста внутри <p>
+            p_tag.decompose()
+
+
+    # Удаление пустых <li> тегов
+    for li_tag in soup.find_all('li'):
+        if not li_tag.get_text(strip=True):  # Проверка пустого текста внутри <li>
+            li_tag.decompose()
+
+    # Удаление лишних переносов внутри <li>
+    for li_tag in soup.find_all('li'):
+    # Убираем все переносы строк и лишние пробелы внутри <li>
+        li_tag.string = re.sub(r'\s+', ' ', li_tag.get_text(strip=True))
 
     # Удаление лишних переносов внутри <p> внутри любых тегов
     for tag in soup.find_all('p'):
         for element in tag.find_all(text=True):
             element.replace_with(re.sub(r'\s*\n\s*', ' ', element))
 
-    # Удаление пустых <p> тегов
-    for p_tag in soup.find_all('p'):
-        if not p_tag.get_text(strip=True):  # Проверка пустого текста внутри <p>
-            p_tag.decompose()
-
     # Преобразование обратно в строку
     text = str(soup)
 
-    # Удаление последовательностей </strong><strong>
-    text = re.sub(r'</strong>\s*<strong>', '', text)
-    text = re.sub(r'</i>\s*<i>', '', text)
-    text = re.sub(r'</em>\s*<em>', '', text)
+    # Удаление пустых строк после преобразования
+    # Убираем пустые строки, состоящие только из пробелов или пустых тегов
+    text = re.sub(r'\n\s*\n', '\n', text)
 
-    # Заменить «<strong> на <strong>«
-    text = re.sub(r'«\s*<strong>', r'<strong>«', text)
+    # Удаление лишних пробелов в начале и конце строки
+    text = text.strip()
 
-    # Заменить </strong>» на »</strong>
-    text = re.sub(r'</strong>\s*»', r'»</strong>', text)
-
-    # Текстовые замены
+    # Замена кавычек и других текстовых символов
     text = text.replace('&laquo;', '«')
     text = text.replace('&raquo;', '»')
     text = text.replace('&ndash;', '–')
     text = text.replace('&nbsp;', ' ')
-    text = text.replace('. ”', '.”')
-    text = text.replace(', ”', ',”')
-    text = text.replace('. "', '."')
-    text = text.replace(', "', ',"')
-    text = text.replace('. . .', '...')
-    text = text.replace(' :', ':')
-    text = text.replace(' »', '»')
-    text = text.replace(' ,', ',')
-    text = text.replace('<br />', '<br>')
-    text = text.replace('<br/>', '<br>')
-    text = text.replace('img src="', 'img src="images/')
+    text = text.replace('</strong>: ', ':</strong> ')
     return text
 
 # Чтение входного содержимого
 html_content = sys.stdin.read()
 cleaned_html = clean_html(html_content)
 print(cleaned_html)
-
