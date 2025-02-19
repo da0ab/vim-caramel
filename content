@@ -41,3 +41,8 @@ autocmd FileType css set wrap
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+"Отключить сворачивание длинных строк
+set nofoldenable 
+set foldmethod=manual
+set foldcolumn=0
+
