@@ -5,7 +5,7 @@ inoremap \s <style type="text/css"><cr><cr></style>
 inoremap \j <script type="text/javascript" src="js"><cr><cr></script>
 inoremap \css <link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">
 
-"--------------------------------------------- пустой HTML 
+"--------------------------------------------- пустой HTML
 
 inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
 
@@ -37,11 +37,11 @@ inoremap \ts text-shadow: 0 0 10px #d1d1d1
 inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
 "--------------------------------------------- @media
-inoremap \mm /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
-inoremap \mt  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
-inoremap \mtp /*pad portrait*/<cr> @media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {<cr><cr>}
-inoremap \mn  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
-inoremap \ms /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
+inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
+inoremap \pad  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
+inoremap \padp /*pad portrait*/<cr> @media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {<cr><cr>}
+inoremap \note  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
+inoremap \squar /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
 
 "--------------------------------------------- HTML/CSS оберачивание выделенного
 
@@ -78,15 +78,15 @@ vnoremap sup 1"zdi<sup><C-R>z</sup><ESC>
 vnoremap sub 1"zdi<sub><C-R>z</sub><ESC>
 
 "--------------------------------------------- Пустой код
-vnoremap s, "zdi<<esc>maa><C-R>z</><ESC>`aa 
+vnoremap s< "zdi<<esc>maa><C-R>z</><ESC>`aa
 
 "--------------------------------------------- Формы
-
 inoremap \texter <form><cr><textarea rows="3" placeholder=""></textarea><cr></form>
 inoremap \input <form><cr><input type="text" placeholder=""><cr></form>
 inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
 inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
 vnoremap so "zdi<option><C-R>z</option><ESC>
+
 "--------------------------------------------- Текст
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
 vnoremap sb "zdi<b><C-R>z</b><ESC>
