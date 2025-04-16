@@ -32,23 +32,23 @@ cp -r script/* ~/.vim
 
 #### Hot key insert
 
-media phone - **\mm**
+media phone - **\phone**
 ```HTML
 @media (max-width: 769px)
 ```
-media pad - **\mt** 
+media pad - **\pad** 
 ```HTML
 @media (min-width: 769px) and (max-width: 1024px)
 ```
-media pad portrait - **\mtp**
+media pad portrait - **\padp**
 ```HTML
 @media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait)
 ```
-media notebook - **\mn**
+media notebook - **\note**
 ```HTML
 @media only screen and (max-width: 1650px)
 ```
-media square - **\ms**
+media square - **\square**
 ```HTML
 @media screen and (min-width: 1025px) and (max-width: 1400px)
 ```
