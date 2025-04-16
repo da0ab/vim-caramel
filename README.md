@@ -32,7 +32,7 @@ cp -r script/* ~/.vim
 
 #### Hot key insert
 
-media phone - **\phone**
+media phone - **\phon**
 ```HTML
 @media (max-width: 769px)
 ```
