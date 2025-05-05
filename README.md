@@ -3,40 +3,55 @@
 vim chips + scripts
 
 
-#### VIMRC-COMPLIT.sh - build script and copy python script
+#### VIMRC-COMPLIT.sh - скрипт сборки и копирования python-скрипта
 ```HTML
 #!/bin/bash
 cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
 cp -r script/* ~/.vim
 ```
 
-- **base** - Basic
-- **key-ru-fix** - Russian layout fix
-- **face** - Design
-- **cursor** - Cursor
-- **statusline** - Status line
-- **search** - Search
-- **backup** - Backup
-- **content** - File content
-- **keys** - Hotkey combinations
+- **base** - основной
+- **key-ru-fix** - исправление русской раскладки
+- **face** - морда
+- **cursor** - курсор
+- **statusline** - строка состояния
+- **search** - поиск
+- **backup** - резервное копирование
+- **content** - содержимое файла
+- **keys** - комбинации горячих клавиш
 - **html** - css/html
-- **py-script** - Python3 scripts for wrapping html
+- **py-script** - Python3 скрипты для оборачивания html
 
 
 
-#### Python scripts are placed in
+#### Python скрипты размещены в
 ```HTML
 /.vim/scripts/li.py
 ```
-### Горячие клавиши в режиме визуального выделения
+### Горячие клавиши для оборачивание выделенного в режиме визуального выделения
 
-#### Текст
+#### HTML/CSS/bash/python вставки
+
+- `\sh` : Вставляет `#!/bin/bash`
+- `\py` : Вставляет `#!/usr/bin/env python3<cr># -*- coding: utf-8 -*-`
+- `\s` : Вставляет `<style type="text/css"><cr><cr></style>`
+- `\j` : Вставляет `<script type="text/javascript" src="js"><cr><cr></script>`
+- `\css` : Вставляет `<link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">`
+
+#### Пустой код
+
+- `s<` : Создает пустой тег `<<esc>maa><C-R>z</><ESC>`
+
+#### Текстовые элементы
 - `pp` : Оборачивает выделенный текст в тег `<p>`
 - `sb` : Оборачивает выделенный текст в тег `<b>`
 - `bb` : Оборачивает выделенный текст в тег `<strong>`
 - `si` : Оборачивает выделенный текст в тег `<em>`
 - `sii` : Оборачивает выделенный текст в тег `<i>`
 - `sq` : Оборачивает выделенный текст в кавычки «...»
+- `small` : Оборачивает выделенный текст в тег `<small>`
+- `sup` : Оборачивает выделенный текст в тег `<sup>`
+- `sub` : Оборачивает выделенный текст в тег `<sub>`
 
 #### Заголовки
 - `s1` : Оборачивает выделенный текст в тег `<h1>`
@@ -82,26 +97,76 @@ cp -r script/* ~/.vim
 - `str` : Оборачивает выделенный текст в тег `<tr>`
 - `sth` : Оборачивает выделенный текст в тег `<th>`
 
-#### Hot key insert
+#### Формы
 
-media phone - **\phon**
-```HTML
-@media (max-width: 769px)
-```
-media pad - **\pad** 
-```HTML
-@media (min-width: 769px) and (max-width: 1024px)
-```
-media pad portrait - **\padp**
-```HTML
-@media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait)
-```
-media notebook - **\note**
-```HTML
-@media only screen and (max-width: 1650px)
-```
-media square - **\square**
-```HTML
-@media screen and (min-width: 1025px) and (max-width: 1400px)
-```
+- `\texter` : Создает форму с текстовой областью
+- `\input` : Создает форму с текстовым полем
+- `\radio` : Создает радиокнопку
+- `\chek` : Создает чекбокс
+- `so` : Оборачивает выделенный текст в тег `<option>`
+
+#### HTML/CSS 
+
+- `sd` : Оборачивает выделенный текст в тег `<div>`
+- `sdi` : Оборачивает выделенный текст в тег `<div id="">`
+- `sdc` : Оборачивает выделенный текст в тег `<div class="">`
+- `span` : Оборачивает выделенный текст в тег `<span class="">`
+- `spa` : Оборачивает выделенный текст в тег `<span>`
+- `section` : Оборачивает выделенный текст в тег `<section>`
+- `sec` : Оборачивает выделенный текст в тег `<section>`
+- `secc` : Оборачивает выделенный текст в тег `<section class="main">`
+- `nav` : Оборачивает выделенный текст в тег `<nav>`
+- `header` : Оборачивает выделенный текст в тег `<header>`
+- `he` : Оборачивает выделенный текст в тег `<header>`
+- `hec` : Оборачивает выделенный текст в тег `<header class="header">`
+- `article` : Оборачивает выделенный текст в тег `<article>`
+- `art` : Оборачивает выделенный текст в тег `<article>`
+- `footer` : Оборачивает выделенный текст в тег `<footer>`
+- `fo` : Оборачивает выделенный текст в тег `<footer>`
+- `foc` : Оборачивает выделенный текст в тег `<footer class="footer">`
+- `details` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
+- `det` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
+
+
+#### Пустой HTML
+
+- `\x0` : Вставляет структуру пустого HTML-документа
+- `\x5` : Вставляет структуру HTML-документа с дополнительными мета-тегами и стилями
+- `\seo` : Вставляет мета-теги для SEO
+
+#### Быстрая добавка
+
+- `<C-Enter>` : Вставляет `<br>`
+- `\a` : Вставляет `<a id="" class="anchor"></a>`
+- `\<Space>` : Вставляет `&nbsp;`
+- `\i` : Вставляет `id=""`
+- `\c` : Вставляет `class=""`
+- `\w` : Вставляет `width:;`
+- `\h` : Вставляет `height:;`
+- `\l` : Вставляет `<hr>`
+- `\-` : Вставляет `–`
+- `\co` : Вставляет `&copy;`
+- `\p` : Вставляет `-webkit-`
+- `\v` : Вставляет `var(--);`
+- `\ve` : Вставляет `?v=0.0.1`
+- `\ff` : Вставляет `color: #fff;`
+- `\b` : Вставляет `border: 1px solid RED;`
+- `\1` : Вставляет `!important`
+- `\fw` : Вставляет `font-weight: bold;`
+- `\bg` : Вставляет `background: transparent url(../images/) no-repeat center;`
+- `\cover` : Вставляет `background-size: cover;`
+- `\ts` : Вставляет `text-shadow: 0 0 10px #d1d1d1`
+- `\grid` : Вставляет `display: grid;<cr>grid-template-columns: 1fr 2fr;`
+
+#### @media
+
+- `\phon` : Вставляет `@media (max-width: 769px) {<cr><cr>}`
+- `\pad` : Вставляет `@media (min-width: 769px) and (max-width: 1024px){<cr><cr>}`
+- `\padp` : Вставляет `@media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {<cr><cr>}`
+- `\note` : Вставляет `@media only screen and (max-width: 1650px){<cr><cr>}`
+- `\squar` : Вставляет `@media screen and (min-width: 1025px) and (max-width: 1400px)`
+
+
+
+
 
