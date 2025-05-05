@@ -67,7 +67,7 @@ cp -r script/* ~/.vim
 - `s@` : Оборачивает выделенный текст в тег `<a href="mailto:<C-R>z">`
 - `st` : Оборачивает выделенный текст в тег `<a href="tel:<C-R>z">`
 
-#### HTML разметка 
+### HTML разметка 
 
 - `sd` : Оборачивает выделенный текст в тег `<div>`
 - `sdi` : Оборачивает выделенный текст в тег `<div id="">`
@@ -162,7 +162,7 @@ cp -r script/* ~/.vim
 
 - `\phon` : Вставляет `@media (max-width: 769px) {<cr><cr>}`
 - `\pad` : Вставляет `@media (min-width: 769px) and (max-width: 1024px){<cr><cr>}`
-- `\padp` : Вставляет `@media  (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {<cr><cr>}`
+- `\padp` : Вставляет `@media  (min-width: 768px) and (max-width : 1024px) and (orientation: portrait) {<cr><cr>}`
 - `\note` : Вставляет `@media only screen and (max-width: 1650px){<cr><cr>}`
 - `\squar` : Вставляет `@media screen and (min-width: 1025px) and (max-width: 1400px)`
 
