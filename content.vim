@@ -1,0 +1,44 @@
+"--------------------------------------------- СОДЕРЖИМОГО ФАЙЛА
+syntax on "Подсветка синтаксиса
+set wrap "Перенос строк
+set linebreak "Не рвать строку
+set nu "Нумерация строк
+set smartindent "Умные отступы
+"set list  "Показывать непечатные символы
+ 
+"Преобразование таба в пробелы
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+"Отключить автосворачивание длинных строк
+set nofoldenable
+autocmd Filetype svg setlocal nofoldenable
+autocmd Filetype html setlocal nofoldenable
+set foldmethod=manual
+set foldcolumn=0
+
+"Автоставки для скобок их пар
+imap [ []<LEFT>
+imap { {}<LEFT>
+imap ( ()<LEFT>
+set showmatch "Подсветка парных скобок
+
+"Автозавершение слов по tab
+function InsertTabWrapper()
+ let col = col('.') - 1
+ if !col || getline('.')[col - 1] !~ '\k'
+ return "\<tab>"
+ else
+ return "\<c-p>"
+ endif
+endfunction
+imap <tab> <c-r>=InsertTabWrapper()<cr>
+
+"Автоматически удалять окончания строк - Dos-return'ы, пробельные символы
+autocmd BufRead * silent! %s/[\r \t]\+$//
+autocmd BufEnter *.php :%s/[ \t\r]\+$//e
+autocmd FileType html set wrap
+autocmd FileType css set wrap
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
