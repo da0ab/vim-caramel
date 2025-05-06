@@ -3,31 +3,7 @@
 vim chips + scripts
 
 
-#### VIMRC-COMPLIT.sh - скрипт сборки и копирования python-скрипта
-```HTML
-#!/bin/bash
-cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
-cp -r script/* ~/.vim
-```
 
-- **base** - основной
-- **key-ru-fix** - исправление русской раскладки
-- **face** - морда
-- **cursor** - курсор
-- **statusline** - строка состояния
-- **search** - поиск
-- **backup** - резервное копирование
-- **content** - содержимое файла
-- **keys** - комбинации горячих клавиш
-- **html** - css/html
-- **py-script** - Python3 скрипты для оборачивания html
-
-
-
-#### Python скрипты размещены в
-```HTML
-/.vim/scripts/li.py
-```
 ### Одиночные горячие клавиши 
 - `F1` : Сохранить
 - `F2` : Выделить строчку без переноса
@@ -192,5 +168,29 @@ cp -r script/* ~/.vim
 - `\j` : Вставляет `<script type="text/javascript" src="js"><cr><cr></script>`
 - `\css` : Вставляет `<link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">`
 
+#### VIMRC-COMPLIT.sh - скрипт сборки и копирования python-скрипта
+```HTML
+#!/bin/bash
+cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
+cp -r script/* ~/.vim
+```
+#### Файлы
 
+- **base** - основной
+- **key-ru-fix** - исправление русской раскладки
+- **face** - морда
+- **cursor** - курсор
+- **statusline** - строка состояния
+- **search** - поиск
+- **backup** - резервное копирование
+- **content** - содержимое файла
+- **keys** - комбинации горячих клавиш
+- **html** - css/html
+- **py-script** - Python3 скрипты для оборачивания html
+
+
+#### Python скрипты размещены в
+```HTML
+/.vim/scripts/li.py
+```
 
