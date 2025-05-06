@@ -85,7 +85,6 @@ vim chips + scripts
 
 - `details` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
 - `det` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
-- `so` : Оборачивает выделенный текст в тег `<option>`
 
 #### Списки UL/DL
 
@@ -152,6 +151,7 @@ vim chips + scripts
 - `\input` : Создает форму с текстовым полем
 - `\radio` : Создает радиокнопку
 - `\chek` : Создает чекбокс
+- `so` : Оборачивает выделенный текст в тег `<option>`
 
 #### @media
 
