@@ -36,6 +36,12 @@ nmap <F1> :w!<CR>
 imap <F1> <Esc>:w!<CR>
 vmap <F1> <Esc>:w!<CR>
 
+"F1 .vimrc -------------------------------------------------- Автообновление vim
+augroup auto_source_vimrc
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo "✅ .vimrc reloaded"
+augroup END
+
 "F2 -------------------------------------------------- Выделить строчку без переноса
 nmap <F2> ^vg_
 set foldmethod=manual
