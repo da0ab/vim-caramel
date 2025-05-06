@@ -169,12 +169,12 @@ vim chips + scripts
 - `\j` : Вставляет `<script type="text/javascript" src="js"><cr><cr></script>`
 - `\css` : Вставляет `<link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">`
 
-#### VIMRC-COMPLIT.sh - скрипт сборки и копирования python-скрипта
+
+#### Python скрипты размещены в
 ```HTML
-#!/bin/bash
-cat base key-ru-fix face cursor statusline search backup content keys html py-script > ~/.vimrc
-cp -r script/* ~/.vim
+/.vim/scripts/li.py
 ```
+
 #### Файлы
 
 - **base** - основной
@@ -187,11 +187,11 @@ cp -r script/* ~/.vim
 - **content** - содержимое файла
 - **keys** - комбинации горячих клавиш
 - **html** - css/html
-- **py-script** - Python3 скрипты для оборачивания html
+- **py-script** - Python скрипты для работы с текстом
+
+####  Скрипты сборки и копирования 
+- **VIMRC-COMPLIT.py**  - Python 
+- **VIMRC-COMPLIT.sh**  - bash
 
 
-#### Python скрипты размещены в
-```HTML
-/.vim/scripts/li.py
-```
 
