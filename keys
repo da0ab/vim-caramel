@@ -82,33 +82,43 @@ set guioptions-=m
 
 "F10 -------------------------------------------------- Оборачивайтесь свободным тегом
 function! WrapWithTag()
-  let tag = input("Tag name: ")
-  if empty(tag)
+  let input_str = input("Tag name (optional class): ")
+  if empty(input_str)
     echo "No tag entered."
     return
   endif
 
-  " Получаем позиции начала и конца выделения
-  let [line_start, col_start] = [line("'<"), col("'<")]
-  let [line_end, col_end] = [line("'>"), col("'>")]
+  " Разделяем: тег и классы
+  let parts = split(input_str)
+  let tag = parts[0]
+  let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
 
-  " Получаем выделенный текст
-  let lines = getline(line_start, line_end)
+  " Получаем координаты выделения
+  let [l1, c1] = [line("'<"), col("'<")]
+  let [l2, c2] = [line("'>"), col("'>")]
 
-  " Обрезаем первую и последнюю строки по колонкам
-  let lines[0] = lines[0][col_start - 1:]
-  let lines[-1] = lines[-1][:col_end - 1]
+  " Обратное выделение — меняем местами
+  if l1 > l2 || (l1 == l2 && c1 > c2)
+    let [l1, l2] = [l2, l1]
+    let [c1, c2] = [c2, c1]
+  endif
 
-  let selected = join(lines, "\n")
+  let lines = getline(l1, l2)
 
-  " Готовим обёрнутый текст
-  let wrapped = '<' . tag . '>' . selected . '</' . tag . '>'
+  " Обрезаем начальную и конечную строку
+  let lines[0] = lines[0][c1 - 1:]
+  let lines[-1] = lines[-1][:c2 - 1]
 
-  " Удаляем выделенное
-  execute line_start . ',' . line_end . 'delete _'
+  " Оборачиваем с переносами
+  let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
 
-  " Вставляем новый текст
-  call append(line_start - 1, split(wrapped, "\n"))
+  " Заменяем строки в буфере
+  call setline(l1, wrapped_lines)
+
+  " Удаляем лишние старые строки, если было больше
+  if l2 > l1 + len(wrapped_lines) - 1
+    call deletebufline('%', l1 + len(wrapped_lines), l2)
+  endif
 endfunction
 
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
