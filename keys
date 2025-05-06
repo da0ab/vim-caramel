@@ -84,5 +84,37 @@ set guioptions-=m
     nmap <F9> :call MyToggleMenu()<CR>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
 
+"F10 -------------------------------------------------- Оборачивайтесь тегом
 
+function! WrapWithTag()
+  let tag = input("Tag name: ")
+  if empty(tag)
+    echo "No tag entered."
+    return
+  endif
+
+  " Получаем позиции начала и конца выделения
+  let [line_start, col_start] = [line("'<"), col("'<")]
+  let [line_end, col_end] = [line("'>"), col("'>")]
+
+  " Получаем выделенный текст
+  let lines = getline(line_start, line_end)
+
+  " Обрезаем первую и последнюю строки по колонкам
+  let lines[0] = lines[0][col_start - 1:]
+  let lines[-1] = lines[-1][:col_end - 1]
+
+  let selected = join(lines, "\n")
+
+  " Готовим обёрнутый текст
+  let wrapped = '<' . tag . '>' . selected . '</' . tag . '>'
+
+  " Удаляем выделенное
+  execute line_start . ',' . line_end . 'delete _'
+
+  " Вставляем новый текст
+  call append(line_start - 1, split(wrapped, "\n"))
+endfunction
+
+vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 
