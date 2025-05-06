@@ -1,16 +1,11 @@
 
 "--------------------------------------------- Текстовые элементы
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
-"перенесено в файл py-script vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
-
 vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap bb "zdi<strong><C-R>z</strong><ESC>
-vnoremap si "zdi<em><C-R>z</em><ESC>
-vnoremap sii "zdi<i><C-R>z</i><ESC>
+vnoremap si "zdi<i><C-R>z</i><ESC>
+vnoremap ii "zdi<em><C-R>z</em><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
-vnoremap small "zdi<small><C-R>z</small><ESC>
-vnoremap sup 1"zdi<sup><C-R>z</sup><ESC>
-vnoremap sub 1"zdi<sub><C-R>z</sub><ESC>
 
 "--------------------------------------------- Заголовки
 vnoremap s1 "zdi<h1><C-R>z</h1><ESC>
@@ -33,38 +28,35 @@ vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>`aa
 vnoremap sd 1"zdi<div><cr><C-R>z<cr><C-R> </div><ESC>
 vnoremap sdi 1"zdi<div id=""><C-R>z</div><ESC>
 vnoremap sdc 1"zdi<div class=""><cr><C-R>z<cr><C-R> </div><ESC>
-"перенесено в файл py-script vnoremap vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 
-vnoremap span "zdi<span class=""><C-R>z</span><ESC>
-vnoremap spa "zdi<span><C-R>z</span><ESC>
+vnoremap spa "zdi<span class=""><C-R>z</span><ESC>
+vnoremap span "zdi<span><C-R>z</span><ESC>
 
-vnoremap section 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap sec 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap secc 1"zdi<section class="main"><cr><C-R>z<cr></section><ESC>
 
-vnoremap nav 1"zdi<nav><cr><C-R>z<cr></nav><ESC>
+"vnoremap nav 1"zdi<nav><cr><C-R>z<cr></nav><ESC>
 
 vnoremap header 1"zdi<header><cr><C-R>z<cr></header><ESC>
 vnoremap he 1"zdi<header><cr><C-R>z<cr></header><ESC>
 vnoremap hec 1"zdi<header class="header"><cr><C-R>z<cr></header><ESC>
 
-vnoremap article 1"zdi<article><cr><C-R>z<cr></article><ESC>
-vnoremap art 1"zdi<article><cr><C-R>z<cr></article><ESC>
+"vnoremap article 1"zdi<article><cr><C-R>z<cr></article><ESC>
+"vnoremap art 1"zdi<article><cr><C-R>z<cr></article><ESC>
 
-vnoremap footer 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
-vnoremap fo 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
-vnoremap foc 1"zdi<footer class="footer"><cr><C-R>z<cr></footer><ESC>
+"vnoremap footer 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
+"vnoremap fo 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
+"vnoremap foc 1"zdi<footer class="footer"><cr><C-R>z<cr></footer><ESC>
 
-"--------------------------------------------- Details
+"--------------------------------------------- details
 vnoremap details 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
 vnoremap det 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
 
-"--------------------------------------------- Списки UL/DL
+"--------------------------------------------- Списки ul
 vnoremap sl 1"zdi<li><C-R>z</li><ESC>
-"перенесено в файл py-script vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
-vnoremap sld 1"zdi<dd><C-R>z</dd><ESC>
-vnoremap slt 1"zdi<dt><C-R>z</dt><ESC>
-vnoremap sll 1"zdi<dl><cr><C-R>z<cr></dl><ESC>
+"vnoremap sld 1"zdi<dd><C-R>z</dd><ESC>
+"vnoremap slt 1"zdi<dt><C-R>z</dt><ESC>
+"vnoremap sll 1"zdi<dl><cr><C-R>z<cr></dl><ESC>
 
 "--------------------------------------------- Изображения
 vnoremap sw "zdi<img src="images/<C-R>z" alt="" title=""><ESC>
@@ -77,7 +69,7 @@ vnoremap sc 1"zdi/*<C-R>z*/<ESC>
 vnoremap sx 1"zdi/*--------------------<C-R>z--------------------*/<ESC>
 
 "--------------------------------------------- Таблицы
-vnoremap stt 1"zdi<table><C-R>z</table><ESC>
+"vnoremap stt 1"zdi<table><C-R>z</table><ESC>
 vnoremap std 1"zdi<td><C-R>z</td><ESC>
 vnoremap str 1"zdi<tr><C-R>z</tr><ESC>
 vnoremap sth 1"zdi<th><C-R>z</th><ESC>
@@ -103,14 +95,14 @@ inoremap \l <cr><hr><cr>
 inoremap \-  –
 inoremap \co &copy;
 inoremap \p -webkit-
-inoremap \v  var(--);
-inoremap \ve  ?v=0.0.1
+inoremap \v var(--);
+inoremap \ve ?v=0.0.1
 inoremap \ff color: #fff;
-inoremap \b border: 1px solid RED;
+inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-inoremap \cover background-size: cover;
+inoremap \cov background-size: cover;
 inoremap \ts text-shadow: 0 0 10px #d1d1d1
 inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
