@@ -3,7 +3,6 @@ set noswapfile "Убить свапфайл
 
 if version >= 700
     set history=64
-    set undolevels=128
     set undodir=~/.vim/tmp/
     set undofile
     set undolevels=1000
