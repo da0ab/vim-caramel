@@ -126,3 +126,6 @@ function! WrapWithTag()
 endfunction
 
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
+
+"F12 --------------------------------------------------  Мой хелп
+nnoremap <F12> :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
