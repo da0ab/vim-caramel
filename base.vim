@@ -2,7 +2,7 @@
 set nocompatible "Несовместимость с vi
 set encoding=utf-8 "Базовая кодировка
 set fileencodings=utf-8,koi8-r,cp1251,cp866 "Список используемых кодировок для автоматического их определения
-filetype plugin on "Включить плагины
+filetype plugin indent on "Включить плагины
 set helplang=ru "Русский хелп
 set guioptions-=T "Отключить гуи
 set clipboard=unnamedplus "Системный буфер

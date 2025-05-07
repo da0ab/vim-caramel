@@ -137,3 +137,6 @@ vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 
 "F11 -------------------------------------------------- html клинер
 " py-script
+
+"F12 -------------------------------------------------- NERDTree
+nnoremap <F12> :NERDTreeToggle<CR>

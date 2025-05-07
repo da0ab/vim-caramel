@@ -5,7 +5,7 @@ set linebreak "Не рвать строку
 set nu "Нумерация строк
 set smartindent "Умные отступы
 "set list  "Показывать непечатные символы
- 
+
 "Преобразование таба в пробелы
 set tabstop=4
 set shiftwidth=4
