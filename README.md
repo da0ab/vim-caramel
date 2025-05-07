@@ -51,9 +51,9 @@
 #### Ссылки: обычные, target, e-mail, телефон
 
 - `sa` : Оборачивает выделенный текст в тег `<a href="">my-site.com</a>`
-- `saa` : Оборачивает выделенный текст в тег `<a href="<C-R>z">`
-- `sat` : Оборачивает выделенный текст в тег `<a href="https://<C-R>z" target="\_blank" rel="nofollow">`
-- `saat` : Оборачивает выделенный текст в тег `<a href="<esc>maa" target="\_blank" rel="nofollow">`
+- `saa` : Оборачивает выделенный текст в тег `<a href="my-site.com">my-site.com</a>`
+- `sat` : Оборачивает выделенный текст в тег `<a href="" target="_blank" rel="nofollow">my-site.com</a>`
+- `saat` : Оборачивает выделенный текст в тег `<a href="https://my-site.com" target="_blank" rel="nofollow">my-site.com</a>`
 - `s@` : Оборачивает выделенный текст в тег `<a href="mailto:<C-R>z">`
 - `st` : Оборачивает выделенный текст в тег `<a href="tel:<C-R>z">`
 
