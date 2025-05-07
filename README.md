@@ -50,7 +50,7 @@
 
 #### Ссылки: обычные, target, e-mail, телефон
 
-- `sa` : Оборачивает выделенный текст в тег `<a href="<esc>maa">`
+- `sa` : Оборачивает выделенный текст в тег `<a href="">my-site.com</a>`
 - `saa` : Оборачивает выделенный текст в тег `<a href="<C-R>z">`
 - `sat` : Оборачивает выделенный текст в тег `<a href="https://<C-R>z" target="\_blank" rel="nofollow">`
 - `saat` : Оборачивает выделенный текст в тег `<a href="<esc>maa" target="\_blank" rel="nofollow">`
