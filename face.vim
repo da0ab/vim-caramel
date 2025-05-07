@@ -5,4 +5,4 @@ set lines=75 "Высота
 set columns=210 "Ширина
 set ch=1 "Сделать строку команд высотой в одну строку
 hi Pmenu guibg=#666666 guifg=#eeeeec
-colorscheme  afterglow
+colorscheme  desert
