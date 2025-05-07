@@ -15,26 +15,32 @@ vmap <C-C> "+y
 imap <C-V> <esc>"+gp
 vnoremap <C-v> "_d"+p
 
-"C-a -------------------------------------------------- Выделить все
-nmap <C-a> ggVG<CR>
-imap <C-a> <esc>ggVGG<CR>
-vmap <C-a> <esc>ggVGG<CR>
+"C-a -------------------------------------------------- Выделить всё
+nnoremap <C-a> ggVG
+inoremap <C-a> <Esc>ggVG
+vnoremap <C-a> <Esc>ggVG
 
-"C-d -------------------------------------------------- Дублирование текущей строки
-map <C-d> <esc>yyp<CR>
-imap <C-d> <esc>yyp<CR>
-vmap <C-d> <esc>yyp<CR>
+"C-d -------------------------------------------------- Дублировать текущую строку
+nnoremap <C-d> :copy.<CR>
+inoremap <C-d> <Esc>:copy.<CR>gi
+vnoremap <C-d> y`>pgv`<
 
 "C-x -------------------------------------------------- Вырезать текущую строку
-map <C-x> <esc>S<CR>
-imap <C-x> <esc>S<CR>
+nnoremap <C-x> dd
+inoremap <C-x> <Esc>ddi
+vnoremap <C-x> d
 
 "--------------------------------------------------------------------------------- Одиночные горячие клавиши
 
 "F1 -------------------------------------------------- Сохранить
-nmap <F1> :w!<CR>
-imap <F1> <Esc>:w!<CR>
-vmap <F1> <Esc>:w!<CR>
+"nmap <F1> :w!<CR>
+"imap <F1> <Esc>:w!<CR>
+"vmap <F1> <Esc>:w!<CR>
+
+nnoremap <F1> :w!<CR>
+inoremap <F1> <Esc>:w!<CR>
+vnoremap <F1> <Esc>:w!<CR>
+
 
 "F1 .vimrc -------------------------------------------------- Автообновление vim
 augroup auto_source_vimrc
@@ -128,3 +134,6 @@ function! WrapWithTag()
 endfunction
 
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
+
+"F11 -------------------------------------------------- html клинер
+" py-script
