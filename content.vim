@@ -15,7 +15,7 @@ set expandtab
 set nofoldenable
 autocmd Filetype svg setlocal nofoldenable
 autocmd Filetype html setlocal nofoldenable
-set foldmethod=manual
+set foldmethod=manual "Ручной метод сворачивания
 set foldcolumn=0
 
 "Автоставки для скобок их пар
