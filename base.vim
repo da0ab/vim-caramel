@@ -5,4 +5,4 @@ set fileencodings=utf-8,koi8-r,cp1251,cp866 "Список используемы
 filetype plugin on "Включить плагины
 set helplang=ru "Русский хелп
 set guioptions-=T "Отключить гуи
-set clipboard=unnamed  "Системный буфер обмена в качестве своего буфера по умолчанию (поэтому любая команда x , y , p и т. Д. Использует буфер обмена
+set clipboard=unnamedplus "Системный буфер
