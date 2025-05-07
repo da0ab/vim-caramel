@@ -19,8 +19,9 @@ vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
 "--------------------------------------------- Ссылки: обычные, target, e-mail, телефон
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
-vnoremap sat "zdi<a href="https://<C-R>z" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
-vnoremap saat "zdi<a href="<esc>maa" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
+vnoremap sat "zdi<a href="<esc>maa" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
+vnoremap saat "zdi<a href="https://<C-R>z" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
+
 vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><ESC>`aa
 vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>`aa
 
