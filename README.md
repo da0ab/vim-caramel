@@ -173,7 +173,7 @@
 - **html.vim** - css/html
 - **py-script.vim** - Python скрипты для работы с текстом
 
-  #### Python скрипты размещены в
+#### Python скрипты размещены в
 ```HTML
 ~/.vim/scripts/
 ```
