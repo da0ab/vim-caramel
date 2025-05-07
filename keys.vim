@@ -54,6 +54,9 @@ nmap <F4> :v/./,/./-j
 "F5 -------------------------------------------------- Вставка дата времени
 imap <F5> <C-R>=strftime("%c")<CR>
 
+"F6 --------------------------------------------------  Мой хелп
+nnoremap <F6> :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
+
 "F7 -------------------------------------------------- Редактировать .vimrc
 map <F7> :vsp $MYVIMRC<CR>
 
@@ -68,7 +71,7 @@ menu Encoding.koi8-u :e ++enc=koi8-u ++ff=unix<CR>
 map <F8> :emenu Encoding.<TAB>
 
 "F9 -------------------------------------------------- Отобразить/Скрыть меню
-set guioptions-=m
+"set guioptions-=m
     function MyToggleMenu()
         let old_guioptions = &guioptions
         "Если меню в данный момент видимо
@@ -125,6 +128,3 @@ function! WrapWithTag()
 endfunction
 
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
-
-"F12 --------------------------------------------------  Мой хелп
-nnoremap <F12> :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
