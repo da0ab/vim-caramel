@@ -107,11 +107,11 @@ inoremap \ts text-shadow: 0 0 10px #d1d1d1
 inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
 "--------------------------------------------- Формы
-inoremap \texter <form><cr><textarea rows="3" placeholder=""></textarea><cr></form>
-inoremap \input <form><cr><input type="text" placeholder=""><cr></form>
+inoremap \texter <cr><textarea rows="3" placeholder=""></textarea><cr>
+inoremap \input <cr><input type="text" placeholder=""><cr>
 inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
 inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
-vnoremap so "zdi<option><C-R>z</option><ESC>
+"vnoremap so "zdi<option><C-R>z</option><ESC>
 
 "--------------------------------------------- @media
 inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
