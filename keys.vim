@@ -60,7 +60,6 @@ map <F7> :vsp $MYVIMRC<CR>
 "F8 -------------------------------------------------- Выбор кодировки
 set wildmenu
 set wcm=<Tab>
-colorscheme  afterglow
 menu Encoding.windows-1251 :e ++enc=cp1251 ++ff=dos<CR>
 menu Encoding.utf-8 :e ++enc=utf8 <CR>
 menu Encoding.cp866 :e ++enc=cp866 ++ff=dos<CR>
