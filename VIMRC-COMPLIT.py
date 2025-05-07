@@ -39,4 +39,17 @@ with open(vimrc_path, 'w') as vimrc_file:
         else:
             print(f"Файл {filename} не найден. Пропускаем.")
 
+# Копирование my-help.vim в ~/.vim/
+src_help = os.path.join(os.getcwd(), "my-help.vim")
+dst_dir = os.path.expanduser("~/.vim")
+dst_help = os.path.join(dst_dir, "my-help.vim")
+
+if os.path.isfile(src_help):
+    os.makedirs(dst_dir, exist_ok=True)
+    shutil.copy2(src_help, dst_help)
+    print(f"Файл my-help.vim скопирован в {dst_help}")
+else:
+    print("Файл my-help.vim не найден. Пропускаем копирование.")
+
+
 print("Сборка файлов завершена.")
