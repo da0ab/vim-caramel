@@ -124,13 +124,12 @@
 - `\v` : Вставляет `var(--);`
 - `\ve` : Вставляет `?v=0.0.1`
 - `\ff` : Вставляет `color: #fff;`
-- `\b` : Вставляет `border: 1px solid RED;`
+- `\b` : Вставляет `border: 1px solid #ddd;`
 - `\1` : Вставляет `!important`
 - `\fw` : Вставляет `font-weight: bold;`
 - `\bg` : Вставляет `background: transparent url(../images/) no-repeat center;`
 - `\cover` : Вставляет `background-size: cover;`
-- `\ts` : Вставляет `text-shadow: 0 0 10px #d1d1d1`
-- `\grid` : Вставляет `display: grid;<cr>grid-template-columns: 1fr 2fr;`
+- `\grid` : Вставляет `display: grid; grid-template-columns: 1fr 2fr;`
 
 #### Формы
 
