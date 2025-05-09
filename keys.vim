@@ -6,6 +6,18 @@ map <C-Q> <Esc>:q!<cr>
 "Space  -----------------------------------------------  Пробел в нормальном режиме перелистывает страницы
 nmap <Space> <PageDown>
 
+
+"----------------------------------------------- Табы
+
+" Переключение вкладок: m . → следующая, m , → предыдущая
+nnoremap m. :tabnext<CR>
+nnoremap m, :tabprevious<CR>
+set timeoutlen=300
+" mНОМЕРтАБА
+for i in range(1, 9)
+  execute "nnoremap m" . i . " " . i . "gt"
+endfor
+
 "< и >  -----------------------------------------------  Смещаем блоки
 vmap < <gv
 vmap > >gv
@@ -113,7 +125,7 @@ function! WrapWithTag()
   if l1 > l2 || (l1 == l2 && c1 > c2)
     let [l1, l2] = [l2, l1]
     let [c1, c2] = [c2, c1]
-  endif
+      endif
 
   let lines = getline(l1, l2)
 

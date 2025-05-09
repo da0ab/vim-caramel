@@ -6,3 +6,4 @@ filetype plugin indent on "Включить плагины
 set helplang=ru "Русский хелп
 set guioptions-=T "Отключить гуи
 set clipboard=unnamedplus "Системный буфер
+let mapleader = "."

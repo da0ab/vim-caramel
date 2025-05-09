@@ -7,10 +7,10 @@ filetype plugin indent on
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header = map(split(system('cowsay'), 'n'), '"   ". v:val') + ['','']
 
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-N> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+"------------------------------- NERDTree
 
+"nnoremap <leader>n :NERDTreeFocus<CR>
+
+nnoremap <C-f> :NERDTreeFind<CR>
 
 
