@@ -5,6 +5,5 @@ set fileencodings=utf-8,koi8-r,cp1251,cp866 "Список используемы
 filetype plugin indent on "Включить плагины
 set helplang=ru "Русский хелп
 set guioptions-=T "Отключить гуи
-"set clipboard=unnamedplus "Системный буфер
 set clipboard=unnamed "Системный буфер
 let mapleader = "."

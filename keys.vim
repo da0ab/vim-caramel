@@ -66,8 +66,8 @@ nmap <F2> ^vg_
 "F3 -------------------------------------------------- Удалить пустые строки
 nmap <F3> :g/^s*$/d
 
-"F4 -------------------------------------------------- Удалить множественные пустые строки, оставить одну
-nmap <F4> :v/./,/./-j
+"Ctrl + F3 -------------------------------------------------- Удалить множественные пустые строки, оставить одну
+nnoremap <C-F3> :v/./,/./-j<CR>
 
 "F5 -------------------------------------------------- Вставка дата времени
 "imap <F5> <C-R>=strftime("%c")<CR>
@@ -112,7 +112,29 @@ map <F8> :emenu Encoding.<TAB>
 
 "F10 -------------------------------------------------- Оборачивайтесь свободным тегом
 function! WrapWithTag()
-  let input_str = input("Tag name (optional class): ")
+  " Список популярных HTML-тегов для автодополнения
+  let s:html_tags = [
+        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
+        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
+        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
+        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
+        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
+        \]
+
+  " Проверяем, есть ли выделение
+  if mode() =~ '^[vV]'
+    " Если есть выделение - сохраняем его границы
+    let [l1, c1] = [line("'<"), col("'<")]
+    let [l2, c2] = [line("'>"), col("'>")]
+  else
+    " Если нет выделения - выделяем текущую строку
+    normal! V
+    let [l1, c1] = [line("'<"), col("'<")]
+    let [l2, c2] = [line("'>"), col("'>")]
+  endif
+
+  " Ввод с автодополнением
+  let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
   if empty(input_str)
     echo "No tag entered."
     return
@@ -123,15 +145,11 @@ function! WrapWithTag()
   let tag = parts[0]
   let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
 
-  " Получаем координаты выделения
-  let [l1, c1] = [line("'<"), col("'<")]
-  let [l2, c2] = [line("'>"), col("'>")]
-
   " Обратное выделение — меняем местами
   if l1 > l2 || (l1 == l2 && c1 > c2)
     let [l1, l2] = [l2, l1]
     let [c1, c2] = [c2, c1]
-      endif
+  endif
 
   let lines = getline(l1, l2)
 
@@ -151,8 +169,29 @@ function! WrapWithTag()
   endif
 endfunction
 
-vnoremap <F10> :<C-u>call WrapWithTag()<CR>
+" Функция автодополнения
+function! CompleteTags(ArgLead, CmdLine, CursorPos)
+  let tags = [
+        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
+        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
+        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
+        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
+        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
+        \]
+  
+  " Фильтруем теги по введенному тексту
+  let matches = []
+  for tag in tags
+    if tag =~ '^' . a:ArgLead
+      call add(matches, tag)
+    endif
+  endfor
+  
+  return matches
+endfunction
 
+vnoremap <F10> :<C-u>call WrapWithTag()<CR>
+nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
 "F11 -------------------------------------------------- html клинер
 " py-script
 
