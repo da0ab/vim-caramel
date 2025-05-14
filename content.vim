@@ -1,44 +1,52 @@
-"--------------------------------------------- СОДЕРЖИМОГО ФАЙЛА
-syntax on "Подсветка синтаксиса
-set wrap "Перенос строк
-set linebreak "Не рвать строку
-set nu "Нумерация строк
-set smartindent "Умные отступы
-"set list  "Показывать непечатные символы
-
-"Преобразование таба в пробелы
+" ===== Базовые настройки (применяются глобально) =====
+syntax on
+set wrap
+set linebreak
+set nu
+set smartindent
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
-
-"Отключить автосворачивание длинных строк
+set autoindent
 set nofoldenable
-autocmd Filetype svg setlocal nofoldenable
-autocmd Filetype html setlocal nofoldenable
-set foldmethod=manual "Ручной метод сворачивания
-set foldcolumn=0
+set foldmethod=manual
+set showmatch
 
-"Автоставки для скобок их пар
+" ===== Автозакрытие скобок =====
 imap [ []<LEFT>
 imap { {}<LEFT>
 imap ( ()<LEFT>
-set showmatch "Подсветка парных скобок
 
-"Автозавершение слов по tab
+" ===== Умный Tab =====
 function InsertTabWrapper()
- let col = col('.') - 1
- if !col || getline('.')[col - 1] !~ '\k'
- return "\<tab>"
- else
- return "\<c-p>"
- endif
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
 endfunction
 imap <tab> <c-r>=InsertTabWrapper()<cr>
 
-"Автоматически удалять окончания строк - Dos-return'ы, пробельные символы
-autocmd BufRead * silent! %s/[\r \t]\+$//
-autocmd BufEnter *.php :%s/[ \t\r]\+$//e
-autocmd FileType html set wrap
-autocmd FileType css set wrap
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" ===== Очистка пробелов в конце строк =====
+autocmd BufWritePre * silent! %s/[\r \t]\+$//
+
+" ===== Специфичные настройки для типов файлов =====
+augroup filetype_settings
+    autocmd!
+
+    " HTML/PHP
+    autocmd FileType html,php setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType html,php setlocal wrap
+
+    " CSS (включая встроенный в HTML)
+    autocmd FileType css setlocal foldmethod=indent
+
+    " JavaScript (включая встроенный в HTML)
+    autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
+    autocmd FileType javascript setlocal cindent
+
+    " Форматирование при сохранении
+    autocmd BufWritePre *.html,*.php,*.css,*.js execute 'normal mzgg=G`z'
+augroup END

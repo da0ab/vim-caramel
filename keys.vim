@@ -5,7 +5,7 @@ map <C-Q> <Esc>:q!<cr>
 
 "Space  -----------------------------------------------  Пробел в нормальном режиме перелистывает страницы
 nmap <Space> <PageDown>
-
+nnoremap <S-Space> k
 
 "----------------------------------------------- Табы
 
@@ -45,14 +45,9 @@ vnoremap <C-x> d
 "--------------------------------------------------------------------------------- Одиночные горячие клавиши
 
 "F1 -------------------------------------------------- Сохранить
-"nmap <F1> :w!<CR>
-"imap <F1> <Esc>:w!<CR>
-"vmap <F1> <Esc>:w!<CR>
-
 nnoremap <F1> :w!<CR>
 inoremap <F1> <Esc>:w!<CR>
 vnoremap <F1> <Esc>:w!<CR>
-
 
 "F1 .vimrc -------------------------------------------------- Автообновление vim
 augroup auto_source_vimrc
@@ -66,11 +61,10 @@ nmap <F2> ^vg_
 "F3 -------------------------------------------------- Удалить пустые строки
 nmap <F3> :g/^s*$/d
 
-"Ctrl + F3 -------------------------------------------------- Удалить множественные пустые строки, оставить одну
-nnoremap <C-F3> :v/./,/./-j<CR>
+"Shift + F3 -------------------------------------------------- Удалить множественные пустые строки, оставить одну
+nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
 "F5 -------------------------------------------------- Вставка дата времени
-"imap <F5> <C-R>=strftime("%c")<CR>
 imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
 " %d — день месяца (01..31).
 " %B — полное название месяца (январь, февраль и т.д.).
@@ -178,7 +172,7 @@ function! CompleteTags(ArgLead, CmdLine, CursorPos)
         \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
         \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
         \]
-  
+
   " Фильтруем теги по введенному тексту
   let matches = []
   for tag in tags
@@ -186,14 +180,14 @@ function! CompleteTags(ArgLead, CmdLine, CursorPos)
       call add(matches, tag)
     endif
   endfor
-  
+
   return matches
 endfunction
 
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
 "F11 -------------------------------------------------- html клинер
-" py-script
+"Смотри  py-script
 
 "F12 -------------------------------------------------- NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>

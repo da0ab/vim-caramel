@@ -8,14 +8,20 @@ vnoremap ii "zdi<em><C-R>z</em><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
 
 "--------------------------------------------- Заголовки
+"
+"
+"
+"
+"
+"
 vnoremap s1 "zdi<h1><C-R>z</h1><ESC>
 vnoremap s2 "zdi<h2><C-R>z</h2><ESC>
 vnoremap s2t "zdi<h2 class="title"><C-R>z</h2><ESC>
 vnoremap s3 "zdi<h3><C-R>z</h3><ESC>
 vnoremap s4 "zdi<h4><C-R>z</h4><ESC>
 vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
-vnoremap s6 "zdi<h6><C-R>z</h6><ESC>
-
+vnoremap s6 "zdi<h6><C-R>z</h6><ESC>"
+"
 "--------------------------------------------- Ссылки: обычные, target, e-mail, телефон
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
