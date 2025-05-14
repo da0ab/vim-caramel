@@ -139,18 +139,18 @@
 
 #### @media
 
-- `\phon` : Вставляет `@media (max-width: 769px) {<cr><cr>}`
-- `\pad` : Вставляет `@media (min-width: 769px) and (max-width: 1024px){<cr><cr>}`
-- `\padp` : Вставляет `@media  (min-width: 768px) and (max-width : 1024px) and (orientation: portrait) {<cr><cr>}`
-- `\note` : Вставляет `@media only screen and (max-width: 1650px){<cr><cr>}`
+- `\phon` : Вставляет `@media (max-width: 769px) { }`
+- `\pad` : Вставляет `@media (min-width: 769px) and (max-width: 1024px){ }`
+- `\padp` : Вставляет `@media  (min-width: 768px) and (max-width : 1024px) and (orientation: portrait) { }`
+- `\note` : Вставляет `@media only screen and (max-width: 1650px){ }`
 - `\squar` : Вставляет `@media screen and (min-width: 1025px) and (max-width: 1400px)`
 
 #### HTML/CSS/bash/python
 
 - `\sh` : Вставляет `#!/bin/bash`
 - `\py` : Вставляет `#!/usr/bin/env python3<cr># -*- coding: utf-8 -*-`
-- `\s` : Вставляет `<style type="text/css"><cr><cr></style>`
-- `\j` : Вставляет `<script type="text/javascript" src="js"><cr><cr></script>`
+- `\s` : Вставляет `<style type="text/css"> </style>`
+- `\j` : Вставляет `<script type="text/javascript" src="js"> </script>`
 - `\css` : Вставляет `<link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">`
 
 
