@@ -59,8 +59,8 @@
 - `saa` : Оборачивает выделенный текст в тег `<a href="my-site.com">my-site.com</a>`
 - `sat` : Оборачивает выделенный текст в тег `<a href="" target="_blank" rel="nofollow">my-site.com</a>`
 - `saat` : Оборачивает выделенный текст в тег `<a href="https://my-site.com" target="_blank" rel="nofollow">my-site.com</a>`
-- `s@` : Оборачивает выделенный текст в тег `<a href="mailto:<C-R>z">`
-- `st` : Оборачивает выделенный текст в тег `<a href="tel:<C-R>z">`
+- `s@` : Оборачивает выделенный текст в тег `<a href="mailto:my@box.com">mailto:my@box.com</a>`
+- `st` : Оборачивает выделенный текст в тег `<a href="tel:+7 999 000 000">+7 999 000 000</a>`
 
 #### html блоки
 
@@ -70,14 +70,12 @@
 - `sdc` : Оборачивает выделенный текст в тег `<div class="">`
 - `spa` : Оборачивает выделенный текст в тег `<span class="">`
 - `span` : Оборачивает выделенный текст в тег `<span>`
-- `section` : Оборачивает выделенный текст в тег `<section>`
-- `sec` : Оборачивает выделенный текст в тег `<section>`
+- `section` или `sec`: Оборачивает выделенный текст в тег `<section>`
 - `secc` : Оборачивает выделенный текст в тег `<section class="main">`
 
 #### details
 
-- `details` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
-- `det` : Оборачивает выделенный текст в тег `<details><summary><C-R>z</summary><cr><cr></details>`
+- `details` или `det` : Оборачивает выделенный текст в тег `<details><summary>Заголовок</summary> </details>`
 
 #### Списки ul/dl
 
@@ -86,9 +84,9 @@
 
 #### Изображения
 
-- `sw` : Оборачивает выделенный текст в тег `<img src="images/<C-R>z" alt="" title="">`
-- `swl` : Оборачивает выделенный текст в тег `<a href="images/<C-R>z" class="iPop-img"><img src="images/<C-R>z" alt="" title=""></a>`
-- `swv` : Оборачивает выделенный текст в тег `<a href="<C-R>z" class="iPop-video"></a>`
+- `sw` : Оборачивает выделенный текст в тег `<img src="images/pic.jpg" alt="" title="">`
+- `swl` : Оборачивает выделенный текст в тег `<a href="images/pic.jpg" class="iPop-img"><img src="images/pic.jpg" alt="" title=""></a>`
+- `swv` : Оборачивает выделенный текст в тег `<a href="pic.jpg" class="iPop-video"></a>`
 
 #### Комментарии
 
