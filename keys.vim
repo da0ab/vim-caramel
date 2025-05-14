@@ -4,8 +4,8 @@
 map <C-Q> <Esc>:q!<cr>
 
 "Space Пробел в нормальном режиме перелистывает страницы
-nmap <Space> <PageDown>
-nnoremap <S-Space> k
+nnoremap <Space> <PageDown>
+nnoremap <S-Space> <PageUp>
 
 "Табы
 
