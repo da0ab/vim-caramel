@@ -3,6 +3,7 @@ import shutil
 
 # Получаем путь к файлу ~/.vimrc
 vimrc_path = os.path.expanduser("~/.vimrc")
+script_dir = os.getcwd()  # Директория, где находится скрипт
 
 # Проверяем, существует ли файл ~/.vimrc
 if os.path.exists(vimrc_path):
@@ -29,7 +30,7 @@ files_to_add = [
 # Открываем новый ~/.vimrc для записи
 with open(vimrc_path, 'w') as vimrc_file:
     for filename in files_to_add:
-        file_path = os.path.join(os.getcwd(), filename)
+        file_path = os.path.join(script_dir, filename)
         if os.path.isfile(file_path):
             # Если файл существует, добавляем его содержимое в ~/.vimrc
             with open(file_path, 'r') as f:
@@ -40,7 +41,7 @@ with open(vimrc_path, 'w') as vimrc_file:
             print(f"Файл {filename} не найден. Пропускаем.")
 
 # Копирование my-help.vim в ~/.vim/
-src_help = os.path.join(os.getcwd(), "my-help.vim")
+src_help = os.path.join(script_dir, "my-help.vim")
 dst_dir = os.path.expanduser("~/.vim")
 dst_help = os.path.join(dst_dir, "my-help.vim")
 
@@ -51,5 +52,11 @@ if os.path.isfile(src_help):
 else:
     print("Файл my-help.vim не найден. Пропускаем копирование.")
 
+# Копирование собранного .vimrc в директорию скрипта
+if os.path.exists(vimrc_path):
+    shutil.copy2(vimrc_path, os.path.join(script_dir, ".vimrc"))
+    print(f"Файл {vimrc_path} скопирован в директорию скрипта {script_dir}")
+else:
+    print(f"Файл {vimrc_path} не найден. Не удалось скопировать в директорию скрипта.")
 
 print("Сборка файлов завершена.")
