@@ -1,4 +1,6 @@
 
+" ===== html =====
+
 "--------------------------------------------- Текстовые элементы
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
 vnoremap sb "zdi<b><C-R>z</b><ESC>
@@ -8,12 +10,6 @@ vnoremap ii "zdi<em><C-R>z</em><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
 
 "--------------------------------------------- Заголовки
-"
-"
-"
-"
-"
-"
 vnoremap s1 "zdi<h1><C-R>z</h1><ESC>
 vnoremap s2 "zdi<h2><C-R>z</h2><ESC>
 vnoremap s2t "zdi<h2 class="title"><C-R>z</h2><ESC>
@@ -21,7 +17,7 @@ vnoremap s3 "zdi<h3><C-R>z</h3><ESC>
 vnoremap s4 "zdi<h4><C-R>z</h4><ESC>
 vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
 vnoremap s6 "zdi<h6><C-R>z</h6><ESC>"
-"
+
 "--------------------------------------------- Ссылки: обычные, target, e-mail, телефон
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
@@ -42,18 +38,9 @@ vnoremap span "zdi<span><C-R>z</span><ESC>
 vnoremap sec 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap secc 1"zdi<section class="main"><cr><C-R>z<cr></section><ESC>
 
-"vnoremap nav 1"zdi<nav><cr><C-R>z<cr></nav><ESC>
-
 vnoremap header 1"zdi<header><cr><C-R>z<cr></header><ESC>
 vnoremap he 1"zdi<header><cr><C-R>z<cr></header><ESC>
 vnoremap hec 1"zdi<header class="header"><cr><C-R>z<cr></header><ESC>
-
-"vnoremap article 1"zdi<article><cr><C-R>z<cr></article><ESC>
-"vnoremap art 1"zdi<article><cr><C-R>z<cr></article><ESC>
-
-"vnoremap footer 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
-"vnoremap fo 1"zdi<footer><cr><C-R>z<cr></footer><ESC>
-"vnoremap foc 1"zdi<footer class="footer"><cr><C-R>z<cr></footer><ESC>
 
 "--------------------------------------------- details
 vnoremap details 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
@@ -73,13 +60,9 @@ vnoremap swv "zdi<a href="<C-R>z"class="iPop-video"></a><ESC>
 "--------------------------------------------- Комментарии
 vnoremap ss 1"zdi<!--<C-R>z --><ESC>
 vnoremap sc 1"zdi/*<C-R>z*/<ESC>
-vnoremap sx 1"zdi/*--------------------<C-R>z--------------------*/<ESC>
+vnoremap sx 1"zdi/*-------------------- <C-R>z --------------------*/<ESC>
 
 "--------------------------------------------- Таблицы
-"vnoremap stt 1"zdi<table><C-R>z</table><ESC>
-vnoremap std 1"zdi<td><C-R>z</td><ESC>
-vnoremap str 1"zdi<tr><C-R>z</tr><ESC>
-vnoremap sth 1"zdi<th><C-R>z</th><ESC>
 inoremap \col colspan="2"
 inoremap \row rowspan="2"
 
