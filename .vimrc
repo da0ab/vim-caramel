@@ -90,12 +90,14 @@ map , ?
 
 
 " ===== Оформление =====
-
-set shm+=I "Пустой стартовый экран
-"set guifont=DejaVu\ Sans\ Mono 13 "Размер шрифта
+"Пустой стартовый экран
+set shm+=I
+"Размер шрифта
+set guifont=Anonymous_Pro:h14
 set lines=75 "Высота
 set columns=210 "Ширина
-set ch=1 "Сделать строку команд высотой в одну строку
+"Сделать строку команд высотой в одну строку
+set ch=1
 hi Pmenu guibg=#666666 guifg=#eeeeec
 colorscheme desert
 
@@ -275,60 +277,8 @@ nmap <F3> :g/^s*$/d
 "Shift + F3 - Удалить множественные пустые строки, оставить одну
 nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
-"F4 Вставка длинных кусков с подсказкой
-" Включить wildmenu для интерактивного меню
-set wildmenu
-set wildmode=longest,list,full
-
-" Словарь сниппетов / двойные кавычки для переносов
-let g:insert_snippets = {
-  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
-  \ 'input':              '<input type="text" placeholder="">',
-  \ 'radio':              '<input type="radio">',
-  \ 'checkbox':           '<input type="checkbox">',
-  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
-  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
-  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
-  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
-  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
-  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
-  \ 'colspan':            'colspan="2"',
-  \ 'rowspan':            'rowspan="2"',
-  \ 'copy':               '©',
-  \ 'webkit':             '-webkit-',
-  \ 'version':            '?v=0.0.1',
-  \ 'cover':              'background-size: cover'
-\ }
-" Функция для автодополнения ключей
-function! SnippetComplete(A, L, P)
-  let matches = []
-  for key in keys(g:insert_snippets)
-    if key =~ '^' . a:A
-      call add(matches, key)
-    endif
-  endfor
-  return matches
-endfunction
-
-" Вставка сниппета
-function! InsertSnippet()
-  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
-  if has_key(g:insert_snippets, key)
-    execute "normal! a" . g:insert_snippets[key]
-    " Перемещаем курсор внутрь скобок для сниппета pad
-    if key == 'pad'
-      execute "normal! k$"
-    endif
-  else
-    echo "Нет соответствующего сниппета для ключа: " . key
-  endif
-endfunction
-
-" Привязка клавиши F4
-nnoremap <F4> :call InsertSnippet()<CR>
-inoremap <F4> <Esc>:call InsertSnippet()<CR>
-"-----------------------------
+"F4 - html клинер
+"Смотри  py-script
 
 "F5 - Вставка дата времени
 imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
@@ -430,8 +380,60 @@ endfunction
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
 
-"F11 - html клинер
-"Смотри  py-script
+"F11 Вставка длинных кусков с подсказкой
+" Включить wildmenu для интерактивного меню
+set wildmenu
+set wildmode=longest,list,full
+
+" Словарь сниппетов / двойные кавычки для переносов
+let g:insert_snippets = {
+  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
+  \ 'input':              '<input type="text" placeholder="">',
+  \ 'radio':              '<input type="radio">',
+  \ 'checkbox':           '<input type="checkbox">',
+  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
+  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
+  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
+  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
+  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
+  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
+  \ 'colspan':            'colspan="2"',
+  \ 'rowspan':            'rowspan="2"',
+  \ 'copy':               '©',
+  \ 'webkit':             '-webkit-',
+  \ 'version':            '?v=0.0.1',
+  \ 'cover':              'background-size: cover'
+\ }
+" Функция для автодополнения ключей
+function! SnippetComplete(A, L, P)
+  let matches = []
+  for key in keys(g:insert_snippets)
+    if key =~ '^' . a:A
+      call add(matches, key)
+    endif
+  endfor
+  return matches
+endfunction
+
+" Вставка сниппета
+function! InsertSnippet()
+  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
+  if has_key(g:insert_snippets, key)
+    execute "normal! a" . g:insert_snippets[key]
+    " Перемещаем курсор внутрь скобок для сниппета pad
+    if key == 'pad'
+      execute "normal! k$"
+    endif
+  else
+    echo "Нет соответствующего сниппета для ключа: " . key
+  endif
+endfunction
+
+" Привязка клавиши F4
+nnoremap <F11> :call InsertSnippet()<CR>
+inoremap <F11> <Esc>:call InsertSnippet()<CR>
+
 
 "F12 - NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>
@@ -484,9 +486,6 @@ vnoremap det 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
 
 "Списки ul
 vnoremap sl 1"zdi<li><C-R>z</li><ESC>
-"vnoremap sld 1"zdi<dd><C-R>z</dd><ESC>
-"vnoremap slt 1"zdi<dt><C-R>z</dt><ESC>
-"vnoremap sll 1"zdi<dl><cr><C-R>z<cr></dl><ESC>
 
 "Изображения
 vnoremap sw "zdi<img src="images/<C-R>z" alt="" title=""><ESC>
@@ -516,16 +515,12 @@ inoremap \w width:;
 inoremap \h height:;
 inoremap \l <cr><hr><cr>
 inoremap \-  –
-"inoremap \co &copy;
-"inoremap \p -webkit-
 inoremap \v var(--);
-"inoremap \ve ?v=0.0.1
 inoremap \ff color: #fff;
 inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-
 
 "HTML/CSS/bash/python
 inoremap \sh #!/bin/bash
@@ -546,10 +541,10 @@ vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 "su  Оборачивание в список группы строк (разделение переносом)
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
 
-"F11  html клинер
-imap <F11> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
-nmap <F11> :%!python3 ~/.vim/scripts/clean_html.py<CR>
-vmap <F11> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+"F4  html клинер
+imap <F4> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+nmap <F4> :%!python3 ~/.vim/scripts/clean_html.py<CR>
+vmap <F4> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 " ===== Pathogen =====
 "pathogen https://github.com/tpope/vim-pathogen

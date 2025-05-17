@@ -64,60 +64,8 @@ nmap <F3> :g/^s*$/d
 "Shift + F3 - Удалить множественные пустые строки, оставить одну
 nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
-"F4 Вставка длинных кусков с подсказкой
-" Включить wildmenu для интерактивного меню
-set wildmenu
-set wildmode=longest,list,full
-
-" Словарь сниппетов / двойные кавычки для переносов
-let g:insert_snippets = {
-  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
-  \ 'input':              '<input type="text" placeholder="">',
-  \ 'radio':              '<input type="radio">',
-  \ 'checkbox':           '<input type="checkbox">',
-  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
-  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
-  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
-  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
-  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
-  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
-  \ 'colspan':            'colspan="2"',
-  \ 'rowspan':            'rowspan="2"',
-  \ 'copy':               '©',
-  \ 'webkit':             '-webkit-',
-  \ 'version':            '?v=0.0.1',
-  \ 'cover':              'background-size: cover'
-\ }
-" Функция для автодополнения ключей
-function! SnippetComplete(A, L, P)
-  let matches = []
-  for key in keys(g:insert_snippets)
-    if key =~ '^' . a:A
-      call add(matches, key)
-    endif
-  endfor
-  return matches
-endfunction
-
-" Вставка сниппета
-function! InsertSnippet()
-  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
-  if has_key(g:insert_snippets, key)
-    execute "normal! a" . g:insert_snippets[key]
-    " Перемещаем курсор внутрь скобок для сниппета pad
-    if key == 'pad'
-      execute "normal! k$"
-    endif
-  else
-    echo "Нет соответствующего сниппета для ключа: " . key
-  endif
-endfunction
-
-" Привязка клавиши F4
-nnoremap <F4> :call InsertSnippet()<CR>
-inoremap <F4> <Esc>:call InsertSnippet()<CR>
-"-----------------------------
+"F4 - html клинер
+"Смотри  py-script
 
 "F5 - Вставка дата времени
 imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
@@ -219,8 +167,60 @@ endfunction
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
 
-"F11 - html клинер
-"Смотри  py-script
+"F11 Вставка длинных кусков с подсказкой
+" Включить wildmenu для интерактивного меню
+set wildmenu
+set wildmode=longest,list,full
+
+" Словарь сниппетов / двойные кавычки для переносов
+let g:insert_snippets = {
+  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
+  \ 'input':              '<input type="text" placeholder="">',
+  \ 'radio':              '<input type="radio">',
+  \ 'checkbox':           '<input type="checkbox">',
+  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
+  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
+  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
+  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
+  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
+  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
+  \ 'colspan':            'colspan="2"',
+  \ 'rowspan':            'rowspan="2"',
+  \ 'copy':               '©',
+  \ 'webkit':             '-webkit-',
+  \ 'version':            '?v=0.0.1',
+  \ 'cover':              'background-size: cover'
+\ }
+" Функция для автодополнения ключей
+function! SnippetComplete(A, L, P)
+  let matches = []
+  for key in keys(g:insert_snippets)
+    if key =~ '^' . a:A
+      call add(matches, key)
+    endif
+  endfor
+  return matches
+endfunction
+
+" Вставка сниппета
+function! InsertSnippet()
+  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
+  if has_key(g:insert_snippets, key)
+    execute "normal! a" . g:insert_snippets[key]
+    " Перемещаем курсор внутрь скобок для сниппета pad
+    if key == 'pad'
+      execute "normal! k$"
+    endif
+  else
+    echo "Нет соответствующего сниппета для ключа: " . key
+  endif
+endfunction
+
+" Привязка клавиши F4
+nnoremap <F11> :call InsertSnippet()<CR>
+inoremap <F11> <Esc>:call InsertSnippet()<CR>
+
 
 "F12 - NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>

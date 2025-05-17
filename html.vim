@@ -46,9 +46,6 @@ vnoremap det 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
 
 "Списки ul
 vnoremap sl 1"zdi<li><C-R>z</li><ESC>
-"vnoremap sld 1"zdi<dd><C-R>z</dd><ESC>
-"vnoremap slt 1"zdi<dt><C-R>z</dt><ESC>
-"vnoremap sll 1"zdi<dl><cr><C-R>z<cr></dl><ESC>
 
 "Изображения
 vnoremap sw "zdi<img src="images/<C-R>z" alt="" title=""><ESC>
@@ -78,16 +75,12 @@ inoremap \w width:;
 inoremap \h height:;
 inoremap \l <cr><hr><cr>
 inoremap \-  –
-"inoremap \co &copy;
-"inoremap \p -webkit-
 inoremap \v var(--);
-"inoremap \ve ?v=0.0.1
 inoremap \ff color: #fff;
 inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-
 
 "HTML/CSS/bash/python
 inoremap \sh #!/bin/bash
