@@ -39,9 +39,6 @@ vnoremap span "zdi<span><C-R>z</span><ESC>
 vnoremap sec 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap secc 1"zdi<section class="main"><cr><C-R>z<cr></section><ESC>
 
-vnoremap header 1"zdi<header><cr><C-R>z<cr></header><ESC>
-vnoremap he 1"zdi<header><cr><C-R>z<cr></header><ESC>
-vnoremap hec 1"zdi<header class="header"><cr><C-R>z<cr></header><ESC>
 
 "details
 vnoremap details 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
@@ -81,10 +78,10 @@ inoremap \w width:;
 inoremap \h height:;
 inoremap \l <cr><hr><cr>
 inoremap \-  –
-inoremap \co &copy;
-inoremap \p -webkit-
+"inoremap \co &copy;
+"inoremap \p -webkit-
 inoremap \v var(--);
-inoremap \ve ?v=0.0.1
+"inoremap \ve ?v=0.0.1
 inoremap \ff color: #fff;
 inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important

@@ -292,15 +292,14 @@ let g:insert_snippets = {
   \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
   \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
   \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2 1fr)",
-  \ 'colspan':          'colspan="2"',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
+  \ 'colspan':            'colspan="2"',
   \ 'rowspan':            'rowspan="2"',
+  \ 'copy':               '©',
+  \ 'webkit':             '-webkit-',
+  \ 'version':            '?v=0.0.1',
   \ 'cover':              'background-size: cover'
 \ }
-
-
-
-
 " Функция для автодополнения ключей
 function! SnippetComplete(A, L, P)
   let matches = []
@@ -478,9 +477,6 @@ vnoremap span "zdi<span><C-R>z</span><ESC>
 vnoremap sec 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap secc 1"zdi<section class="main"><cr><C-R>z<cr></section><ESC>
 
-vnoremap header 1"zdi<header><cr><C-R>z<cr></header><ESC>
-vnoremap he 1"zdi<header><cr><C-R>z<cr></header><ESC>
-vnoremap hec 1"zdi<header class="header"><cr><C-R>z<cr></header><ESC>
 
 "details
 vnoremap details 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
@@ -503,11 +499,6 @@ vnoremap sc 1"zdi/*<C-R>z*/<ESC>
 vnoremap sx 1"zdi/*-------------------- <C-R>z --------------------*/<ESC>
 vnoremap sv 1"zdi" ===== <C-R>z =====<ESC>
 
-
-"Таблицы
-"inoremap \col colspan="2"
-"inoremap \row rowspan="2"
-
 "Пустой HTML
 inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
 
@@ -525,32 +516,16 @@ inoremap \w width:;
 inoremap \h height:;
 inoremap \l <cr><hr><cr>
 inoremap \-  –
-inoremap \co &copy;
-inoremap \p -webkit-
+"inoremap \co &copy;
+"inoremap \p -webkit-
 inoremap \v var(--);
-inoremap \ve ?v=0.0.1
+"inoremap \ve ?v=0.0.1
 inoremap \ff color: #fff;
 inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-"inoremap \cov background-size: cover;
-"inoremap \ts text-shadow: 0 0 10px #d1d1d1
-"inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
-"Формы
-"inoremap \texter <cr><textarea rows="3" placeholder=""></textarea><cr>
-"inoremap \input <cr><input type="text" placeholder=""><cr>
-"inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
-"inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
-"vnoremap so "zdi<option><C-R>z</option><ESC>
-
-"@media
-"inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
-"inoremap \pad  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
-"inoremap \padp /*pad portrait*/<cr> @media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {<cr><cr>}
-"inoremap \note  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
-"inoremap \squar /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
 
 "HTML/CSS/bash/python
 inoremap \sh #!/bin/bash

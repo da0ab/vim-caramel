@@ -81,12 +81,14 @@ let g:insert_snippets = {
   \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
   \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
   \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2 1fr)",
-  \ 'colspan':          'colspan="2"',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
+  \ 'colspan':            'colspan="2"',
   \ 'rowspan':            'rowspan="2"',
+  \ 'copy':               '©',
+  \ 'webkit':             '-webkit-',
+  \ 'version':            '?v=0.0.1',
   \ 'cover':              'background-size: cover'
 \ }
-
 " Функция для автодополнения ключей
 function! SnippetComplete(A, L, P)
   let matches = []
