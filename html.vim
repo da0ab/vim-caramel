@@ -1,12 +1,11 @@
-
 " ===== html =====
 
 "Текстовые элементы
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
-vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap bb "zdi<strong><C-R>z</strong><ESC>
-vnoremap si "zdi<i><C-R>z</i><ESC>
+vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap ii "zdi<em><C-R>z</em><ESC>
+vnoremap si "zdi<i><C-R>z</i><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
 
 "Заголовки
@@ -18,14 +17,16 @@ vnoremap s4 "zdi<h4><C-R>z</h4><ESC>
 vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
 vnoremap s6 "zdi<h6><C-R>z</h6><ESC>"
 
-"Ссылки: обычные, target, e-mail, телефон
+"Ссылки обычные
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
+"Ссылки target
 vnoremap sat "zdi<a href="<esc>maa" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
 vnoremap saat "zdi<a href="https://<C-R>z" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
-
-vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><ESC>`aa
-vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>`aa
+"e-mail
+vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><Esc>
+"Телефон
+vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>
 
 "html блоки
 vnoremap sd 1"zdi<div><cr><C-R>z<cr><C-R> </div><ESC>
@@ -63,11 +64,6 @@ vnoremap sc 1"zdi/*<C-R>z*/<ESC>
 vnoremap sx 1"zdi/*-------------------- <C-R>z --------------------*/<ESC>
 vnoremap sv 1"zdi" ===== <C-R>z =====<ESC>
 
-
-"Таблицы
-inoremap \col colspan="2"
-inoremap \row rowspan="2"
-
 "Пустой HTML
 inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
 
@@ -94,23 +90,7 @@ inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-inoremap \cov background-size: cover;
-inoremap \ts text-shadow: 0 0 10px #d1d1d1
-inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
-"Формы
-inoremap \texter <cr><textarea rows="3" placeholder=""></textarea><cr>
-inoremap \input <cr><input type="text" placeholder=""><cr>
-inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
-inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
-"vnoremap so "zdi<option><C-R>z</option><ESC>
-
-"@media
-inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
-inoremap \pad  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
-inoremap \padp /*pad portrait*/<cr> @media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {<cr><cr>}
-inoremap \note  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
-inoremap \squar /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
 
 "HTML/CSS/bash/python
 inoremap \sh #!/bin/bash

@@ -1,10 +1,18 @@
 " ===== Основное =====
 
-set nocompatible "Несовместимость с vi
-set encoding=utf-8 "Базовая кодировка
-set fileencodings=utf-8,koi8-r,cp1251,cp866 "Список используемых кодировок для автоматического их определения
-filetype plugin indent on "Включить плагины
-set helplang=ru "Русский хелп
-set guioptions-=T "Отключить гуи
-set clipboard=unnamed "Системный буфер
+"Несовместимость с vi
+set nocompatible 
+"Базовая кодировка
+set encoding=utf-8
+"Список используемых кодировок для автоматического их определения
+set fileencodings=utf-8,koi8-r,cp1251,cp866
+"Включить плагины
+filetype plugin indent on
+"Русский хелп
+set helplang=ru
+"Отключить гуи
+set guioptions-=T
+"Системный буфер
+set clipboard=unnamed
+"Назначаем leader
 let mapleader = "."

@@ -64,6 +64,59 @@ nmap <F3> :g/^s*$/d
 "Shift + F3 - Удалить множественные пустые строки, оставить одну
 nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
+"F4 Вставка длинных кусков с подсказкой
+" Включить wildmenu для интерактивного меню
+set wildmenu
+set wildmode=longest,list,full
+
+" Словарь сниппетов / двойные кавычки для переносов
+let g:insert_snippets = {
+  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
+  \ 'input':              '<input type="text" placeholder="">',
+  \ 'radio':              '<input type="radio">',
+  \ 'checkbox':           '<input type="checkbox">',
+  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
+  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
+  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
+  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
+  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
+  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2 1fr)",
+  \ 'colspan':          'colspan="2"',
+  \ 'rowspan':            'rowspan="2"',
+  \ 'cover':              'background-size: cover'
+\ }
+
+" Функция для автодополнения ключей
+function! SnippetComplete(A, L, P)
+  let matches = []
+  for key in keys(g:insert_snippets)
+    if key =~ '^' . a:A
+      call add(matches, key)
+    endif
+  endfor
+  return matches
+endfunction
+
+" Вставка сниппета
+function! InsertSnippet()
+  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
+  if has_key(g:insert_snippets, key)
+    execute "normal! a" . g:insert_snippets[key]
+    " Перемещаем курсор внутрь скобок для сниппета pad
+    if key == 'pad'
+      execute "normal! k$"
+    endif
+  else
+    echo "Нет соответствующего сниппета для ключа: " . key
+  endif
+endfunction
+
+" Привязка клавиши F4
+nnoremap <F4> :call InsertSnippet()<CR>
+inoremap <F4> <Esc>:call InsertSnippet()<CR>
+"-----------------------------
+
 "F5 - Вставка дата времени
 imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
 " %d — день месяца (01..31).
@@ -82,7 +135,7 @@ map <F7> :vsp $MYVIMRC<CR>
 set wildmenu
 set wcm=<Tab>
 menu Encoding.windows-1251 :e ++enc=cp1251 ++ff=dos<CR>
-menu Encoding.utf-8 :e ++enc=utf8 <CR>
+menu Encoding.utf-8 :e ++enc=utf8<CR>
 menu Encoding.cp866 :e ++enc=cp866 ++ff=dos<CR>
 menu Encoding.koi8-r :e ++enc=koi8-r ++ff=unix<CR>
 menu Encoding.koi8-u :e ++enc=koi8-u ++ff=unix<CR>
@@ -105,82 +158,59 @@ map <F8> :emenu Encoding.<TAB>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
 
 "F10 - Оборачивайтесь свободным тегом
-function! WrapWithTag()
-  " Список популярных HTML-тегов для автодополнения
-  let s:html_tags = [
-        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
-        \]
+let g:html_tags = [
+      \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
+      \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
+      \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
+      \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
+      \ 'select', 'option', 'textarea', 'details', 'script', 'link', 'meta'
+      \]
 
+function! WrapWithTag()
   " Проверяем, есть ли выделение
   if mode() =~ '^[vV]'
-    " Если есть выделение - сохраняем его границы
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
   else
-    " Если нет выделения - выделяем текущую строку
     normal! V
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
   endif
 
-  " Ввод с автодополнением
   let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
   if empty(input_str)
     echo "No tag entered."
     return
   endif
 
-  " Разделяем: тег и классы
   let parts = split(input_str)
   let tag = parts[0]
   let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
 
-  " Обратное выделение — меняем местами
   if l1 > l2 || (l1 == l2 && c1 > c2)
     let [l1, l2] = [l2, l1]
     let [c1, c2] = [c2, c1]
   endif
 
   let lines = getline(l1, l2)
-
-  " Обрезаем начальную и конечную строку
   let lines[0] = lines[0][c1 - 1:]
   let lines[-1] = lines[-1][:c2 - 1]
 
-  " Оборачиваем с переносами
   let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
-
-  " Заменяем строки в буфере
   call setline(l1, wrapped_lines)
 
-  " Удаляем лишние старые строки, если было больше
   if l2 > l1 + len(wrapped_lines) - 1
     call deletebufline('%', l1 + len(wrapped_lines), l2)
   endif
 endfunction
 
-" Функция автодополнения
 function! CompleteTags(ArgLead, CmdLine, CursorPos)
-  let tags = [
-        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
-        \]
-
-  " Фильтруем теги по введенному тексту
   let matches = []
-  for tag in tags
+  for tag in g:html_tags
     if tag =~ '^' . a:ArgLead
       call add(matches, tag)
     endif
   endfor
-
   return matches
 endfunction
 

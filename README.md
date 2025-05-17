@@ -9,6 +9,7 @@
 - `F3 + ENTER` : Удалить все пустые строки
 - `Shift + F3 + ENTER` : Удалить множественные пустые строки, оставить одну
 - `F5` : Вставка дата времени вида `-----/ 01 АПРЕЛЯ 2025 • 09:14:51 ПЯТНИЦА /-----`
+- `F4` : Снипеты с подсказками по tab ``texterea, input, radio, checkbox, media phone, media pad, media pad portrait, media notebook, media square, text-shadow, grid, colspan, rowspan, cover``
 - `F6` : Открыть памятку vim`ра
 - `F7` : Редактировать .vimrc
 - `F8` : Выбор кодировки из `utf8 win-1251 cp866 koi8-r koi8-u`
@@ -130,20 +131,7 @@
 - `\cover` : Вставляет `background-size: cover;`
 - `\grid` : Вставляет `display: grid; grid-template-columns: 1fr 2fr;`
 
-#### Формы
 
-- `\texter` : Создает форму с текстовой областью
-- `\input` : Создает форму с текстовым полем
-- `\radio` : Создает радиокнопку
-- `\chek` : Создает чекбокс
-
-#### @media
-
-- `\phon` : Вставляет `@media (max-width: 769px) { }`
-- `\pad` : Вставляет `@media (min-width: 769px) and (max-width: 1024px){ }`
-- `\padp` : Вставляет `@media  (min-width: 768px) and (max-width : 1024px) and (orientation: portrait) { }`
-- `\note` : Вставляет `@media only screen and (max-width: 1650px){ }`
-- `\squar` : Вставляет `@media screen and (min-width: 1025px) and (max-width: 1400px)`
 
 #### HTML/CSS/bash/python
 

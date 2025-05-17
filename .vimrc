@@ -1,12 +1,20 @@
 " ===== Основное =====
 
-set nocompatible "Несовместимость с vi
-set encoding=utf-8 "Базовая кодировка
-set fileencodings=utf-8,koi8-r,cp1251,cp866 "Список используемых кодировок для автоматического их определения
-filetype plugin indent on "Включить плагины
-set helplang=ru "Русский хелп
-set guioptions-=T "Отключить гуи
-set clipboard=unnamed "Системный буфер
+"Несовместимость с vi
+set nocompatible 
+"Базовая кодировка
+set encoding=utf-8
+"Список используемых кодировок для автоматического их определения
+set fileencodings=utf-8,koi8-r,cp1251,cp866
+"Включить плагины
+filetype plugin indent on
+"Русский хелп
+set helplang=ru
+"Отключить гуи
+set guioptions-=T
+"Системный буфер
+set clipboard=unnamed
+"Назначаем leader
 let mapleader = "."
 
 " ===== Фикс русской раскладки =====
@@ -267,6 +275,62 @@ nmap <F3> :g/^s*$/d
 "Shift + F3 - Удалить множественные пустые строки, оставить одну
 nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
+"F4 Вставка длинных кусков с подсказкой
+" Включить wildmenu для интерактивного меню
+set wildmenu
+set wildmode=longest,list,full
+
+" Словарь сниппетов / двойные кавычки для переносов
+let g:insert_snippets = {
+  \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
+  \ 'input':              '<input type="text" placeholder="">',
+  \ 'radio':              '<input type="radio">',
+  \ 'checkbox':           '<input type="checkbox">',
+  \ 'media phone':        "/*phone*/\n@media (max-width: 769px) {\n\t\n}",
+  \ 'media pad':          "/*pad*/\n@media (min-width: 769px) and (max-width: 1024px) {\n\t\n}",
+  \ 'media pad portrait': "/*pad portrait*/\n@media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {\n\t\n}",
+  \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
+  \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
+  \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
+  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2 1fr)",
+  \ 'colspan':          'colspan="2"',
+  \ 'rowspan':            'rowspan="2"',
+  \ 'cover':              'background-size: cover'
+\ }
+
+
+
+
+" Функция для автодополнения ключей
+function! SnippetComplete(A, L, P)
+  let matches = []
+  for key in keys(g:insert_snippets)
+    if key =~ '^' . a:A
+      call add(matches, key)
+    endif
+  endfor
+  return matches
+endfunction
+
+" Вставка сниппета
+function! InsertSnippet()
+  let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
+  if has_key(g:insert_snippets, key)
+    execute "normal! a" . g:insert_snippets[key]
+    " Перемещаем курсор внутрь скобок для сниппета pad
+    if key == 'pad'
+      execute "normal! k$"
+    endif
+  else
+    echo "Нет соответствующего сниппета для ключа: " . key
+  endif
+endfunction
+
+" Привязка клавиши F4
+nnoremap <F4> :call InsertSnippet()<CR>
+inoremap <F4> <Esc>:call InsertSnippet()<CR>
+"-----------------------------
+
 "F5 - Вставка дата времени
 imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
 " %d — день месяца (01..31).
@@ -285,7 +349,7 @@ map <F7> :vsp $MYVIMRC<CR>
 set wildmenu
 set wcm=<Tab>
 menu Encoding.windows-1251 :e ++enc=cp1251 ++ff=dos<CR>
-menu Encoding.utf-8 :e ++enc=utf8 <CR>
+menu Encoding.utf-8 :e ++enc=utf8<CR>
 menu Encoding.cp866 :e ++enc=cp866 ++ff=dos<CR>
 menu Encoding.koi8-r :e ++enc=koi8-r ++ff=unix<CR>
 menu Encoding.koi8-u :e ++enc=koi8-u ++ff=unix<CR>
@@ -308,82 +372,59 @@ map <F8> :emenu Encoding.<TAB>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
 
 "F10 - Оборачивайтесь свободным тегом
-function! WrapWithTag()
-  " Список популярных HTML-тегов для автодополнения
-  let s:html_tags = [
-        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
-        \]
+let g:html_tags = [
+      \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
+      \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
+      \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
+      \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
+      \ 'select', 'option', 'textarea', 'details', 'script', 'link', 'meta'
+      \]
 
+function! WrapWithTag()
   " Проверяем, есть ли выделение
   if mode() =~ '^[vV]'
-    " Если есть выделение - сохраняем его границы
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
   else
-    " Если нет выделения - выделяем текущую строку
     normal! V
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
   endif
 
-  " Ввод с автодополнением
   let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
   if empty(input_str)
     echo "No tag entered."
     return
   endif
 
-  " Разделяем: тег и классы
   let parts = split(input_str)
   let tag = parts[0]
   let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
 
-  " Обратное выделение — меняем местами
   if l1 > l2 || (l1 == l2 && c1 > c2)
     let [l1, l2] = [l2, l1]
     let [c1, c2] = [c2, c1]
   endif
 
   let lines = getline(l1, l2)
-
-  " Обрезаем начальную и конечную строку
   let lines[0] = lines[0][c1 - 1:]
   let lines[-1] = lines[-1][:c2 - 1]
 
-  " Оборачиваем с переносами
   let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
-
-  " Заменяем строки в буфере
   call setline(l1, wrapped_lines)
 
-  " Удаляем лишние старые строки, если было больше
   if l2 > l1 + len(wrapped_lines) - 1
     call deletebufline('%', l1 + len(wrapped_lines), l2)
   endif
 endfunction
 
-" Функция автодополнения
 function! CompleteTags(ArgLead, CmdLine, CursorPos)
-  let tags = [
-        \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-        \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-        \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-        \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-        \ 'select', 'option', 'textarea', 'style', 'script', 'link', 'meta'
-        \]
-
-  " Фильтруем теги по введенному тексту
   let matches = []
-  for tag in tags
+  for tag in g:html_tags
     if tag =~ '^' . a:ArgLead
       call add(matches, tag)
     endif
   endfor
-
   return matches
 endfunction
 
@@ -396,15 +437,14 @@ nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
 "F12 - NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>
 
-
 " ===== html =====
 
 "Текстовые элементы
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
-vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap bb "zdi<strong><C-R>z</strong><ESC>
-vnoremap si "zdi<i><C-R>z</i><ESC>
+vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap ii "zdi<em><C-R>z</em><ESC>
+vnoremap si "zdi<i><C-R>z</i><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
 
 "Заголовки
@@ -416,14 +456,16 @@ vnoremap s4 "zdi<h4><C-R>z</h4><ESC>
 vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
 vnoremap s6 "zdi<h6><C-R>z</h6><ESC>"
 
-"Ссылки: обычные, target, e-mail, телефон
+"Ссылки обычные
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
+"Ссылки target
 vnoremap sat "zdi<a href="<esc>maa" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
 vnoremap saat "zdi<a href="https://<C-R>z" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
-
-vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><ESC>`aa
-vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>`aa
+"e-mail
+vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><Esc>
+"Телефон
+vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>
 
 "html блоки
 vnoremap sd 1"zdi<div><cr><C-R>z<cr><C-R> </div><ESC>
@@ -463,8 +505,8 @@ vnoremap sv 1"zdi" ===== <C-R>z =====<ESC>
 
 
 "Таблицы
-inoremap \col colspan="2"
-inoremap \row rowspan="2"
+"inoremap \col colspan="2"
+"inoremap \row rowspan="2"
 
 "Пустой HTML
 inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
@@ -492,23 +534,23 @@ inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-inoremap \cov background-size: cover;
-inoremap \ts text-shadow: 0 0 10px #d1d1d1
-inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
+"inoremap \cov background-size: cover;
+"inoremap \ts text-shadow: 0 0 10px #d1d1d1
+"inoremap \grid display: grid;<cr>grid-template-columns: 1fr 2fr;
 
 "Формы
-inoremap \texter <cr><textarea rows="3" placeholder=""></textarea><cr>
-inoremap \input <cr><input type="text" placeholder=""><cr>
-inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
-inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
+"inoremap \texter <cr><textarea rows="3" placeholder=""></textarea><cr>
+"inoremap \input <cr><input type="text" placeholder=""><cr>
+"inoremap \radio <label class="radio"><cr>  <input type="radio"><cr></label>
+"inoremap \chek <label class="checkbox"><cr><input type="checkbox"><cr></label>
 "vnoremap so "zdi<option><C-R>z</option><ESC>
 
 "@media
-inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
-inoremap \pad  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
-inoremap \padp /*pad portrait*/<cr> @media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {<cr><cr>}
-inoremap \note  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
-inoremap \squar /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
+"inoremap \phon /*phone*/<cr> @media (max-width: 769px) {<cr><cr>}
+"inoremap \pad  /*pad*/<cr> @media (min-width: 769px) and (max-width: 1024px){<cr><cr>}
+"inoremap \padp /*pad portrait*/<cr> @media  (min-width : 768px) and (max-width: 1024px) and (orientation: portrait) {<cr><cr>}
+"inoremap \note  /*notebook*/<cr> @media only screen and (max-width: 1650px){<cr><cr>}
+"inoremap \squar /*square*/<cr> @media screen and (min-width: 1025px) and (max-width: 1400px)
 
 "HTML/CSS/bash/python
 inoremap \sh #!/bin/bash
@@ -538,17 +580,22 @@ vmap <F11> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 "pathogen https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 syntax on
-filetype plugin indent on
 
 " ===== vim-startify =====
 " https://github.com/mhinz/vim-startify
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header = map(split(system('cowsay'), 'n'), '"   ". v:val') + ['','']
 
+let g:startify_bookmarks = [
+      \ { 'p': '~/prompts.txt' },
+      \ { 'h': '~/.vim/my-help.vim' },
+      \ ]
+
 " ===== NERDTree =====
 
 "nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
 
 
 
