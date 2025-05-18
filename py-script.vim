@@ -10,6 +10,6 @@ vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
 
 "F4  html клинер
-imap <F4> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
-nmap <F4> :%!python3 ~/.vim/scripts/clean_html.py<CR>
-vmap <F4> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+imap <F7> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+nmap <F7> :%!python3 ~/.vim/scripts/clean_html.py<CR>
+vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>

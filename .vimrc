@@ -277,22 +277,19 @@ nmap <F3> :g/^s*$/d
 "Shift + F3 - Удалить множественные пустые строки, оставить одну
 nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 
-"F4 - html клинер
+" F4 - Выделить содержимое тега под курсором
+nnoremap <F4> vit
+inoremap <F4> <C-O>vit
+
+" F5 - Выделить тег под курсором
+nnoremap <F5> vat
+inoremap <F5> <C-O>vat
+
+"F6
+
+"F7 - html клинер
 "Смотри  py-script
 
-"F5 - Вставка дата времени
-imap <F5> <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
-" %d — день месяца (01..31).
-" %B — полное название месяца (январь, февраль и т.д.).
-" %Y — полный год (например, 2025).
-" %H:%M:%S — время в формате час:минуты:секунды.
-" %A — полное название дня недели (понедельник, вторник и т.д.).
-
-"F6 - Мой хелп
-nnoremap <F6> :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
-
-"F7 - Редактировать .vimrc
-map <F7> :vsp $MYVIMRC<CR>
 
 "F8 - Выбор кодировки
 set wildmenu
@@ -437,6 +434,26 @@ inoremap <F11> <Esc>:call InsertSnippet()<CR>
 
 "F12 - NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>
+inoremap <F12> <C-O>:NERDTreeToggle<CR>
+
+"LEADER сочетания
+
+nnoremap <leader>l :echo "t - дата, v - vimrc, h - хелпик "<CR>
+
+"LEADER t - Вставка дата времени
+imap <leader>t <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
+" %d — день месяца (01..31).
+" %B — полное название месяца (январь, февраль и т.д.).
+" %Y — полный год (например, 2025).
+" %H:%M:%S — время в формате час:минуты:секунды.
+" %A — полное название дня недели (понедельник, вторник и т.д.).
+
+"LEADER v - Редактировать .vimrc
+nnoremap <leader>v :vsp $MYVIMRC<CR> Редактировать .vimrc
+nnoremap <leader>v :vsp $MYVIMRC<CR>
+
+"LEADER h - Мой хелп
+nnoremap <leader>h :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
 
 " ===== html =====
 
@@ -542,9 +559,9 @@ vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
 
 "F4  html клинер
-imap <F4> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
-nmap <F4> :%!python3 ~/.vim/scripts/clean_html.py<CR>
-vmap <F4> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+imap <F7> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
+nmap <F7> :%!python3 ~/.vim/scripts/clean_html.py<CR>
+vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 " ===== Pathogen =====
 "pathogen https://github.com/tpope/vim-pathogen
@@ -565,7 +582,7 @@ let g:startify_bookmarks = [
 
 "nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
-
+let NERDTreeShowHidden=1
 
 
 

@@ -17,6 +17,6 @@ let g:startify_bookmarks = [
 
 "nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
-
+let NERDTreeShowHidden=1
 
 
