@@ -1,4 +1,7 @@
+git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
+
 #/*--------------------Python--------------------*/
+
 
 
 python --version

@@ -1,6 +1,4 @@
-" ===== Курсор =====
-
-"Классичемкий курсор
+" ===== Классичемкий курсор =====
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -12,14 +10,26 @@ vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+" Включает выделение строки с курсором
 set cursorline
-hi CursorLine ctermbg=235 cterm=none
-set ruler "Текущее положение курсора
 
-"Линия курсора только в активном окне, и только в режиме вставки
+" Настраивает цвет фона выделенной строки (CursorLine)
+hi CursorLine ctermbg=235 cterm=none
+
+" Отображает текущее положение курсора в нижней части окна
+set ruler
+
+" Линия курсора только в активном окне, и только в режиме вставки
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
+" Устанавливает режим работы мыши на всплывающее меню
 set mousemodel=popup
-set mouse=a "Включаем мышку
-set mousehide "Скрывать мышку при печати
+
+" Включает возможность использования мыши во всех режимах
+set mouse=a
+
+" Скрывает указатель мыши при печати
+set mousehide
+
+

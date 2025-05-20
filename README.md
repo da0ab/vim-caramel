@@ -159,3 +159,18 @@
 ####  Python скрипт сборки и копирования
 
 - **VIMRC-COMPLIT.py**  - собирает и перезаписывает~/.vimrc делая бекап ~/.vimrc~
+
+
+#### Плагины и темы
+
+# Тема desert
+
+https://github.com/fugalh/desert.vim/
+
+# Плагины
+
+https://github.com/tpope/vim-pathogen/
+https://github.com/mhinz/vim-startify/
+https://github.com/preservim/nerdtree/
+https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
+

@@ -1,12 +1,34 @@
-" ===== Оформление =====
-"Пустой стартовый экран
+" Пустой стартовый экран
 set shm+=I
-"Размер шрифта
+
+" Цветовая схема]
+colorscheme my-desert
+
+" Размер шрифта
 set guifont=Anonymous_Pro:h14
-set lines=75 "Высота
-set columns=210 "Ширина
-"Сделать строку команд высотой в одну строку
+
+" GUI шрифт
+"let g:default_guifont = 'Anonymous_Pro:h14'
+
+" GUI шрифт на старте
+
+"let g:startify_guifont = 'Anonymous_Pro:h16'
+
+" Высота
+set lines=75
+
+" Ширина
+set columns=210
+
+" Сделать строку команд высотой в одну строку
 set ch=1
+
+" Цвета Pmenu
 hi Pmenu guibg=#666666 guifg=#eeeeec
-colorscheme desert
+
+" Включаем подсветку строки
+set cursorline
+
+" True-цвета
+set termguicolors
 

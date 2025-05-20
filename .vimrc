@@ -1,23 +1,11 @@
-" ===== Основное =====
-
-"Несовместимость с vi
-set nocompatible 
-"Базовая кодировка
+set nocompatible
 set encoding=utf-8
-"Список используемых кодировок для автоматического их определения
 set fileencodings=utf-8,koi8-r,cp1251,cp866
-"Включить плагины
 filetype plugin indent on
-"Русский хелп
 set helplang=ru
-"Отключить гуи
 set guioptions-=T
-"Системный буфер
 set clipboard=unnamed
-"Назначаем leader
 let mapleader = "."
-
-" ===== Фикс русской раскладки =====
 
 map ё `
 map й q
@@ -88,23 +76,16 @@ map Б <
 map Ю >
 map , ?
 
-
-" ===== Оформление =====
-"Пустой стартовый экран
 set shm+=I
-"Размер шрифта
+colorscheme my-desert
 set guifont=Anonymous_Pro:h14
-set lines=75 "Высота
-set columns=210 "Ширина
-"Сделать строку команд высотой в одну строку
+set lines=75
+set columns=210
 set ch=1
 hi Pmenu guibg=#666666 guifg=#eeeeec
-colorscheme desert
+set cursorline
+set termguicolors
 
-
-" ===== Курсор =====
-
-"Классичемкий курсор
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -115,39 +96,26 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
-
 set cursorline
 hi CursorLine ctermbg=235 cterm=none
-set ruler "Текущее положение курсора
-
-"Линия курсора только в активном окне, и только в режиме вставки
+set ruler
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
-
 set mousemodel=popup
-set mouse=a "Включаем мышку
-set mousehide "Скрывать мышку при печати
+set mouse=a
+set mousehide
 
-" ===== Строка состояния =====
-
-set showmode "Включить строкe состояния
+set showmode
 set wildmenu
 set laststatus=2
 set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %o\ %P
 
-
-" ===== Поиск =====
-
-set hlsearch "Подсветка все совпадения результатов поиска
-set ignorecase "Игнорировать регистр букв при поиске
-set incsearch "При поиске перескакивать на найденный текст в процессе набора строки
-set smartcase "Игнорировать предыдущую опцию если в строке поиска есть буквы разного регистра
-set nowrapscan "Поиск до первого совпадения
-set infercase "Предлагать авто-дополнение на основе уже введённого регистра
-
-
-" ===== Бекап =====
-set noswapfile "Убить свапфайл
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set nowrapscan
+set infercase
 
 if version >= 700
     set history=64
@@ -156,8 +124,7 @@ if version >= 700
     set undolevels=1000
     set undoreload=10000
 endif
-
-" ===== Базовые настройки (применяются глобально) =====
+set noswapfile
 
 syntax on
 set wrap
@@ -172,13 +139,9 @@ set autoindent
 set nofoldenable
 set foldmethod=manual
 set showmatch
-
-" ===== Автозакрытие скобок =====
 imap [ []<LEFT>
 imap { {}<LEFT>
 imap ( ()<LEFT>
-
-" ===== Умный Tab =====
 function InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -188,110 +151,54 @@ function InsertTabWrapper()
     endif
 endfunction
 imap <tab> <c-r>=InsertTabWrapper()<cr>
-
-" ===== Очистка пробелов в конце строк =====
 autocmd BufWritePre * silent! %s/[\r \t]\+$//
-
-" ===== Специфичные настройки для типов файлов =====
 augroup filetype_settings
     autocmd!
-
-    " HTML/PHP
     autocmd FileType html,php setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType html,php setlocal wrap
-
-    " CSS (включая встроенный в HTML)
     autocmd FileType css setlocal foldmethod=indent
-
-    " JavaScript (включая встроенный в HTML)
     autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
     autocmd FileType javascript setlocal cindent
-
-    " Форматирование при сохранении
     autocmd BufWritePre *.html,*.php,*.css,*.js execute 'normal mzgg=G`z'
 augroup END
 
-" ===== Базовые сочетания горячих клавиш =====
-
-"C-q Выход без сохранения
 map <C-Q> <Esc>:q!<cr>
-
-"Space Пробел в нормальном режиме перелистывает страницы
 nnoremap <Space> <PageDown>
 nnoremap <S-Space> <PageUp>
-
-"Табы
-
-"Переключение вкладок: m . → следующая, m , → предыдущая
 nnoremap m. :tabnext<CR>
 nnoremap m, :tabprevious<CR>
 set timeoutlen=300
-"mНОМЕРтАБА
 for i in range(1, 9)
   execute "nnoremap m" . i . " " . i . "gt"
 endfor
-
-"< и > Смещаем блоки
 vmap < <gv
 vmap > >gv
-
-"C-c и C-v  Копировать/вставить
 vmap <C-C> "+y
 imap <C-V> <esc>"+gp
 vnoremap <C-v> "_d"+p
-
-"C-a  Выделить всё
 nnoremap <C-a> ggVG
 inoremap <C-a> <Esc>ggVG
 vnoremap <C-a> <Esc>ggVG
-
-"C-d  Дублировать текущую строку
 nnoremap <C-d> :copy.<CR>
 inoremap <C-d> <Esc>:copy.<CR>gi
 vnoremap <C-d> y`>pgv`<
-
-"C-x  Вырезать текущую строку
 nnoremap <C-x> dd
 inoremap <C-x> <Esc>ddi
 vnoremap <C-x> d
-
-" ===== Одиночные горячие клавиши =====
-
-"F1 - Сохранить
 nnoremap <F1> :w!<CR>
 inoremap <F1> <Esc>:w!<CR>
 vnoremap <F1> <Esc>:w!<CR>
-
-"F1 .vimrc  - Автообновление vim
 augroup auto_source_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo "✅ .vimrc reloaded"
 augroup END
-
-"F2 - Выделить строчку без переноса
 nmap <F2> ^vg_
-
-"F3 - Удалить пустые строки
-nmap <F3> :g/^s*$/d
-
-"Shift + F3 - Удалить множественные пустые строки, оставить одну
-nnoremap <S-F3> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
-
-" F4 - Выделить содержимое тега под курсором
 nnoremap <F4> vit
 inoremap <F4> <C-O>vit
-
-" F5 - Выделить тег под курсором
 nnoremap <F5> vat
 inoremap <F5> <C-O>vat
-
-"F6
-
-"F7 - html клинер
-"Смотри  py-script
-
-
-"F8 - Выбор кодировки
+nmap <F6> :g/^s*$/d
+nnoremap <S-F6> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 set wildmenu
 set wcm=<Tab>
 menu Encoding.windows-1251 :e ++enc=cp1251 ++ff=dos<CR>
@@ -300,12 +207,8 @@ menu Encoding.cp866 :e ++enc=cp866 ++ff=dos<CR>
 menu Encoding.koi8-r :e ++enc=koi8-r ++ff=unix<CR>
 menu Encoding.koi8-u :e ++enc=koi8-u ++ff=unix<CR>
 map <F8> :emenu Encoding.<TAB>
-
-"F9 - Отобразить/Скрыть меню
-"set guioptions-=m
     function MyToggleMenu()
         let old_guioptions = &guioptions
-        "Если меню в данный момент видимо
         if stridx(old_guioptions, 'm') != -1
             set guioptions-=m
         else
@@ -316,8 +219,6 @@ map <F8> :emenu Encoding.<TAB>
     imap <F9> <ESC>:call MyToggleMenu()<CR>
     nmap <F9> :call MyToggleMenu()<CR>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
-
-"F10 - Оборачивайтесь свободным тегом
 let g:html_tags = [
       \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
       \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
@@ -325,9 +226,7 @@ let g:html_tags = [
       \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
       \ 'select', 'option', 'textarea', 'details', 'script', 'link', 'meta'
       \]
-
 function! WrapWithTag()
-  " Проверяем, есть ли выделение
   if mode() =~ '^[vV]'
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
@@ -336,34 +235,27 @@ function! WrapWithTag()
     let [l1, c1] = [line("'<"), col("'<")]
     let [l2, c2] = [line("'>"), col("'>")]
   endif
-
   let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
   if empty(input_str)
     echo "No tag entered."
     return
   endif
-
   let parts = split(input_str)
   let tag = parts[0]
   let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
-
   if l1 > l2 || (l1 == l2 && c1 > c2)
     let [l1, l2] = [l2, l1]
     let [c1, c2] = [c2, c1]
   endif
-
   let lines = getline(l1, l2)
   let lines[0] = lines[0][c1 - 1:]
   let lines[-1] = lines[-1][:c2 - 1]
-
   let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
   call setline(l1, wrapped_lines)
-
   if l2 > l1 + len(wrapped_lines) - 1
     call deletebufline('%', l1 + len(wrapped_lines), l2)
   endif
 endfunction
-
 function! CompleteTags(ArgLead, CmdLine, CursorPos)
   let matches = []
   for tag in g:html_tags
@@ -373,16 +265,10 @@ function! CompleteTags(ArgLead, CmdLine, CursorPos)
   endfor
   return matches
 endfunction
-
 vnoremap <F10> :<C-u>call WrapWithTag()<CR>
 nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
-
-"F11 Вставка длинных кусков с подсказкой
-" Включить wildmenu для интерактивного меню
 set wildmenu
 set wildmode=longest,list,full
-
-" Словарь сниппетов / двойные кавычки для переносов
 let g:insert_snippets = {
   \ 'texterea':           '<textarea rows="3" placeholder=""></textarea>',
   \ 'input':              '<input type="text" placeholder="">',
@@ -402,7 +288,6 @@ let g:insert_snippets = {
   \ 'version':            '?v=0.0.1',
   \ 'cover':              'background-size: cover'
 \ }
-" Функция для автодополнения ключей
 function! SnippetComplete(A, L, P)
   let matches = []
   for key in keys(g:insert_snippets)
@@ -412,13 +297,10 @@ function! SnippetComplete(A, L, P)
   endfor
   return matches
 endfunction
-
-" Вставка сниппета
 function! InsertSnippet()
   let key = input('Вставка по ключу: ', '', 'customlist,SnippetComplete')
   if has_key(g:insert_snippets, key)
     execute "normal! a" . g:insert_snippets[key]
-    " Перемещаем курсор внутрь скобок для сниппета pad
     if key == 'pad'
       execute "normal! k$"
     endif
@@ -426,46 +308,22 @@ function! InsertSnippet()
     echo "Нет соответствующего сниппета для ключа: " . key
   endif
 endfunction
-
-" Привязка клавиши F4
 nnoremap <F11> :call InsertSnippet()<CR>
 inoremap <F11> <Esc>:call InsertSnippet()<CR>
-
-
-"F12 - NERDTree
 nnoremap <F12> :NERDTreeToggle<CR>
 inoremap <F12> <C-O>:NERDTreeToggle<CR>
-
-"LEADER сочетания
-
 nnoremap <leader>l :echo "t - дата, v - vimrc, h - хелпик "<CR>
-
-"LEADER t - Вставка дата времени
 imap <leader>t <C-R>= '-----/ ' . toupper(strftime("%d %B %Y • %H:%M:%S %A")) . ' /-----'<CR>
-" %d — день месяца (01..31).
-" %B — полное название месяца (январь, февраль и т.д.).
-" %Y — полный год (например, 2025).
-" %H:%M:%S — время в формате час:минуты:секунды.
-" %A — полное название дня недели (понедельник, вторник и т.д.).
-
-"LEADER v - Редактировать .vimrc
 nnoremap <leader>v :vsp $MYVIMRC<CR> Редактировать .vimrc
 nnoremap <leader>v :vsp $MYVIMRC<CR>
-
-"LEADER h - Мой хелп
 nnoremap <leader>h :e <C-R>=expand("~/.vim/my-help.vim")<CR><CR>
 
-" ===== html =====
-
-"Текстовые элементы
 vnoremap pp 1"zdi<p><C-R>z</p><ESC>
 vnoremap bb "zdi<strong><C-R>z</strong><ESC>
 vnoremap sb "zdi<b><C-R>z</b><ESC>
 vnoremap ii "zdi<em><C-R>z</em><ESC>
 vnoremap si "zdi<i><C-R>z</i><ESC>
 vnoremap sq "zdi«<C-R>z»<ESC>
-
-"Заголовки
 vnoremap s1 "zdi<h1><C-R>z</h1><ESC>
 vnoremap s2 "zdi<h2><C-R>z</h2><ESC>
 vnoremap s2t "zdi<h2 class="title"><C-R>z</h2><ESC>
@@ -473,56 +331,32 @@ vnoremap s3 "zdi<h3><C-R>z</h3><ESC>
 vnoremap s4 "zdi<h4><C-R>z</h4><ESC>
 vnoremap s5 "zdi<h5><C-R>z</h5><ESC>
 vnoremap s6 "zdi<h6><C-R>z</h6><ESC>"
-
-"Ссылки обычные
 vnoremap sa "zdi<a href="<esc>maa"><C-R>z</a><ESC>`aa
 vnoremap saa "zdi<a href="<C-R>z"><C-R>z</a><ESC>`aa
-"Ссылки target
 vnoremap sat "zdi<a href="<esc>maa" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
 vnoremap saat "zdi<a href="https://<C-R>z" target="_blank" rel="nofollow"><C-R>z</a><ESC>`aa
-"e-mail
 vnoremap s@ "zdi<a href="mailto:<C-R>z"><C-R>z</a><Esc>
-"Телефон
 vnoremap st "zdi<a href="tel:<C-R>z"><C-R>z</a><ESC>
-
-"html блоки
 vnoremap sd 1"zdi<div><cr><C-R>z<cr><C-R> </div><ESC>
 vnoremap sdi 1"zdi<div id=""><C-R>z</div><ESC>
 vnoremap sdc 1"zdi<div class=""><cr><C-R>z<cr><C-R> </div><ESC>
-
 vnoremap spa "zdi<span class=""><C-R>z</span><ESC>
 vnoremap span "zdi<span><C-R>z</span><ESC>
-
 vnoremap sec 1"zdi<section><cr><C-R>z<cr></section><ESC>
 vnoremap secc 1"zdi<section class="main"><cr><C-R>z<cr></section><ESC>
-
-
-"details
 vnoremap details 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
 vnoremap det 1"zdi<details><cr><summary><C-R>z</summary><cr><cr></details><ESC>
-
-"Списки ul
 vnoremap sl 1"zdi<li><C-R>z</li><ESC>
-
-"Изображения
 vnoremap sw "zdi<img src="images/<C-R>z" alt="" title=""><ESC>
 vnoremap swl "zdi<a href="images/<C-R>z" class="iPop-img"><img src="images/<C-R>z" alt="" title=""></a><ESC>
 vnoremap swv "zdi<a href="<C-R>z"class="iPop-video"></a><ESC>
-
-"Комментарии
 vnoremap ss 1"zdi<!--<C-R>z --><ESC>
 vnoremap sc 1"zdi/*<C-R>z*/<ESC>
 vnoremap sx 1"zdi/*-------------------- <C-R>z --------------------*/<ESC>
 vnoremap sv 1"zdi" ===== <C-R>z =====<ESC>
-
-"Пустой HTML
 inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
-
 inoremap \x5 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1"><cr><meta name="format-detection" content="telephone=no"><cr><link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><script type="text/javascript" src="js/vendor.min.js?v=0.0.1"></script><cr><cr><script type="text/javascript" src="js/ProTo.min.js?v=0.0.1"></script><cr><cr></body><cr></html>
-
 inoremap \seo <cr><meta name="description" content=""><cr><meta name="keywords" content=""><cr><meta name="author" content=""><cr><meta name="copyright" lang="ru" content=""><cr><meta name="robots" content="all"><cr>
-
-"Быстрая добавка
 inoremap <C-Enter> <br>
 inoremap \a <a id="" class="anchor"></a>
 inoremap \<Space> &nbsp;
@@ -538,51 +372,114 @@ inoremap \b border: 1px solid #ddd;
 inoremap \1  <C-Space>!important
 inoremap \fw font-weight: bold;
 inoremap \bg background: transparent url(../images/) no-repeat center;
-
-"HTML/CSS/bash/python
 inoremap \sh #!/bin/bash
 inoremap \py #!/usr/bin/env python3<cr># -*- coding: utf-8 -*-
 inoremap \s <style type="text/css"><cr><cr></style>
 inoremap \j <script type="text/javascript" src="js"><cr><cr></script>
 inoremap \css <link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">
 
-
-" ===== python скрипты =====
-
-"sp  Оборачивание нескольких абзацев/предложений в `<p>`
 vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
-
-"sdd  Оборачивание нескольких абзацев/предложений в`<div>`
 vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
-
-"su  Оборачивание в список группы строк (разделение переносом)
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
-
-"F4  html клинер
 imap <F7> <C-R>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 nmap <F7> :%!python3 ~/.vim/scripts/clean_html.py<CR>
 vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
-" ===== Pathogen =====
-"pathogen https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 syntax on
-
-" ===== vim-startify =====
-" https://github.com/mhinz/vim-startify
 let g:startify_change_to_vcs_root = 1
-let g:startify_custom_header = map(split(system('cowsay'), 'n'), '"   ". v:val') + ['','']
-
+let g:startify_enable_special = 0
+function! GetWelcomeMessage()
+  let l:file = expand("~/.vim/start.vim")
+  if filereadable(l:file)
+    let l:lines = readfile(l:file)
+    if !empty(l:lines)
+      let quote = l:lines[rand() % len(l:lines)]
+      let len_quote = len(quote) + 6
+      let top = '┌' . repeat('─', len_quote) . '┐'
+      let middle = '   ' . quote . '   '
+      let bottom = '└' . repeat('─', len_quote) . '┘'
+      return [
+            \ '',
+            \ top,
+            \ middle,
+            \ bottom,
+            \ ''
+            \ ]
+    endif
+  endif
+  return ['   (Цитата не найдена)']
+endfunction
+autocmd FileType startify syntax match StartifyHotkey /"\s\zs\(\S\{2,4}\):/ containedin=StartifyHeader
+highlight StartifyHotkey guifg=#fabd2f ctermfg=214 gui=bold
+let g:startify_custom_header = GetWelcomeMessage()
+let g:startify_lists = [
+      \ { 'type': 'files', 'header': ['   A few moments earlier...'] },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
+      \ ]
 let g:startify_bookmarks = [
       \ { 'p': '~/prompts.txt' },
       \ { 'h': '~/.vim/my-help.vim' },
       \ ]
-
-" ===== NERDTree =====
-
-"nnoremap <leader>n :NERDTreeFocus<CR>
+augroup StartifySyntax
+  autocmd!
+  autocmd FileType startify :
+    \ syntax match StartifyFile /\[[^\]]\+\]/ containedin=StartifySection |
+    \ syntax match StartifyPath /\/[^\/]*$/ containedin=StartifyFile
+  autocmd FileType startify :
+    \ syntax match StartifyExt /\.\w\+\($\|\[\)/ containedin=StartifyFile |
+    \ syntax match StartifyExt /\/\.[^\/]\+\// containedin=StartifyPath
+augroup END
+highlight StartifyExt   guifg=#83a598 ctermfg=109  " Общий цвет расширений (голубой)
+highlight StartifyExtVim guifg=#b16286 ctermfg=132  " .vim (фиолетовый)
+highlight StartifyExtPy  guifg=#458588 ctermfg=66   " .py (синий)
+highlight StartifyExtJs  guifg=#d79921 ctermfg=172  " .js (оранжевый)
+highlight StartifyExtMd  guifg=#8ec07c ctermfg=108  " .md (зелёный)
+autocmd FileType startify :
+  \ syntax match StartifyExtVim /\.vim\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtPy  /\.py\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtJs  /\.js\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtMd  /\.md\($\|\[\)/ containedin=StartifyFile
+let g:nerdtree_auto_opened = 0
+let g:NERDTreeLimitedSyntax = 0
+let g:NERDTreeSyntaxEnabled = 1
 nnoremap <C-f> :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
-
-
+function! s:MaybeNERDTreeFind()
+  if &filetype =~# 'nerdtree\|startify\|gitcommit'
+    return
+  endif
+  if !filereadable(expand('%:p'))
+    return
+  endif
+  if g:nerdtree_auto_opened
+    return
+  endif
+  if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+    return
+  endif
+  let g:nerdtree_auto_opened = 1
+  execute 'NERDTreeFind'
+endfunction
+augroup NERDTreeAutoFind
+  autocmd!
+  autocmd VimEnter * call s:MaybeNERDTreeFind()
+  autocmd BufReadPost * call s:MaybeNERDTreeFind()
+augroup END
+autocmd BufWritePost * if &ft == 'nerdtree' | silent NERDTreeSyntaxRefresh | endif
+let g:NERDTreeSyntaxDisableDefaultExtensions = 0
+let g:NERDTreeSyntaxEnabledExtensions = ['js', 'py', 'vim', 'md', 'txt']
+highlight NERDTreeFileExtension_js  guifg=#F0DB4F ctermfg=220  " JavaScript
+highlight NERDTreeFileExtension_py  guifg=#3572A5 ctermfg=67   " Python
+highlight NERDTreeFileExtension_vim guifg=#199F4B ctermfg=35   " Vimscript
+highlight NERDTreeFileExtension_md  guifg=#FF79C6 ctermfg=212   " Markdown
+highlight nerdtreeFileExtensionLabel_js    guifg=#E5C07B
+highlight nerdtreeFileExtensionLabel_html  guifg=#E06C75
+highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
+highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
+highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
+highlight CursorLine ctermbg=0 guibg=#2e2e2e cterm=none gui=none
+highlight CursorLineNr ctermbg=235 guibg=#2c313c ctermfg=214 guifg=#FFA500
+set hlsearch
+nohlsearch
 
