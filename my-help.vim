@@ -1,37 +1,3 @@
-git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
-
-#/*--------------------Python--------------------*/
-
-
-
-python --version
-python3 --version
-pip --version
-pip3 --version
-
-после перемещения вирт окружения
-
-python3 -m venv my_local_python
-source my_local_python/bin/activate  # Для macOS/Linux
-my_local_python\Scripts\activate  # Для Windows
-pip install -r requirements.txt
-
-активация вирт окружения source my_local_python/bin/activate  # Для macOS/Linux
-
-
-pip freeze > requirements.txt
-Это создаст файл requirements.txt, в котором будут перечислены все установленные пакеты и их версии.
-
-При создании виртуального окружения ты можешь явно указать, какую версию Python использовать. Например:
-/path/to/python3.13 -m venv myenv
-
-Если у тебя установлен только Python 3.13.3, ты можешь просто использовать команду python3:
-python3 -m venv myenv
-
-
-первый запуск для нового проекта
-python html.py new-site.ru
-
 
 "/*-------------------- NERDTree --------------------*/
 "
@@ -268,4 +234,4 @@ hjkl                    " перемещение между окнами
 "раздельные слова и цифры
 ":%s,\(\d\+\),<td>\1</td>,g оборачиваем только цифры
 
-https://github.com/settings/tokens/
+
