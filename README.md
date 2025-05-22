@@ -135,27 +135,12 @@
 - `LEADER h` : Открыть памятку vim`ра
 - `LEADER v` : Редактировать .vimrc
 ---
-#### Файлы
-
-- **base.vim** - основной
-- **key-ru-fix.vim** - исправление русской раскладки
-- **face.vim** - морда
-- **cursor.vim** - курсор
-- **statusline.vim** - строка состояния
-- **search.vim** - поиск
-- **backup.vim** - резервное копирование
-- **content.vim** - содержимое файла
-- **keys.vim** - комбинации горячих клавиш
-- **html.vim** - css/html
-- **py-script.vim** - Python скрипты для работы с текстом
-- **my-help.vim** - Памятка vim`ра
 
 #### Python скрипты размещены в
 
 ```HTML
 ~/.vim/scripts/
 ```
-
 ####  Python скрипт сборки и копирования
 
 - **VIMRC-COMPLIT.py**  - собирает и перезаписывает~/.vimrc делая бекап ~/.vimrc~
@@ -170,8 +155,23 @@
 - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 - [Тема desert](https://github.com/fugalh/desert.vim/)
 
-
 ### Инсталляционный скрипт
 
 ``install_vim-turbo.sh``
+
+#### Файлы
+
+- **base.vim** - основной
+- **key-ru-fix.vim** - исправление русской раскладки
+- **face.vim** - морда
+- **cursor.vim** - курсор
+- **statusline.vim** - строка состояния
+- **search.vim** - поиск
+- **backup.vim** - резервное копирование
+- **content.vim** - содержимое файла
+- **keys.vim** - комбинации горячих клавиш
+- **html.vim** - css/html
+- **py-script.vim** - Python скрипты для работы с текстом
+- **my-help.vim** - Памятка
+- **install_vim-turbo.sh** - Инсталляционный скрипт
 
