@@ -160,14 +160,7 @@
 
 - **VIMRC-COMPLIT.py**  - собирает и перезаписывает~/.vimrc делая бекап ~/.vimrc~
 
-
-#### Плагины и темы
-
-# Тема desert
-
-https://github.com/fugalh/desert.vim/
-
-# Плагины
+### Плагины / Тема
 
 - [vim-pathogen](https://github.com/tpope/vim-pathogen/)
 - [vim-startify](https://github.com/mhinz/vim-startify/)
@@ -175,9 +168,10 @@ https://github.com/fugalh/desert.vim/
 - [vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight)
 - [vim-devicons](https://github.com/ryanoasis/vim-devicons)
 - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+- [Тема desert](https://github.com/fugalh/desert.vim/)
 
 
-# Инсталляционный скрипт
+### Инсталляционный скрипт
 
 ``install_vim-turbo.sh``
 
