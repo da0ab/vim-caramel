@@ -179,5 +179,5 @@ https://www.nerdfonts.com/font-downloads
 
 # Инсталляционный скрипт
 
-install_vim-turbo.sh
+``install_vim-turbo.sh``
 
