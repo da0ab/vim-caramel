@@ -169,12 +169,12 @@ https://github.com/fugalh/desert.vim/
 
 # Плагины
 
-https://github.com/tpope/vim-pathogen/
-https://github.com/mhinz/vim-startify/
-https://github.com/preservim/nerdtree/
-https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
-https://github.com/ryanoasis/vim-devicons
-https://www.nerdfonts.com/font-downloads
+- [vim-pathogen](https://github.com/tpope/vim-pathogen/)
+- [vim-startify](https://github.com/mhinz/vim-startify/)
+- [NERDTree](https://github.com/preservim/nerdtree/)
+- [vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight)
+- [vim-devicons](https://github.com/ryanoasis/vim-devicons)
+- [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
 
 # Инсталляционный скрипт
