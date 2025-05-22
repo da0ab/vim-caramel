@@ -197,4 +197,4 @@ alias pv3="echo " $(python3 --version) | $(pip3 --version)""
 pip freeze > requirements.txt
 
 
-https://github.com/settings/tokens/
+
