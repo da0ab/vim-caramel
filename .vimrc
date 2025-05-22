@@ -78,7 +78,7 @@ map , ?
 
 set shm+=I
 colorscheme my-desert
-set guifont=Anonymous_Pro:h14
+set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
 set lines=75
 set columns=210
 set ch=1
@@ -387,10 +387,12 @@ vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 execute pathogen#infect()
 syntax on
+
 let g:startify_change_to_vcs_root = 1
-let g:startify_enable_special = 0
+let g:startify_enable_special = 1
+let g:startify_use_devicons = 1
 function! GetWelcomeMessage()
-  let l:file = expand("~/.vim/start.vim")
+  let l:file = expand("~/.vim/start-help.vim")
   if filereadable(l:file)
     let l:lines = readfile(l:file)
     if !empty(l:lines)
@@ -420,6 +422,8 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
       \ { 'p': '~/prompts.txt' },
       \ { 'h': '~/.vim/my-help.vim' },
+      \ { 's': '~/.vim/start-help.vim' },
+      \ { 'v': '~/.vimrc' },
       \ ]
 augroup StartifySyntax
   autocmd!
@@ -440,6 +444,20 @@ autocmd FileType startify :
   \ syntax match StartifyExtPy  /\.py\($\|\[\)/ containedin=StartifyFile |
   \ syntax match StartifyExtJs  /\.js\($\|\[\)/ containedin=StartifyFile |
   \ syntax match StartifyExtMd  /\.md\($\|\[\)/ containedin=StartifyFile
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:NERDTreeShowIcons = 1
+function! NERDTreeRenderNodeCustom(item)
+  let icon = WebDevIconsGetNerdTreeFileNodeSymbol(a:item)
+  let name = a:item.name
+  return icon . name
+endfunction
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let g:WebDevIconsNerdTreeCustomRender = 1
 let g:nerdtree_auto_opened = 0
 let g:NERDTreeLimitedSyntax = 0
 let g:NERDTreeSyntaxEnabled = 1
@@ -478,6 +496,12 @@ highlight nerdtreeFileExtensionLabel_html  guifg=#E06C75
 highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
 highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
 highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
+augroup NerdTreeCursorHide
+  autocmd!
+  autocmd FileType nerdtree set guicursor=n:block-blinkon0
+  autocmd BufLeave * if &ft == 'nerdtree' | set guicursor=a:block-blinkon0 | endif
+augroup END
+
 highlight CursorLine ctermbg=0 guibg=#2e2e2e cterm=none gui=none
 highlight CursorLineNr ctermbg=235 guibg=#2c313c ctermfg=214 guifg=#FFA500
 set hlsearch

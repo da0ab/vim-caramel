@@ -28,7 +28,10 @@ files_to_add = [
     "keys.vim",
     "html.vim",
     "py-script.vim",
-    "plugins.vim"
+    "plugins.vim",
+    "plugin-vim-startify.vim",
+    "plugin-nerdtree.vim",
+    "fin.vim"
 ]
 
 def process_lines(lines):
@@ -58,8 +61,10 @@ with open(vimrc_path, 'w') as vimrc_file:
 
 # Копирование my-help.vim в ~/.vim/
 src_help = os.path.join(script_dir, "my-help.vim")
+src_help2 = os.path.join(script_dir, "start-help.vim")
 dst_dir = os.path.expanduser("~/.vim")
 dst_help = os.path.join(dst_dir, "my-help.vim")
+dst_help2 = os.path.join(dst_dir, "start-help.vim")
 
 if os.path.isfile(src_help):
     os.makedirs(dst_dir, exist_ok=True)
@@ -67,6 +72,13 @@ if os.path.isfile(src_help):
     print(f"Файл my-help.vim скопирован в {dst_help}")
 else:
     print("Файл my-help.vim не найден. Пропускаем копирование.")
+
+# Копируем второй файл
+if os.path.isfile(src_help2):
+    shutil.copy2(src_help2, dst_help2)
+    print(f"Файл start-help.vim скопирован в {dst_help2}")
+else:
+    print("Файл start-help.vim не найден. Пропускаем копирование.")
 
 # Копирование собранного .vimrc в директорию скрипта
 if os.path.exists(vimrc_path):
