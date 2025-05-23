@@ -8,13 +8,6 @@ colorscheme my-desert
 "set guifont=Anonymous_Pro:h14
 set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
 
-" GUI шрифт
-"let g:default_guifont = 'Anonymous_Pro:h14'
-
-" GUI шрифт на старте
-
-"let g:startify_guifont = 'Anonymous_Pro:h16'
-
 " Высота
 set lines=75
 
@@ -32,6 +25,4 @@ set cursorline
 
 " True-цвета
 set termguicolors
-
-
 
