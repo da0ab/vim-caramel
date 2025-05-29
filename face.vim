@@ -2,7 +2,7 @@
 set shm+=I
 
 " Цветовая схема]
-colorscheme my-desert
+colorscheme desert
 
 " Размер шрифта
 "set guifont=Anonymous_Pro:h14

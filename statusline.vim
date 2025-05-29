@@ -9,8 +9,45 @@ set wildmenu
 " Устанавливает, что строка состояния всегда будет отображаться
 set laststatus=2
 
-" Настраивает строку состояния с информацией о файле и текущем состоянии
-set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %o\ %P
+" Имя файла и флаги изменений [+]
+set statusline=%h%m%r
+
+" Всего строк в файле
+set statusline+=Строк:\ %L
+
+" Разделитель
+set statusline+=\ \|
+
+" Текущая строка и столбец
+set statusline+=\ Курсор\ на\ строке:\ %l
+
+" Разделитель
+set statusline+=\ \|
+
+" Виртуальный номер столбца (учитывает табы и широкие символы)
+set statusline+=\ Курсор\ на\ символе:\ %v
+
+set statusline+=\ \|
+
+set statusline+=\ Символов\ в\ строке:\ %{virtcol('$')-1}
+
+set statusline+=\ \|
+
+" Общее количество символов в файле
+set statusline+=%{CharCount()}
+function! CharCount()
+    if !exists("b:charcount")
+        let b:charcount = join(getline(1, '$'), '')->strlen()
+    endif
+    return ' Символов в файле: ' . b:charcount
+endfunction
+autocmd BufWritePost,TextChanged,TextChangedI * unlet! b:charcount
+
+" Выравнивание вправо
+set statusline+=%=
+
+" Кодировка
+set statusline+=Кодировка:\%{&fileencoding}
 
 " %< : Отображает только часть имени файла, если оно слишком длинное
 " %f : Имя текущего файла

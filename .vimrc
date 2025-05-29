@@ -77,7 +77,7 @@ map Ю >
 map , ?
 
 set shm+=I
-colorscheme my-desert
+colorscheme desert
 set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
 set lines=75
 set columns=210
@@ -108,7 +108,25 @@ set mousehide
 set showmode
 set wildmenu
 set laststatus=2
-set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %o\ %P
+set statusline=%h%m%r
+set statusline+=Строк:\ %L
+set statusline+=\ \|
+set statusline+=\ Курсор\ на\ строке:\ %l
+set statusline+=\ \|
+set statusline+=\ Курсор\ на\ символе:\ %v
+set statusline+=\ \|
+set statusline+=\ Символов\ в\ строке:\ %{virtcol('$')-1}
+set statusline+=\ \|
+set statusline+=%{CharCount()}
+function! CharCount()
+    if !exists("b:charcount")
+        let b:charcount = join(getline(1, '$'), '')->strlen()
+    endif
+    return ' Символов в файле: ' . b:charcount
+endfunction
+autocmd BufWritePost,TextChanged,TextChangedI * unlet! b:charcount
+set statusline+=%=
+set statusline+=Кодировка:\%{&fileencoding}
 
 set hlsearch
 set ignorecase
@@ -159,7 +177,7 @@ augroup filetype_settings
     autocmd FileType css setlocal foldmethod=indent
     autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
     autocmd FileType javascript setlocal cindent
-    autocmd BufWritePre *.html,*.php,*.css,*.js execute 'normal mzgg=G`z'
+    autocmd BufWritePre *.html,*.php,*.css,*.js silent! normal! mzgg=G``z
 augroup END
 
 map <C-Q> <Esc>:q!<cr>
@@ -387,6 +405,13 @@ vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 execute pathogen#infect()
 syntax on
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,cp1251,koi8-r
+set iskeyword+=192-255
+set runtimepath+=~/.vim
+autocmd FileType css setlocal completefunc=css_context_complete.get_css_completions
+autocmd FileType css inoremap <buffer> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>"
 
 let g:startify_change_to_vcs_root = 1
 let g:startify_enable_special = 1
@@ -421,12 +446,16 @@ let g:startify_lists = [
       \ ]
 let g:startify_bookmarks = [
       \ { 'p': '~/prompts.txt' },
+      \ { 'b': '~/.bash_profile' },
       \ { 'h': '~/.vim/my-help.vim' },
       \ { 's': '~/.vim/start-help.vim' },
-      \ { 'v': '~/.vimrc' },
+      \ { 'v': '~/Dropbox/worck/vimrc-TURBO-HTML' },
+      \ { '.v': '~/.vimrc' },
       \ ]
 augroup StartifySyntax
   autocmd!
+  autocmd FileType startify syntax match StartifyBracketLeft /\[/ contained
+  autocmd FileType startify syntax match StartifyBracketRight /\]/ contained
   autocmd FileType startify :
     \ syntax match StartifyFile /\[[^\]]\+\]/ containedin=StartifySection |
     \ syntax match StartifyPath /\/[^\/]*$/ containedin=StartifyFile
@@ -439,6 +468,8 @@ highlight StartifyExtVim guifg=#b16286 ctermfg=132  " .vim (фиолетовый
 highlight StartifyExtPy  guifg=#458588 ctermfg=66   " .py (синий)
 highlight StartifyExtJs  guifg=#d79921 ctermfg=172  " .js (оранжевый)
 highlight StartifyExtMd  guifg=#8ec07c ctermfg=108  " .md (зелёный)
+highlight StartifyBracketLeft  guifg=#444444 ctermfg=240
+highlight StartifyBracketRight guifg=#444444 ctermfg=240
 autocmd FileType startify :
   \ syntax match StartifyExtVim /\.vim\($\|\[\)/ containedin=StartifyFile |
   \ syntax match StartifyExtPy  /\.py\($\|\[\)/ containedin=StartifyFile |
@@ -496,16 +527,9 @@ highlight nerdtreeFileExtensionLabel_html  guifg=#E06C75
 highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
 highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
 highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
-augroup NerdTreeCursorHide
-  autocmd!
-  autocmd FileType nerdtree set guicursor=n:block-blinkon0
-  autocmd BufLeave * if &ft == 'nerdtree' | set guicursor=a:block-blinkon0 | endif
-augroup END
 
 highlight CursorLine ctermbg=0 guibg=#2e2e2e cterm=none gui=none
 highlight CursorLineNr ctermbg=235 guibg=#2c313c ctermfg=214 guifg=#FFA500
-set t_Co=256
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20
 set hlsearch
 nohlsearch
 

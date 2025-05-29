@@ -13,6 +13,7 @@ nnoremap <S-Space> <PageUp>
 nnoremap m. :tabnext<CR>
 nnoremap m, :tabprevious<CR>
 set timeoutlen=300
+
 " mНОМЕРтАБА
 for i in range(1, 9)
   execute "nnoremap m" . i . " " . i . "gt"

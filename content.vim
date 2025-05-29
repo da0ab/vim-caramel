@@ -74,5 +74,7 @@ augroup filetype_settings
     autocmd FileType javascript setlocal cindent
 
     " Форматирование при сохранении
-    autocmd BufWritePre *.html,*.php,*.css,*.js execute 'normal mzgg=G`z'
+    autocmd BufWritePre *.html,*.php,*.css,*.js silent! normal! mzgg=G``z
 augroup END
+
+

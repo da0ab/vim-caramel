@@ -74,17 +74,5 @@ highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
 highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
 highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
 
-" Спрятать курсор только в NERDTree
-"augroup NerdTreeCursorHide
-"  autocmd!
-"  autocmd FileType nerdtree setlocal guicursor=n:ver1-CursorLine
-"augroup END
-
-augroup NerdTreeCursorHide
-  autocmd!
-  autocmd FileType nerdtree set guicursor=n:block-blinkon0
-  autocmd BufLeave * if &ft == 'nerdtree' | set guicursor=a:block-blinkon0 | endif
-augroup END
-
 
 

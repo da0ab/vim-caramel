@@ -13,3 +13,15 @@ syntax on
 
 
 
+
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,cp1251,koi8-r
+set iskeyword+=192-255
+
+
+
+set runtimepath+=~/.vim
+autocmd FileType css setlocal completefunc=css_context_complete.get_css_completions
+autocmd FileType css inoremap <buffer> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>"
+
