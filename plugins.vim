@@ -12,16 +12,31 @@ syntax on
 
 
 
+" Настройка автодополнения CSS
+function! s:css_complete() abort
+    if !has('python3') && !has('python3/dynamic')
+        return "\<Tab>"
+    endif
 
+    try
+        python3 << EOF
+import css_complete
+css_complete.complete()
+EOF
+        if exists('g:css_completions') && !empty(g:css_completions)
+            call complete(col('.'), g:css_completions)
+            return ''
+        endif
+    catch
+        " Подавляем ошибки чтобы не ломать другие плагины
+    endtry
 
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,cp1251,koi8-r
-set iskeyword+=192-255
+    return "\<Tab>"
+endfunction
 
-
-
-set runtimepath+=~/.vim
-autocmd FileType css setlocal completefunc=css_context_complete.get_css_completions
-autocmd FileType css inoremap <buffer> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>"
+" Безопасное подключение только для CSS файлов
+augroup css_autocomplete
+    autocmd!
+    autocmd FileType css inoremap <silent> <expr> <Tab> <SID>css_complete()
+augroup END
 
