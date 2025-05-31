@@ -9,7 +9,7 @@ let g:NERDTreeShowIcons = 1
 function! NERDTreeRenderNodeCustom(item)
   let icon = WebDevIconsGetNerdTreeFileNodeSymbol(a:item)
   let name = a:item.name
-" ← без пробела, без скобок
+    " ← без пробела, без скобок
   return icon . name
 endfunction
 
@@ -62,10 +62,10 @@ let g:NERDTreeSyntaxDisableDefaultExtensions = 0
 let g:NERDTreeSyntaxEnabledExtensions = ['js', 'py', 'vim', 'md', 'txt']
 
 " Кастомные цвета для расширений (hex/rgb/cterm)
-highlight NERDTreeFileExtension_js  guifg=#F0DB4F ctermfg=220  " JavaScript
-highlight NERDTreeFileExtension_py  guifg=#3572A5 ctermfg=67   " Python
-highlight NERDTreeFileExtension_vim guifg=#199F4B ctermfg=35   " Vimscript
-highlight NERDTreeFileExtension_md  guifg=#FF79C6 ctermfg=212   " Markdown
+highlight NERDTreeFileExtension_js  guifg=#F0DB4F ctermfg=220
+highlight NERDTreeFileExtension_py  guifg=#3572A5 ctermfg=67
+highlight NERDTreeFileExtension_vim guifg=#199F4B ctermfg=35
+highlight NERDTreeFileExtension_md  guifg=#FF79C6 ctermfg=212
 
 " Подсветка расширений" Подсветка расширений (добавьте свои)
 highlight nerdtreeFileExtensionLabel_js    guifg=#E5C07B

@@ -1,0 +1,106 @@
+# Общие ключевые слова
+initial;
+inherit;
+unset;
+revert;
+revert-layer;
+
+# Типы отображения
+none;
+block;
+inline;
+inline-block;
+flex;
+grid;
+contents;
+list-item;
+run-in;
+flow;
+flow-root;
+table;
+inline-table;
+table-row;
+table-cell;
+normal;
+
+# Позиционирование
+static;
+relative;
+absolute;
+fixed;
+sticky;
+
+# Направление и стороны
+start;
+end;
+center;
+left;
+right;
+top;
+bottom;
+
+# Видимость и прокрутка
+visible;
+hidden;
+collapse;
+clip;
+scroll;
+scroll-auto;
+scroll-hidden;
+scroll-visible;
+
+# Булевы значения
+true;
+false;
+yes;
+no;
+
+# Размеры и ограничители
+auto;
+max-content;
+min-content;
+fit-content;
+stretch;
+fill;
+
+# Повторение и масштабирование
+repeat;
+repeat-x;
+repeat-y;
+no-repeat;
+space;
+round;
+
+# Текст и переносы
+nowrap;
+wrap;
+break-word;
+break-spaces;
+pre;
+pre-wrap;
+pre-line;
+
+# Выравнивание
+baseline;
+first baseline;
+last baseline;
+space-between;
+space-around;
+space-evenly;
+stretch;
+
+# Направление текста
+ltr;
+rtl;
+
+# Цветовые ключи
+transparent;
+currentColor;
+
+# Функции
+calc();
+min();
+max();
+clamp();
+var();
+env();

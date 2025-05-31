@@ -150,7 +150,7 @@ set linebreak
 set nu
 set smartindent
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=1
 set softtabstop=4
 set expandtab
 set autoindent
@@ -396,6 +396,16 @@ inoremap \s <style type="text/css"><cr><cr></style>
 inoremap \j <script type="text/javascript" src="js"><cr><cr></script>
 inoremap \css <link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">
 
+set fileencoding=utf-8
+set fileencodings=utf-8,cp1251,koi8-r
+set iskeyword+=192-255,:,;,(,),-
+set complete=.,k
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+set wildmenu
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
+autocmd FileType css setlocal dictionary+=~/.vim/dict/css.dict
+
 vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
 vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
@@ -405,27 +415,23 @@ vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 execute pathogen#infect()
 syntax on
-function! s:css_complete() abort
-    if !has('python3') && !has('python3/dynamic')
-        return "\<Tab>"
-    endif
-    try
-        python3 << EOF
-import css_complete
-css_complete.complete()
-EOF
-        if exists('g:css_completions') && !empty(g:css_completions)
-            call complete(col('.'), g:css_completions)
-            return ''
-        endif
-    catch
-    endtry
-    return "\<Tab>"
+function! CssCompleteExternal()
+  let l:line = getline('.')
+  let l:col = col('.') - 1
+  let l:command = '~/.vim/css/css.py ' . shellescape(l:line) . ' ' . l:col
+  let l:result = system(l:command)
+  if l:result =~# '^-- нет предложений --'
+    echo "Нет подсказок"
+    return
+  endif
+  let l:suggestions = split(l:result, "\n")
+  let l:start_col = l:col
+  while l:start_col > 0 && getline('.')[l:start_col - 1] =~ '\w'
+    let l:start_col -= 1
+  endwhile
+  call complete(l:start_col + 1, l:suggestions)
 endfunction
-augroup css_autocomplete
-    autocmd!
-    autocmd FileType css inoremap <silent> <expr> <Tab> <SID>css_complete()
-augroup END
+autocmd FileType css inoremap <buffer> <F5> <C-O>:call CssCompleteExternal()<CR>
 
 let g:startify_change_to_vcs_root = 1
 let g:startify_enable_special = 1
@@ -532,10 +538,10 @@ augroup END
 autocmd BufWritePost * if &ft == 'nerdtree' | silent NERDTreeSyntaxRefresh | endif
 let g:NERDTreeSyntaxDisableDefaultExtensions = 0
 let g:NERDTreeSyntaxEnabledExtensions = ['js', 'py', 'vim', 'md', 'txt']
-highlight NERDTreeFileExtension_js  guifg=#F0DB4F ctermfg=220  " JavaScript
-highlight NERDTreeFileExtension_py  guifg=#3572A5 ctermfg=67   " Python
-highlight NERDTreeFileExtension_vim guifg=#199F4B ctermfg=35   " Vimscript
-highlight NERDTreeFileExtension_md  guifg=#FF79C6 ctermfg=212   " Markdown
+highlight NERDTreeFileExtension_js  guifg=#F0DB4F ctermfg=220
+highlight NERDTreeFileExtension_py  guifg=#3572A5 ctermfg=67
+highlight NERDTreeFileExtension_vim guifg=#199F4B ctermfg=35
+highlight NERDTreeFileExtension_md  guifg=#FF79C6 ctermfg=212
 highlight nerdtreeFileExtensionLabel_js    guifg=#E5C07B
 highlight nerdtreeFileExtensionLabel_html  guifg=#E06C75
 highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
