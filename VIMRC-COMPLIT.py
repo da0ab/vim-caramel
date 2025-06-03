@@ -83,7 +83,7 @@ files_to_copy = [
     ("scripts/div.py", "scripts/div.py"),
     ("scripts/li.py", "scripts/li.py"),
     ("scripts/p.py", "scripts/p.py"),
-    ("scripts/clean_htmlp.py", "scripts/clean_htmlp.py"),
+    ("scripts/clean_html.py", "scripts/clean_html.py"),
     ("dict/universal-css.dict", "dict/universal-css.dict"),
 ]
 
