@@ -21,7 +21,7 @@ set wildmenu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
 
 " Для CSS — подгружаем словарь css.dict
-autocmd FileType css setlocal dictionary+=~/.vim/dict/css.dict
+autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict,~/.vim/dict/universal-css.dict
 
 
 

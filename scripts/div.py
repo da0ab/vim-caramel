@@ -4,26 +4,23 @@ import sys
 
 def wrap_in_paragraphs(text):
     lines = text.split('\n')
-    wrapped_text = ''
-    is_in_paragraph = False
+    wrapped_text = []
+    current_paragraph = []
 
     for line in lines:
-        line = line.strip()
-        if line:
-            if is_in_paragraph:
-                wrapped_text += f'\n{line}'
-            else:
-                wrapped_text += f'<div>{line}'
-                is_in_paragraph = True
+        stripped_line = line.strip()
+        if stripped_line:
+            current_paragraph.append(line)
         else:
-            if is_in_paragraph:
-                wrapped_text += '</div>\n\n'
-                is_in_paragraph = False
+            if current_paragraph:
+                wrapped_text.append('<div>' + '\n'.join(current_paragraph) + '</div>')
+                current_paragraph = []
+            wrapped_text.append('')
 
-    if is_in_paragraph:
-        wrapped_text += '</div>'
+    if current_paragraph:
+        wrapped_text.append('<div>' + '\n'.join(current_paragraph) + '</div>')
 
-    return wrapped_text
+    return '\n'.join(wrapped_text)
 
 if __name__ == "__main__":
     selected_text = sys.stdin.read()

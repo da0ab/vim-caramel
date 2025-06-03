@@ -56,6 +56,8 @@ let g:startify_bookmarks = [
       \ { 's': '~/.vim/start-help.vim' },
       \ { 'v': '~/Dropbox/worck/vimrc-TURBO-HTML' },
       \ { '.v': '~/.vimrc' },
+      \ { 'c': '~/Dropbox/worck/vimrc-TURBO-HTML/dict/css.dict' },
+
       \ ]
 
 " Раскраска файлов списка

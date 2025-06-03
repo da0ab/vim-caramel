@@ -158,8 +158,8 @@ set nofoldenable
 set foldmethod=manual
 set showmatch
 imap [ []<LEFT>
-imap { {}<LEFT>
 imap ( ()<LEFT>
+imap { {<CR>}<C-O>O
 function InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -170,15 +170,6 @@ function InsertTabWrapper()
 endfunction
 imap <tab> <c-r>=InsertTabWrapper()<cr>
 autocmd BufWritePre * silent! %s/[\r \t]\+$//
-augroup filetype_settings
-    autocmd!
-    autocmd FileType html,php setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType html,php setlocal wrap
-    autocmd FileType css setlocal foldmethod=indent
-    autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
-    autocmd FileType javascript setlocal cindent
-    autocmd BufWritePre *.html,*.php,*.css,*.js silent! normal! mzgg=G``z
-augroup END
 
 map <C-Q> <Esc>:q!<cr>
 nnoremap <Space> <PageDown>
@@ -404,7 +395,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set wildmenu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
-autocmd FileType css setlocal dictionary+=~/.vim/dict/css.dict
+autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict,~/.vim/dict/universal-css.dict
 
 vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
 vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
@@ -471,6 +462,7 @@ let g:startify_bookmarks = [
       \ { 's': '~/.vim/start-help.vim' },
       \ { 'v': '~/Dropbox/worck/vimrc-TURBO-HTML' },
       \ { '.v': '~/.vimrc' },
+      \ { 'c': '~/Dropbox/worck/vimrc-TURBO-HTML/dict/css.dict' },
       \ ]
 augroup StartifySyntax
   autocmd!

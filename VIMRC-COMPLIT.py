@@ -60,40 +60,30 @@ with open(vimrc_path, 'w') as vimrc_file:
         else:
             print(f"Файл {filename} не найден. Пропускаем.")
 
-# Копирование my-help.vim, start-help.vim, css.dict в ~/.vim/
-src_help = os.path.join(script_dir, "my-help.vim")
-src_help2 = os.path.join(script_dir, "start-help.vim")
-src_css = os.path.join(script_dir, "dict", "css.dict")  # ← исправлено: латинские буквы!
+# === Универсальное копирование файлов в ~/.vim ===
 
-dst_dir = os.path.expanduser("~/.vim")
-dst_dir_dict = os.path.join(dst_dir, "dict")
+def copy_files(copy_map):
+    vim_dir = os.path.expanduser("~/.vim")
+    for src_rel, dst_rel in copy_map:
+        src_path = os.path.join(script_dir, src_rel)
+        dst_path = os.path.join(vim_dir, dst_rel)
+        dst_subdir = os.path.dirname(dst_path)
+        os.makedirs(dst_subdir, exist_ok=True)
+        if os.path.isfile(src_path):
+            shutil.copy2(src_path, dst_path)
+            print(f"Файл {src_rel} скопирован в {dst_path}")
+        else:
+            print(f"Файл {src_rel} не найден. Пропускаем копирование.")
 
-dst_help = os.path.join(dst_dir, "my-help.vim")
-dst_help2 = os.path.join(dst_dir, "start-help.vim")
-dst_css = os.path.join(dst_dir_dict, "css.dict")
+# Файлы для копирования: (относительный путь из проекта, относительный путь в ~/.vim)
+files_to_copy = [
+    ("my-help.vim", "my-help.vim"),
+    ("start-help.vim", "start-help.vim"),
+    ("dict/css.dict", "dict/css.dict"),
+    ("dict/universal-css.dict", "dict/universal-css.dict"),
+]
 
-# Создаём ~/.vim и ~/.vim/dict, если нужно
-os.makedirs(dst_dir, exist_ok=True)
-os.makedirs(dst_dir_dict, exist_ok=True)
-
-# Копируем файлы
-if os.path.isfile(src_help):
-    shutil.copy2(src_help, dst_help)
-    print(f"Файл my-help.vim скопирован в {dst_help}")
-else:
-    print("Файл my-help.vim не найден. Пропускаем копирование.")
-
-if os.path.isfile(src_help2):
-    shutil.copy2(src_help2, dst_help2)
-    print(f"Файл start-help.vim скопирован в {dst_help2}")
-else:
-    print("Файл start-help.vim не найден. Пропускаем копирование.")
-
-if os.path.isfile(src_css):
-    shutil.copy2(src_css, dst_css)
-    print(f"Файл css.dict скопирован в {dst_css}")
-else:
-    print("Файл css.dict не найден. Пропускаем копирование.")
+copy_files(files_to_copy)
 
 # Копирование итогового .vimrc обратно в директорию скрипта
 dst_vimrc = os.path.join(script_dir, ".vimrc")

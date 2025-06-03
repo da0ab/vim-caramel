@@ -41,8 +41,8 @@ set showmatch
 
 " ===== Автозакрытие скобок =====
 imap [ []<LEFT>
-imap { {}<LEFT>
 imap ( ()<LEFT>
+imap { {<CR>}<C-O>O
 
 " ===== Умный Tab =====
 function InsertTabWrapper()
@@ -59,22 +59,22 @@ imap <tab> <c-r>=InsertTabWrapper()<cr>
 autocmd BufWritePre * silent! %s/[\r \t]\+$//
 
 " ===== Специфичные настройки для типов файлов =====
-augroup filetype_settings
-    autocmd!
+"augroup filetype_settings
+    "autocmd!
 
     " HTML/PHP
-    autocmd FileType html,php setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType html,php setlocal wrap
+    "autocmd FileType html,php setlocal omnifunc=htmlcomplete#CompleteTags
+    "autocmd FileType html,php setlocal wrap
 
     " CSS (включая встроенный в HTML)
-    autocmd FileType css setlocal foldmethod=indent
+    "autocmd FileType css setlocal foldmethod=indent
 
     " JavaScript (включая встроенный в HTML)
-    autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
-    autocmd FileType javascript setlocal cindent
+    "autocmd FileType javascript setlocal cinoptions=(0,u0,U0,j1
+    "autocmd FileType javascript setlocal cindent
 
     " Форматирование при сохранении
-    autocmd BufWritePre *.html,*.php,*.css,*.js silent! normal! mzgg=G``z
-augroup END
+    "autocmd BufWritePre *.html,*.php,*.css,*.js silent! normal! mzgg=G``z
+"augroup END
 
 
