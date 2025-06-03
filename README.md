@@ -167,7 +167,11 @@
 ``install_vim-turbo.sh``
 
 #### Файлы
-
+- **scripts** - скрипты
+ - clean_html.py - очистка текста
+ - div.py  - оборачиваем абзацы в ``div``
+ - li.py   - оборачиваем в ``ul``
+ - p.py   - оборачиваем в ``p``
 - **base.vim** - основной
 - **key-ru-fix.vim** - исправление русской раскладки
 - **face.vim** - морда
@@ -179,6 +183,7 @@
 - **keys.vim** - комбинации горячих клавиш
 - **html.vim** - css/html
 - **py-script.vim** - Python скрипты для работы с текстом
-- **my-help.vim** - Памятка
-- **install_vim-turbo.sh** - Инсталляционный скрипт
+- **my-help.vim** - памятка
+- **install_vim-turbo.sh** - инсталляционный скрипт
+- **VIMRC-COMPLIT.py** - скрипт сборки
 
