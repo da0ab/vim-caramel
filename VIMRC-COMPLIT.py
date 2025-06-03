@@ -80,6 +80,10 @@ files_to_copy = [
     ("my-help.vim", "my-help.vim"),
     ("start-help.vim", "start-help.vim"),
     ("dict/css.dict", "dict/css.dict"),
+    ("scripts/div.py", "scripts/div.py"),
+    ("scripts/li.py", "scripts/li.py"),
+    ("scripts/p.py", "scripts/p.py"),
+    ("scripts/clean_htmlp.py", "scripts/clean_htmlp.py"),
     ("dict/universal-css.dict", "dict/universal-css.dict"),
 ]
 
