@@ -6,6 +6,7 @@ set helplang=ru
 set guioptions-=T
 set clipboard=unnamed
 let mapleader = "."
+set timeoutlen=800
 
 map ё `
 map й q
@@ -176,7 +177,6 @@ nnoremap <Space> <PageDown>
 nnoremap <S-Space> <PageUp>
 nnoremap m. :tabnext<CR>
 nnoremap m, :tabprevious<CR>
-set timeoutlen=300
 for i in range(1, 9)
   execute "nnoremap m" . i . " " . i . "gt"
 endfor
@@ -289,10 +289,12 @@ let g:insert_snippets = {
   \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
   \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
   \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
   \ 'colspan':            'colspan="2"',
   \ 'rowspan':            'rowspan="2"',
   \ 'copy':               '©',
+  \ 'seo':            "<meta name=\"description\" content=\"\">\n<meta name=\"keywords\" content=\"\">\n<meta name=\"author\" content=\"\">\n<meta name=\"copyright\" lang=\"ru\" content=\"\">\n<meta name=\"robots\" content=\"all\">",
+  \ 'html5':          "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t<meta name=\"format-detection\" content=\"telephone=no\">\n\t<link rel=\"stylesheet\" href=\"css/ProTo.min.css?v=0.0.1\">\n\t<title></title>\n</head>\n<body>\n\n\t<script type=\"text/javascript\" src=\"js/vendor.min.js?v=0.0.1\"></script>\n\t<script type=\"text/javascript\" src=\"js/ProTo.min.js?v=0.0.1\"></script>\n</body>\n</html>",
+  \ 'html mini':       "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no\">\n\t<title></title>\n</head>\n<body>\n\n</body>\n</html>",
   \ 'webkit':             '-webkit-',
   \ 'version':            '?v=0.0.1',
   \ 'cover':              'background-size: cover'
@@ -363,9 +365,6 @@ vnoremap ss 1"zdi<!--<C-R>z --><ESC>
 vnoremap sc 1"zdi/*<C-R>z*/<ESC>
 vnoremap sx 1"zdi/*-------------------- <C-R>z --------------------*/<ESC>
 vnoremap sv 1"zdi" ===== <C-R>z =====<ESC>
-inoremap \x0 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr><cr></body><cr></html>
-inoremap \x5 <!DOCTYPE html><cr><html lang="ru"><cr><html><cr><head><cr><meta charset="utf-8"><cr><meta name="viewport" content="width=device-width, initial-scale=1"><cr><meta name="format-detection" content="telephone=no"><cr><link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1"><cr><title></title><cr></head><cr><body><cr><cr><cr><cr><cr><cr><cr><cr><cr><script type="text/javascript" src="js/vendor.min.js?v=0.0.1"></script><cr><cr><script type="text/javascript" src="js/ProTo.min.js?v=0.0.1"></script><cr><cr></body><cr></html>
-inoremap \seo <cr><meta name="description" content=""><cr><meta name="keywords" content=""><cr><meta name="author" content=""><cr><meta name="copyright" lang="ru" content=""><cr><meta name="robots" content="all"><cr>
 inoremap <C-Enter> <br>
 inoremap \a <a id="" class="anchor"></a>
 inoremap \<Space> &nbsp;
@@ -406,23 +405,6 @@ vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 execute pathogen#infect()
 syntax on
-function! CssCompleteExternal()
-  let l:line = getline('.')
-  let l:col = col('.') - 1
-  let l:command = '~/.vim/css/css.py ' . shellescape(l:line) . ' ' . l:col
-  let l:result = system(l:command)
-  if l:result =~# '^-- нет предложений --'
-    echo "Нет подсказок"
-    return
-  endif
-  let l:suggestions = split(l:result, "\n")
-  let l:start_col = l:col
-  while l:start_col > 0 && getline('.')[l:start_col - 1] =~ '\w'
-    let l:start_col -= 1
-  endwhile
-  call complete(l:start_col + 1, l:suggestions)
-endfunction
-autocmd FileType css inoremap <buffer> <F5> <C-O>:call CssCompleteExternal()<CR>
 
 let g:startify_change_to_vcs_root = 1
 let g:startify_enable_special = 1

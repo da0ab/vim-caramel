@@ -21,3 +21,6 @@ set clipboard=unnamed
 
 "Назначаем leader
 let mapleader = "."
+
+" Задержка выполнения
+set timeoutlen=800

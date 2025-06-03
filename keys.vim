@@ -12,7 +12,6 @@ nnoremap <S-Space> <PageUp>
 " Переключение вкладок: m . → следующая, m , → предыдущая
 nnoremap m. :tabnext<CR>
 nnoremap m, :tabprevious<CR>
-set timeoutlen=300
 
 " mНОМЕРтАБА
 for i in range(1, 9)
@@ -182,10 +181,12 @@ let g:insert_snippets = {
   \ 'media notebook':     "/*notebook*/\n@media only screen and (max-width: 1650px) {\n\t\n}",
   \ 'media square':       "/*square*/\n@media screen and (min-width: 1025px) and (max-width: 1400px) {\n\t\n}",
   \ 'text-shadow':        'text-shadow: 0 0 10px #d1d1d1',
-  \ 'grid':               "display: grid;\ngrid-template-columns: repeat(2, 1fr)",
   \ 'colspan':            'colspan="2"',
   \ 'rowspan':            'rowspan="2"',
   \ 'copy':               '©',
+  \ 'seo':            "<meta name=\"description\" content=\"\">\n<meta name=\"keywords\" content=\"\">\n<meta name=\"author\" content=\"\">\n<meta name=\"copyright\" lang=\"ru\" content=\"\">\n<meta name=\"robots\" content=\"all\">",
+  \ 'html5':          "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t<meta name=\"format-detection\" content=\"telephone=no\">\n\t<link rel=\"stylesheet\" href=\"css/ProTo.min.css?v=0.0.1\">\n\t<title></title>\n</head>\n<body>\n\n\t<script type=\"text/javascript\" src=\"js/vendor.min.js?v=0.0.1\"></script>\n\t<script type=\"text/javascript\" src=\"js/ProTo.min.js?v=0.0.1\"></script>\n</body>\n</html>",
+  \ 'html mini':       "<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no\">\n\t<title></title>\n</head>\n<body>\n\n</body>\n</html>",
   \ 'webkit':             '-webkit-',
   \ 'version':            '?v=0.0.1',
   \ 'cover':              'background-size: cover'
