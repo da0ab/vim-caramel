@@ -105,64 +105,154 @@ map <F8> :emenu Encoding.<TAB>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
 
 " F10 - Оборачивайтесь свободным тегом
-let g:html_tags = [
-      \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-      \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-      \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-      \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-      \ 'select', 'option', 'textarea', 'details', 'script', 'link', 'meta'
-      \]
 
-function! WrapWithTag()
-  " Проверяем, есть ли выделение
-  if mode() =~ '^[vV]'
-    let [l1, c1] = [line("'<"), col("'<")]
-    let [l2, c2] = [line("'>"), col("'>")]
-  else
-    normal! V
-    let [l1, c1] = [line("'<"), col("'<")]
-    let [l2, c2] = [line("'>"), col("'>")]
-  endif
-
-  let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
-  if empty(input_str)
-    echo "No tag entered."
+" Функция для оборачивания текста в HTML-теги
+function! WrapWithTag(type) abort
+  " Запрашиваем у пользователя тег (и класс, если нужно)
+  let l:raw_input = input('Tag (> для построчной обёртки): ')
+" Если пользователь ничего не ввел - выходим
+  if empty(l:raw_input)
     return
   endif
 
-  let parts = split(input_str)
-  let tag = parts[0]
-  let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
+  " Обрабатываем ввод:
+  " - Если введено ">тег" - заменяем на "> тег" для правильного разбора
+  let l:raw_input = substitute(l:raw_input, '^>\(\S\)', '> \1', '')
+  " - Разбиваем ввод на части (тег и класс)
+  let l:parts = split(l:raw_input)
 
-  if l1 > l2 || (l1 == l2 && c1 > c2)
-    let [l1, l2] = [l2, l1]
-    let [c1, c2] = [c2, c1]
+  " Определяем тип обертки:
+  " - Если первый символ ">" - построчная обертка
+  let l:is_line_wrap = (get(l:parts, 0, '') ==# '>')
+  " - Получаем имя тега (второй элемент для построчной обертки)
+  let l:tag = l:is_line_wrap ? get(l:parts, 1, '') : get(l:parts, 0, '')
+  " - Получаем класс (третий элемент для построчной обертки)
+  let l:class = l:is_line_wrap ? get(l:parts, 2, '') : get(l:parts, 1, '')
+
+  " Проверяем, что тег указан
+  if empty(l:tag)
+    echo '❌ Не указан тег'
+    return
   endif
 
-  let lines = getline(l1, l2)
-  let lines[0] = lines[0][c1 - 1:]
-  let lines[-1] = lines[-1][:c2 - 1]
+  " Формируем открывающий и закрывающий теги
+  let l:class_str = l:class !=# '' ? ' class="'.l:class.'"' : ''
+  let l:open_tag = '<'.l:tag.l:class_str.'>'
+  let l:close_tag = '</'.l:tag.'>'
 
-  let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
-  call setline(l1, wrapped_lines)
+  " Обработка визуального выделения посимвольно (v)
+  if a:type ==# 'v'
+    " Получаем координаты выделения
+    let [line1, col1] = getpos("'<")[1:2]
+    let [line2, col2] = getpos("'>")[1:2]
 
-  if l2 > l1 + len(wrapped_lines) - 1
-    call deletebufline('%', l1 + len(wrapped_lines), l2)
-  endif
-endfunction
-
-function! CompleteTags(ArgLead, CmdLine, CursorPos)
-  let matches = []
-  for tag in g:html_tags
-    if tag =~ '^' . a:ArgLead
-      call add(matches, tag)
+    " Если выделение многострочное
+    if line1 != line2
+      let l:lines = getline(line1, line2)
+      " Обрезаем начало первой строки и конец последней
+      let l:lines[0] = l:lines[0][col1-1 :]
+      let l:lines[-1] = l:lines[-1][: col2-1]
+      " Оборачиваем выделенные строки в теги
+      let l:wrapped = [l:open_tag] + l:lines + [l:close_tag]
+      call setline(line1, l:wrapped)
+      " Удаляем лишние строки, если они есть
+      if line2 > line1 + len(l:wrapped) - 1
+        execute (line1 + len(l:wrapped)) . ',' . line2 . 'delete _'
+      endif
+      return
     endif
-  endfor
-  return matches
+
+    " Для однострочного выделения
+    let l:line = getline(line1)
+    " Корректируем координаты, если выделение справа налево
+    if col2 < col1
+      let [col1, col2] = [col2, col1]
+    endif
+
+    " Переводим позиции в индексы символов (начинаем с 0)
+    let l:start = col1 - 1
+    let l:end = col2 - 1
+
+    " Корректируем выделение для UTF-8 символов:
+    " - Смещаем начало влево, если попали в середину символа
+    while l:start > 0 && l:line[l:start] =~ '[\x80-\xBF]'
+      let l:start -= 1
+    endwhile
+    " - Смещаем конец вправо, если попали в середину символа
+    while l:end < strlen(l:line) - 1 && l:line[l:end + 1] =~ '[\x80-\xBF]'
+      let l:end += 1
+    endwhile
+
+    " Проверяем, есть ли пробел после выделения
+    let l:has_trailing_space = 0
+    if l:end < strlen(l:line) - 1 && l:line[l:end + 1] ==# ' '
+      let l:has_trailing_space = 1
+    endif
+
+    " Если выделение заканчивается пробелом - исключаем его из тега
+    if l:line[l:end] ==# ' '
+      let l:end -= 1
+      let l:has_trailing_space = 1
+    endif
+
+    " Формируем новую строку:
+    " - Часть до выделения
+    " - Открывающий тег
+    " - Выделенный текст (без пробела в конце)
+    " - Закрывающий тег
+    " - Пробел (если был в исходном тексте)
+    " - Часть после выделения
+    let l:newline = strpart(l:line, 0, l:start) .
+          \ l:open_tag .
+          \ strpart(l:line, l:start, l:end - l:start + 1) .
+          \ l:close_tag .
+          \ (l:has_trailing_space ? ' ' : '') .
+          \ strpart(l:line, l:end + 1 + (l:has_trailing_space ? 1 : 0))
+
+    " Заменяем строку в буфере
+    call setline(line1, l:newline)
+
+  " Обработка построчного выделения (V)
+  elseif a:type ==# 'V'
+    let l:start = line("'<")
+    let l:end = line("'>")
+
+    " Если нужно оборачивать каждую строку отдельно
+    if l:is_line_wrap
+      for lnum in range(l:start, l:end)
+        let l:line = getline(lnum)
+        " Пропускаем пустые строки
+        if l:line =~ '^\s*$'
+          continue
+        endif
+        " Оборачиваем каждую непустую строку
+        call setline(lnum, l:open_tag . l:line . l:close_tag)
+      endfor
+    else
+      " Оборачиваем все выделенные строки как один блок
+      let l:lines = getline(l:start, l:end)
+      let l:wrapped = [l:open_tag] + l:lines + [l:close_tag]
+      call setline(l:start, l:wrapped)
+      " Удаляем лишние строки, если они есть
+      if l:end > l:start + len(l:wrapped) - 1
+        execute (l:start + len(l:wrapped)) . ',' . l:end . 'delete _'
+      endif
+    endif
+
+  " Обработка обычного режима (без выделения)
+  else
+    let l:line = getline('.')
+    call setline('.', l:open_tag . l:line . l:close_tag)
+  endif
 endfunction
 
-vnoremap <F10> :<C-u>call WrapWithTag()<CR>
-nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
+" Назначение горячих клавиш:
+" - В обычном режиме
+nnoremap <silent> <F10> :call WrapWithTag('n')<CR>
+" - В визуальном режиме
+vnoremap <silent> <F10> :<C-u>call WrapWithTag(visualmode())<CR>
+" - В режиме вставки
+inoremap <silent> <F10> <Esc>:call WrapWithTag('n')<CR>
 
 " F11 Вставка длинных кусков с подсказкой
 " Включить wildmenu для интерактивного меню

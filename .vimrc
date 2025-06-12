@@ -106,28 +106,48 @@ set mousemodel=popup
 set mouse=a
 set mousehide
 
+let g:angle_chars = {
+      \ 'left': '',
+      \ 'right': '',
+      \ 'left_thin': '',
+      \ 'right_thin': ''
+      \}
+autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#000000
+autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#000000 gui=bold
+autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#222222
+autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#222222
+autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#222222 gui=bold
+autocmd VimEnter * highlight! Angle_1 guifg=#222222 guibg=#444444
+autocmd VimEnter * highlight! Space_2 guifg=#444444 guibg=#444444
+autocmd VimEnter * highlight! Text_2 guifg=#FFFFFF guibg=#444444 gui=bold
+autocmd VimEnter * highlight! Angle_2 guifg=#444444 guibg=#666666
+autocmd VimEnter * highlight! Angle_5 guifg=#222222 guibg=#666666
 set showmode
 set wildmenu
 set laststatus=2
-set statusline=%h%m%r
-set statusline+=Строк:\ %L
-set statusline+=\ \|
-set statusline+=\ Курсор\ на\ строке:\ %l
-set statusline+=\ \|
-set statusline+=\ Курсор\ на\ символе:\ %v
-set statusline+=\ \|
-set statusline+=\ Символов\ в\ строке:\ %{virtcol('$')-1}
-set statusline+=\ \|
-set statusline+=%{CharCount()}
+set statusline=
+set statusline+=%#Space_0#\
+set statusline+=%h%#Text_0#%{&modified?'СОХРАНИ':''}%*%r
+set statusline+=%#Space_0#\
+set statusline+=%#Angle_0#%{g:angle_chars.right}
+set statusline+=%#Text_1#\ Строки\ %L\ ∙\ \%l\ ∙\ \%p%%
+set statusline+=%#Space_1#\
+set statusline+=%#Angle_1#%{g:angle_chars.right}
+set statusline+=%#Text_2#\ Символы\ %{CharCount()}\ ∙\ \%{virtcol('$')-1}\ ∙\ \%v
+set statusline+=%#Space_2#\
+set statusline+=%#Angle_2#%{g:angle_chars.right}
 function! CharCount()
     if !exists("b:charcount")
         let b:charcount = join(getline(1, '$'), '')->strlen()
     endif
-    return ' Символов в файле: ' . b:charcount
+    return '' . b:charcount
 endfunction
 autocmd BufWritePost,TextChanged,TextChangedI * unlet! b:charcount
 set statusline+=%=
-set statusline+=Кодировка:\%{&fileencoding}
+set statusline+=%#Angle_5#%{g:angle_chars.left}
+set statusline+=%#Space_1#\
+set statusline+=%#Text_1#\ \%{&fileencoding}
+set statusline+=%#Space_1#\
 
 set hlsearch
 set ignorecase
@@ -228,54 +248,91 @@ map <F8> :emenu Encoding.<TAB>
     imap <F9> <ESC>:call MyToggleMenu()<CR>
     nmap <F9> :call MyToggleMenu()<CR>
     vmap <F9> <ESC>:call MyToggleMenu()<CR>
-let g:html_tags = [
-      \ 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-      \ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article',
-      \ 'header', 'footer', 'nav', 'main', 'aside', 'figure', 'figcaption',
-      \ 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'label',
-      \ 'select', 'option', 'textarea', 'details', 'script', 'link', 'meta'
-      \]
-function! WrapWithTag()
-  if mode() =~ '^[vV]'
-    let [l1, c1] = [line("'<"), col("'<")]
-    let [l2, c2] = [line("'>"), col("'>")]
-  else
-    normal! V
-    let [l1, c1] = [line("'<"), col("'<")]
-    let [l2, c2] = [line("'>"), col("'>")]
-  endif
-  let input_str = input("Tag name (optional class): ", '', 'customlist,CompleteTags')
-  if empty(input_str)
-    echo "No tag entered."
+function! WrapWithTag(type) abort
+  let l:raw_input = input('Tag (> для построчной обёртки): ')
+  if empty(l:raw_input)
     return
   endif
-  let parts = split(input_str)
-  let tag = parts[0]
-  let class_attr = len(parts) > 1 ? ' class="' . join(parts[1:], ' ') . '"' : ''
-  if l1 > l2 || (l1 == l2 && c1 > c2)
-    let [l1, l2] = [l2, l1]
-    let [c1, c2] = [c2, c1]
+  let l:raw_input = substitute(l:raw_input, '^>\(\S\)', '> \1', '')
+  let l:parts = split(l:raw_input)
+  let l:is_line_wrap = (get(l:parts, 0, '') ==# '>')
+  let l:tag = l:is_line_wrap ? get(l:parts, 1, '') : get(l:parts, 0, '')
+  let l:class = l:is_line_wrap ? get(l:parts, 2, '') : get(l:parts, 1, '')
+  if empty(l:tag)
+    echo '❌ Не указан тег'
+    return
   endif
-  let lines = getline(l1, l2)
-  let lines[0] = lines[0][c1 - 1:]
-  let lines[-1] = lines[-1][:c2 - 1]
-  let wrapped_lines = ['<' . tag . class_attr . '>'] + lines + ['</' . tag . '>']
-  call setline(l1, wrapped_lines)
-  if l2 > l1 + len(wrapped_lines) - 1
-    call deletebufline('%', l1 + len(wrapped_lines), l2)
-  endif
-endfunction
-function! CompleteTags(ArgLead, CmdLine, CursorPos)
-  let matches = []
-  for tag in g:html_tags
-    if tag =~ '^' . a:ArgLead
-      call add(matches, tag)
+  let l:class_str = l:class !=# '' ? ' class="'.l:class.'"' : ''
+  let l:open_tag = '<'.l:tag.l:class_str.'>'
+  let l:close_tag = '</'.l:tag.'>'
+  if a:type ==# 'v'
+    let [line1, col1] = getpos("'<")[1:2]
+    let [line2, col2] = getpos("'>")[1:2]
+    if line1 != line2
+      let l:lines = getline(line1, line2)
+      let l:lines[0] = l:lines[0][col1-1 :]
+      let l:lines[-1] = l:lines[-1][: col2-1]
+      let l:wrapped = [l:open_tag] + l:lines + [l:close_tag]
+      call setline(line1, l:wrapped)
+      if line2 > line1 + len(l:wrapped) - 1
+        execute (line1 + len(l:wrapped)) . ',' . line2 . 'delete _'
+      endif
+      return
     endif
-  endfor
-  return matches
+    let l:line = getline(line1)
+    if col2 < col1
+      let [col1, col2] = [col2, col1]
+    endif
+    let l:start = col1 - 1
+    let l:end = col2 - 1
+    while l:start > 0 && l:line[l:start] =~ '[\x80-\xBF]'
+      let l:start -= 1
+    endwhile
+    while l:end < strlen(l:line) - 1 && l:line[l:end + 1] =~ '[\x80-\xBF]'
+      let l:end += 1
+    endwhile
+    let l:has_trailing_space = 0
+    if l:end < strlen(l:line) - 1 && l:line[l:end + 1] ==# ' '
+      let l:has_trailing_space = 1
+    endif
+    if l:line[l:end] ==# ' '
+      let l:end -= 1
+      let l:has_trailing_space = 1
+    endif
+    let l:newline = strpart(l:line, 0, l:start) .
+          \ l:open_tag .
+          \ strpart(l:line, l:start, l:end - l:start + 1) .
+          \ l:close_tag .
+          \ (l:has_trailing_space ? ' ' : '') .
+          \ strpart(l:line, l:end + 1 + (l:has_trailing_space ? 1 : 0))
+    call setline(line1, l:newline)
+  elseif a:type ==# 'V'
+    let l:start = line("'<")
+    let l:end = line("'>")
+    if l:is_line_wrap
+      for lnum in range(l:start, l:end)
+        let l:line = getline(lnum)
+        if l:line =~ '^\s*$'
+          continue
+        endif
+        call setline(lnum, l:open_tag . l:line . l:close_tag)
+      endfor
+    else
+      let l:lines = getline(l:start, l:end)
+      let l:wrapped = [l:open_tag] + l:lines + [l:close_tag]
+      call setline(l:start, l:wrapped)
+      if l:end > l:start + len(l:wrapped) - 1
+        execute (l:start + len(l:wrapped)) . ',' . l:end . 'delete _'
+      endif
+    endif
+  else
+    let l:line = getline('.')
+    call setline('.', l:open_tag . l:line . l:close_tag)
+  endif
 endfunction
-vnoremap <F10> :<C-u>call WrapWithTag()<CR>
-nnoremap <F10> V:<C-u>call WrapWithTag()<CR>
+nnoremap <silent> <F10> :call WrapWithTag('n')<CR>
+vnoremap <silent> <F10> :<C-u>call WrapWithTag(visualmode())<CR>
+inoremap <silent> <F10> <Esc>:call WrapWithTag('n')<CR>
 set wildmenu
 set wildmode=longest,list,full
 let g:insert_snippets = {
@@ -394,7 +451,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set wildmenu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
-autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict,~/.vim/dict/universal-css.dict
+autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict
 
 vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
 vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
