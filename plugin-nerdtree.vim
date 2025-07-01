@@ -19,7 +19,7 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:WebDevIconsUnicodeDecorateFileNodes = 1
 let g:WebDevIconsNerdTreeCustomRender = 1
 
- " Флаг, чтобы NERDTree запускался только один раз
+" Флаг, чтобы NERDTree запускался только один раз
 let g:nerdtree_auto_opened = 0
 let g:NERDTreeLimitedSyntax = 0
 let g:NERDTreeSyntaxEnabled = 1
@@ -27,32 +27,6 @@ let g:NERDTreeSyntaxEnabled = 1
 nnoremap <C-f> :NERDTreeFind<CR>
 " показать скрытые файлы
 let NERDTreeShowHidden=1
-
-function! s:MaybeNERDTreeFind()
-  " Условия пропуска
-  if &filetype =~# 'nerdtree\|startify\|gitcommit'
-    return
-  endif
-  if !filereadable(expand('%:p'))
-    return
-  endif
-  if g:nerdtree_auto_opened
-    return
-  endif
-  if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
-    return
-  endif
-
-  " Открыть NERDTree и выделить файл
-  let g:nerdtree_auto_opened = 1
-  execute 'NERDTreeFind'
-endfunction
-
-augroup NERDTreeAutoFind
-  autocmd!
-  autocmd VimEnter * call s:MaybeNERDTreeFind()
-  autocmd BufReadPost * call s:MaybeNERDTreeFind()
-augroup END
 
 autocmd BufWritePost * if &ft == 'nerdtree' | silent NERDTreeSyntaxRefresh | endif
 
@@ -75,4 +49,7 @@ highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
 highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
 
 
-
+if has('gui_running')
+  hi StatusLine   guifg=#ffffff guibg=#0b0b14 gui=NONE
+  hi StatusLineNC guifg=#808080 guibg=#0b0b14 gui=NONE
+endif

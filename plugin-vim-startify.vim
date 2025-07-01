@@ -54,9 +54,9 @@ let g:startify_bookmarks = [
       \ { 'b': '~/.bash_profile' },
       \ { 'h': '~/.vim/my-help.vim' },
       \ { 's': '~/.vim/start-help.vim' },
-      \ { 'v': '~/Dropbox/worck/vimrc-TURBO-HTML' },
+      \ { 'v': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML' },
       \ { '.v': '~/.vimrc' },
-      \ { 'c': '~/Dropbox/worck/vimrc-TURBO-HTML/dict/css.dict' },
+      \ { 'c': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML/dict/css.dict' },
 
       \ ]
 

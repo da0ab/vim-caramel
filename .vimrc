@@ -78,14 +78,15 @@ map Ю >
 map , ?
 
 set shm+=I
-colorscheme desert
+colorscheme dark_puerh
 set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
 set lines=75
 set columns=210
 set ch=1
-hi Pmenu guibg=#666666 guifg=#eeeeec
 set cursorline
 set termguicolors
+set foldcolumn=1
+set fillchars+=eob:.
 
 nnoremap j gj
 nnoremap k gk
@@ -98,7 +99,6 @@ vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 set cursorline
-hi CursorLine ctermbg=235 cterm=none
 set ruler
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
@@ -112,11 +112,11 @@ let g:angle_chars = {
       \ 'left_thin': '',
       \ 'right_thin': ''
       \}
-autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#000000
-autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#000000 gui=bold
-autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#222222
-autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#222222
-autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#222222 gui=bold
+autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#0b0b14
+autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#0b0b14 gui=bold
+autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#161623
+autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#161623
+autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#161623 gui=bold
 autocmd VimEnter * highlight! Angle_1 guifg=#222222 guibg=#444444
 autocmd VimEnter * highlight! Space_2 guifg=#444444 guibg=#444444
 autocmd VimEnter * highlight! Text_2 guifg=#FFFFFF guibg=#444444 gui=bold
@@ -499,9 +499,9 @@ let g:startify_bookmarks = [
       \ { 'b': '~/.bash_profile' },
       \ { 'h': '~/.vim/my-help.vim' },
       \ { 's': '~/.vim/start-help.vim' },
-      \ { 'v': '~/Dropbox/worck/vimrc-TURBO-HTML' },
+      \ { 'v': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML' },
       \ { '.v': '~/.vimrc' },
-      \ { 'c': '~/Dropbox/worck/vimrc-TURBO-HTML/dict/css.dict' },
+      \ { 'c': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML/dict/css.dict' },
       \ ]
 augroup StartifySyntax
   autocmd!
@@ -545,27 +545,6 @@ let g:NERDTreeLimitedSyntax = 0
 let g:NERDTreeSyntaxEnabled = 1
 nnoremap <C-f> :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
-function! s:MaybeNERDTreeFind()
-  if &filetype =~# 'nerdtree\|startify\|gitcommit'
-    return
-  endif
-  if !filereadable(expand('%:p'))
-    return
-  endif
-  if g:nerdtree_auto_opened
-    return
-  endif
-  if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
-    return
-  endif
-  let g:nerdtree_auto_opened = 1
-  execute 'NERDTreeFind'
-endfunction
-augroup NERDTreeAutoFind
-  autocmd!
-  autocmd VimEnter * call s:MaybeNERDTreeFind()
-  autocmd BufReadPost * call s:MaybeNERDTreeFind()
-augroup END
 autocmd BufWritePost * if &ft == 'nerdtree' | silent NERDTreeSyntaxRefresh | endif
 let g:NERDTreeSyntaxDisableDefaultExtensions = 0
 let g:NERDTreeSyntaxEnabledExtensions = ['js', 'py', 'vim', 'md', 'txt']
@@ -578,9 +557,17 @@ highlight nerdtreeFileExtensionLabel_html  guifg=#E06C75
 highlight nerdtreeFileExtensionLabel_vim   guifg=#98C379
 highlight nerdtreeFileExtensionLabel_md    guifg=#FFFFFF
 highlight nerdtreeFileExtensionLabel_json  guifg=#E5C07B
+if has('gui_running')
+  hi StatusLine   guifg=#ffffff guibg=#0b0b14 gui=NONE
+  hi StatusLineNC guifg=#808080 guibg=#0b0b14 gui=NONE
+endif
 
-highlight CursorLine ctermbg=0 guibg=#2e2e2e cterm=none gui=none
-highlight CursorLineNr ctermbg=235 guibg=#2c313c ctermfg=214 guifg=#FFA500
+function! FixSignatureColors()
+    hi SignatureMarkText  guifg=#6c6c6c guibg=#1e1e2e ctermfg=242 ctermbg=236 gui=NONE cterm=NONE
+    hi SignatureMarkerText guifg=#5c5c5c guibg=#1e1e2e ctermfg=240 ctermbg=236 gui=NONE cterm=NONE
+endfunction
+autocmd VimEnter,ColorScheme * call FixSignatureColors()
+
 set hlsearch
 nohlsearch
 

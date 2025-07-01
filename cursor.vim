@@ -14,7 +14,7 @@ inoremap <Up> <C-o>gk
 set cursorline
 
 " Настраивает цвет фона выделенной строки (CursorLine)
-hi CursorLine ctermbg=235 cterm=none
+"hi CursorLine ctermbg=235 cterm=none
 
 " Отображает текущее положение курсора в нижней части окна
 set ruler

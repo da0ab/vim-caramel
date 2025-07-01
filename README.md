@@ -64,13 +64,13 @@
 
 #### html блоки
 
-- `sd` : Оборачивает выделенный текст в тег `<div>`
-- `sdd` : Оборачивание нескольких абзацев/предложений в`<div>` /Python скрипт/
+- `sd`  : Оборачивает выделенный текст в тег `<div>`
+<!--- `sdd` : Оборачивание нескольких абзацев/предложений в`<div>` /Python скрипт/ -->
 - `sdi` : Оборачивает выделенный текст в тег `<div id="">`
 - `sdc` : Оборачивает выделенный текст в тег `<div class="">`
 - `spa` : Оборачивает выделенный текст в тег `<span class="">`
 - `span` : Оборачивает выделенный текст в тег `<span>`
-- `sec`: Оборачивает выделенный текст в тег `<section>`
+- `sec`  : Оборачивает выделенный текст в тег `<section>`
 - `secc` : Оборачивает выделенный текст в тег `<section class="main">`
 
 #### details
@@ -84,42 +84,37 @@
 
 #### Изображения
 
-- `sw` : Оборачивает выделенный текст в тег `<img src="images/pic.jpg" alt="" title="">`
+- `sw`  : Оборачивает выделенный текст в тег `<img src="images/pic.jpg" alt="" title="">`
 - `swl` : Оборачивает выделенный текст в тег `<a href="images/pic.jpg" class="iPop-img"><img src="images/pic.jpg" alt="" title=""></a>`
 - `swv` : Оборачивает выделенный текст в тег `<a href="pic.jpg" class="iPop-video"></a>`
 
 #### Комментарии
 
-- `ss` : Оборачивает выделенный текст в тег `<!-- текст -->`
-- `sc` : Оборачивает выделенный текст в тег `/*текст*/`
-- `sx` : Оборачивает выделенный текст в тег `/*-------------------- текст --------------------*/`
+- `ss` : Оборачивает выделенный текст в  `<!-- текст -->`
+- `sc` : Оборачивает выделенный текст в  `/*текст*/`
+- `sx` : Оборачивает выделенный текст в  `/*-------------------- текст --------------------*/`
+- `sv` : Оборачивает выделенный текст в  `" ===== текст =====`
 
 ### Горячие клавиши для быстрого добавления
 
-<!--#### Пустой html
-
-- `\x0` : Вставляет структуру пустого HTML-документа
-- `\x5` : Вставляет структуру HTML-документа с дополнительными мета-тегами и стилями
-- `\seo` : Вставляет мета-теги для SEO
--->
 #### Быстрая добавка
 
 - `<C-Enter>` : Вставляет `<br>`
-- `\a` : Вставляет `<a id="" class="anchor"></a>`
-- `\<Space>` : Вставляет `&nbsp;`
-- `\i` : Вставляет `id=""`
-- `\c` : Вставляет `class=""`
-- `\w` : Вставляет `width:;`
-- `\h` : Вставляет `height:;`
-- `\l` : Вставляет `<hr>`
-- `\v` : Вставляет `var(--);`
-- `\–` : Вставляет `–;`
-- `\ve` : Вставляет `?v=0.0.1`
-- `\ff` : Вставляет `color: #fff;`
-- `\b` : Вставляет `border: 1px solid #ddd;`
-- `\1` : Вставляет `!important`
-- `\fw` : Вставляет `font-weight: bold;`
-- `\bg` : Вставляет `background: transparent url(../images/) no-repeat center;`
+- `\a`        : Вставляет `<a id="" class="anchor"></a>`
+- `\<Space>`  : Вставляет `&nbsp;`
+- `\i`        : Вставляет `id=""`
+- `\c`        : Вставляет `class=""`
+- `\w`        : Вставляет `width:;`
+- `\h`        : Вставляет `height:;`
+- `\l`        : Вставляет `<hr>`
+- `\v`        : Вставляет `var(--);`
+- `\–`        : Вставляет `–;`
+- `\ve`       : Вставляет `?v=0.0.1`
+- `\ff`       : Вставляет `color: #fff;`
+- `\b`        : Вставляет `border: 1px solid #ddd;`
+- `\1`        : Вставляет `!important`
+- `\fw`       : Вставляет `font-weight: bold;`
+- `\bg`       : Вставляет `background: transparent url(../images/) no-repeat center;`
 
 #### HTML/CSS/bash/python
 
@@ -140,7 +135,7 @@
 ####  Статус строка
 
 ```HTML
-Строки: всего строк ∙  Курсор на строке ∙ % строк | Символы: Всего ∙  В строке ∙ Курсор на символе | Кодировка
+Строки: всего ∙  курсор на строке ∙ % строк | Символы: всего ∙  в строке ∙ курсор на символе | Кодировка
 ```
 
 #### Python скрипты размещены в
@@ -152,15 +147,28 @@
 
 - **VIMRC-COMPLIT.py**  - собирает и перезаписывает~/.vimrc делая бекап ~/.vimrc~
 
-### Плагины / Тема
+### Плагины
 
 - [vim-pathogen](https://github.com/tpope/vim-pathogen/)
 - [vim-startify](https://github.com/mhinz/vim-startify/)
 - [NERDTree](https://github.com/preservim/nerdtree/)
 - [vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight)
 - [vim-devicons](https://github.com/ryanoasis/vim-devicons)
+- [vim-css-color](https://github.com/ap/vim-css-color)
+- [vim-signature](https://github.com/kshenoy/vim-signature)
 - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
-- [Тема desert](https://github.com/fugalh/desert.vim/)
+
+``git clone https://github.com/mhinz/vim-startify.git ~/.vim/bundle/vim-startify``
+``git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree``
+``git clone https://github.com/tiagofumo/vim-nerdtree-syntax-highlight.git ~/.vim/bundle/vim-nerdtree-syntax-highlight``
+``git clone https://github.com/ryanoasis/vim-devicons.git ~/.vim/bundle/vim-devicons``
+``git clone https://github.com/ap/vim-css-color.git ~/.vim/bundle/vim-devicons``
+``git clone https://github.com/kshenoy/vim-signature.git ~/.vim/bundle/vim-signature``
+
+
+### Тема dark_puerh.vim
+
+[dark_puerh.vim](https://github.com/da0ab/dark_puerh.vim)
 
 ### Инсталляционный скрипт
 

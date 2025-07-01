@@ -32,6 +32,7 @@ files_to_add = [
     "plugins.vim",
     "plugin-vim-startify.vim",
     "plugin-nerdtree.vim",
+    "plugin-vim-signature.vim",
     "fin.vim"
 ]
 
@@ -85,6 +86,7 @@ files_to_copy = [
     ("scripts/p.py", "scripts/p.py"),
     ("scripts/clean_html.py", "scripts/clean_html.py"),
     ("dict/universal-css.dict", "dict/universal-css.dict"),
+    ("colors/dark_puerh.vim", "colors/dark_puerh.vim"),
 ]
 
 copy_files(files_to_copy)

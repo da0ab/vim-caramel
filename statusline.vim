@@ -7,12 +7,12 @@ let g:angle_chars = {
       \ 'right_thin': ''
       \}
 
-autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#000000
-autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#000000 gui=bold
-autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#222222
+autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#0b0b14
+autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#0b0b14 gui=bold
+autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#161623
 
-autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#222222
-autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#222222 gui=bold
+autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#161623
+autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#161623 gui=bold
 autocmd VimEnter * highlight! Angle_1 guifg=#222222 guibg=#444444
 
 autocmd VimEnter * highlight! Space_2 guifg=#444444 guibg=#444444

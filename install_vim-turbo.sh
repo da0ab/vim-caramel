@@ -27,7 +27,7 @@ git clone https://github.com/tiagofumo/vim-nerdtree-syntax-highlight.git ~/.vim/
 git clone https://github.com/ryanoasis/vim-devicons.git ~/.vim/bundle/vim-devicons
 
 echo "Клонируем цветовую схему в colors..."
-git clone https://github.com/fugalh/desert.vim.git ~/.vim/colors/desert
+curl -o ~/.vim/colors/dark_puerh.vim https://raw.githubusercontent.com/da0ab/dark_puerh.vim/master/colors/dark_puerh.vim
 
 # Загружаем .vimrc и другие файлы
 echo "Скачиваем .vimrc..."
