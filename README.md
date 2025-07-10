@@ -184,6 +184,7 @@
 
 #### Файлы
 
+```
 ├── 01-core.vim
 ├── 02-backup_swap.vim
 ├── 03-cursor_behavior.vim
@@ -215,6 +216,7 @@
 ├── py-script.vim
 ├── install_vim-caramel.sh
 └── vimrc-complit.py
+```
 
 
 
