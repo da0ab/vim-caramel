@@ -153,7 +153,7 @@
 ```
 ####  Python скрипт сборки и копирования
 
-- **vimrc-complit.py**  - собирает и записывает ~/.vimrc.compiled делая бекап ~/.vimrc~ удаляет комментарии
+- **vimrc-complit.py**  - собирает, удаляет комментарии и записывает ~/.vimrc.compiled делая бекап ~/.vimrc
 
 
 ### Плагины
@@ -185,24 +185,25 @@
 #### Файлы
 
 ```
-├── 01-core.vim
-├── 02-backup_swap.vim
-├── 03-cursor_behavior.vim
-├── 04-completion.vim
-├── 05-text_editing.vim
-├── 06-ui_statusline.vim
-├── 07-ui_search.vim
-├── 08-ui_appearance.vim
-├── 09-key_russian_layout.vim
-├── 10-key_mappings.vim
-├── 11-key_mappings-html.vim
-├── 12-key_mappings-py-script.vim
-├── plugins
-│   ├── 01-pathogen.vim
-│   ├── 03-nerdtree.vim
-│   ├── 04-vim-signature.vim
-│   └── 05-vim-startify.vim
-├── _scripts_
+├── vimrc.d
+│   ├── 01-core.vim
+│   ├── 02-backup_swap.vim
+│   ├── 03-cursor_behavior.vim
+│   ├── 04-completion.vim
+│   ├── 05-text_editing.vim
+│   ├── 06-ui_statusline.vim
+│   ├── 07-ui_search.vim
+│   ├── 08-ui_appearance.vim
+│   ├── 09-key_russian_layout.vim
+│   ├── 10-key_mappings.vim
+│   ├── 11-key_mappings-html.vim
+│   ├── 12-key_mappings-py-script.vim
+│   ├── plugins
+│      ├── 01-pathogen.vim
+│      ├── 03-nerdtree.vim
+│      ├── 04-vim-signature.vim
+│      └── 05-vim-startify.vim
+├── scripts
 │   ├── clean_html.py
 │   ├── div.py
 │   ├── li.py
@@ -213,7 +214,6 @@
 ├── help
 │   ├── my-help.vim
 │   └── start-help.vim
-├── py-script.vim
 ├── install_vim-caramel.sh
 └── vimrc-complit.py
 ```
