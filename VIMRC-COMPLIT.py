@@ -7,7 +7,7 @@ REMOVE_EMPTY_LINES = True     # Удалять пустые строки
 # ==================
 
 # Получаем путь к файлу ~/.vimrc
-vimrc_path = os.path.expanduser("~/.vimrc")
+vimrc_path = os.path.expanduser("~/.vimrc.compiled")
 script_dir = os.getcwd()  # Директория, где находится скрипт
 
 # Переименовываем старый .vimrc (если есть)
@@ -15,25 +15,24 @@ if os.path.exists(vimrc_path):
     shutil.move(vimrc_path, vimrc_path + "~")
     print(f"Файл {vimrc_path} был переименован в {vimrc_path}~")
 
-# Список файлов для добавления в ~/.vimrc
+# Список файлов для добавления в ~/.vimrc.compiled
 files_to_add = [
-    "base.vim",
-    "key-ru-fix.vim",
-    "face.vim",
-    "cursor.vim",
-    "statusline.vim",
-    "search.vim",
-    "backup.vim",
-    "content.vim",
-    "keys.vim",
-    "html.vim",
-    "autocomplete.vim",
-    "py-script.vim",
-    "plugins.vim",
-    "plugin-vim-startify.vim",
-    "plugin-nerdtree.vim",
-    "plugin-vim-signature.vim",
-    "fin.vim"
+    "01-core.vim",
+    "02-backup_swap.vim",
+    "03-cursor_behavior.vim",
+    "04-completion.vim",
+    "05-text_editing.vim",
+    "06-ui_statusline.vim",
+    "07-ui_search.vim",
+    "08-ui_appearance.vim",
+    "09-key_russian_layout.vim",
+    "10-key_mappings.vim",
+    "11-key_mappings-html.vim",
+    "12-key_mappings-py-script.vim",
+    "plugins/01-pathogen.vim",
+    "plugins/03-nerdtree.vim",
+    "plugins/04-vim-signature.vim",
+    "plugins/05-vim-startify.vim"
 ]
 
 def process_lines(lines):
@@ -78,8 +77,8 @@ def copy_files(copy_map):
 
 # Файлы для копирования: (относительный путь из проекта, относительный путь в ~/.vim)
 files_to_copy = [
-    ("my-help.vim", "my-help.vim"),
-    ("start-help.vim", "start-help.vim"),
+    ("my-help.vim", "help/my-help.vim"),
+    ("start-help.vim", "help/start-help.vim"),
     ("dict/css.dict", "dict/css.dict"),
     ("scripts/div.py", "scripts/div.py"),
     ("scripts/li.py", "scripts/li.py"),
@@ -92,7 +91,7 @@ files_to_copy = [
 copy_files(files_to_copy)
 
 # Копирование итогового .vimrc обратно в директорию скрипта
-dst_vimrc = os.path.join(script_dir, ".vimrc")
+dst_vimrc = os.path.join(script_dir, ".vimrc.compiled")
 if os.path.exists(vimrc_path):
     shutil.copy2(vimrc_path, dst_vimrc)
     print(f"Файл {vimrc_path} скопирован в директорию скрипта {script_dir}")

@@ -9,41 +9,38 @@ if exists('syntax_on')
 endif
 let g:colors_name = 'dark_puerh'
 
-let s:bg_main =          '#1e1e2e' " Основной фон
+let s:bg_main =           '#1e1e2e' " Основной фон
+let s:my_black =          '#000000' " Череный
+let s:my_white =          '#ffffff' " Белый
 
-let s:my_black =         '#000000' " Череный
-let s:my_white =         '#ffffff' " Белый
+let s:my_gray_darker =    '#2c313c'
+let s:my_gray_dark =      '#4d4d4d'
+let s:my_gray =           '#666666'
+let s:my_gray_light =     '#7f7f8c'
+let s:my_gray_lighter =   '#a8a8a8'
+let s:my_gray_lightest =  '#c6c6c6'
 
-let s:my_gray_darker =   '#2c313c' " Самый тёмный
-let s:gray_dark =        '#333333' " Тёмно-серый
-let s:gray_dark_2 =      '#4d4d4d'
-let s:my_gray =          '#666666' " Средне-серый
-let s:gray_dark_3 =      '#7f7f8c'
-let s:fg_dim =           '#a8a8a8'
-let s:bg_difftext =      '#c6c6c6'      " Светло-серый
-let s:bg_light =         '#c2bfa5'     " Светлый бежево-серый
+let s:my_purple =         '#af5faf' " Пурпурный
 
-let s:my_purple =        '#af5faf' " Пурпурный
+let s:my_green =          '#6b8e24' " Зеленый
+let s:my_green_light =    '#89fb98' " Бледно зеленый
+let s:my_pale =           '#A6E3A1' " Светло зеленый
+let s:my_khaki =          '#bdb76b' " Хаки
 
-let s:my_green =         '#6b8e24' " Зеленый
-let s:my_green_light =   '#89fb98' " Бледно зеленый
-let s:my_pale =          '#A6E3A1' " Светло зеленый
-let s:my_khaki =         '#bdb76b' " Хаки
+let s:my_blue_steel =     '#5f87af' " Сталистый
+let s:my_blue_sky =       '#75a0ff' " Небесно-голубой
+let s:my_blue =           '#70b3c7' " Голубой
+let s:my_marine =         '#94e2d5' " Цвет морской волны
 
-let s:my_blue_steel =    '#5f87af' " Сталистый
-let s:my_blue_sky =      '#75a0ff' " Небесно-голубой
-let s:my_blue =          '#70b3c7' " Голубой
-let s:my_marine =        '#94e2d5' " Цвет морской волны
-
-let s:my_red =           '#ff0000' " Красный
-let s:my_red_indian =    '#cd5c5c' " Индейский красный
-let s:my_coral =         '#ffa0a0' " Коралл
-let s:my_orange =        '#FFA500' " Оранжевый
-let s:my_peru =          '#cd853f' " Коричневый
-let s:my_peach =         '#fab387' " Персиковый
-let s:my_gold =          '#ffde9b' " Золотой
-let s:my_yellow_light =  '#f0e68c' " Желтый светлый
-let s:my_yellow =        '#eeee00' " Желтый
+let s:my_red =            '#ff0000' " Красный
+let s:my_red_indian =     '#cd5c5c' " Индейский красный
+let s:my_coral =          '#ffa0a0' " Коралл
+let s:my_orange =         '#FFA500' " Оранжевый
+let s:my_peru =           '#cd853f' " Коричневый
+let s:my_peach =          '#fab387' " Персиковый
+let s:my_gold =           '#ffde9b' " Золотой
+let s:my_yellow_light =   '#f0e68c' " Желтый светлый
+let s:my_yellow =         '#eeee00' " Желтый
 
 
 
@@ -73,11 +70,11 @@ hi! link EndOfBuffer NonText
 
 " === Окна/Статус ===
 " Основная строка состояния (активное окно)
-call s:hi("StatusLine", s:gray_dark, s:bg_light, "NONE", "NONE")
+call s:hi("StatusLine", s:my_gray_darker, s:my_gray_lightest, "NONE", "NONE")
 " Строка состояния неактивного окна
-call s:hi("StatusLineNC", s:gray_dark_3, s:bg_light, "NONE", "NONE")
+call s:hi("StatusLineNC", s:my_gray_light, s:my_gray_lightest, "NONE", "NONE")
 " Строка состояния терминала (активный)
-call s:hi("StatusLineTerm", s:gray_dark, s:bg_light, "NONE", "NONE")
+call s:hi("StatusLineTerm", s:my_gray_darker, s:my_gray_lightest, "NONE", "NONE")
 " Строка состояния терминала (неактивный)
 call s:hi("StatusLineTermNC", s:my_white, s:my_black, "NONE", "NONE")
 " Вертикальные разделители окон
@@ -87,23 +84,23 @@ call s:hi("VertSplit", s:my_gray_darker, s:bg_main, "NONE", "NONE")
 " Выпадающее меню (фон)
 call s:hi("Pmenu", s:my_white, s:my_gray, "NONE", "NONE")
 " Выбранный элемент меню
-call s:hi("PmenuSel", s:gray_dark, s:my_yellow_light, "NONE", "NONE")
+call s:hi("PmenuSel", s:my_gray_darker, s:my_yellow_light, "NONE", "NONE")
 " Полоса прокрутки меню
 call s:hi("PmenuSbar", "NONE", s:bg_main, "NONE", "NONE")
 " Ползунок прокрутки меню
-call s:hi("PmenuThumb", "NONE", s:bg_light, "NONE", "NONE")
+call s:hi("PmenuThumb", "NONE", s:my_gray_lightest, "NONE", "NONE")
 " Неактивные вкладки
-call s:hi("TabLine", s:gray_dark, s:bg_light, "NONE", "NONE")
+call s:hi("TabLine", s:my_gray_darker, s:my_gray_lightest, "NONE", "NONE")
 " Фон линии вкладок
-call s:hi("TabLineFill", "NONE", s:bg_light, "NONE", "NONE")
+call s:hi("TabLineFill", "NONE", s:my_gray_lightest, "NONE", "NONE")
 " Активная вкладка
-call s:hi("TabLineSel", s:gray_dark, s:my_yellow_light, "NONE", "NONE")
+call s:hi("TabLineSel", s:my_gray_darker, s:my_yellow_light, "NONE", "NONE")
 
 " === Панели инструментов ===
 " Фон панели инструментов
 call s:hi("ToolbarLine", "NONE", s:my_gray, "NONE", "NONE")
 " Кнопки на панели инструментов
-call s:hi("ToolbarButton", s:gray_dark, s:my_gold, "bold", "bold")
+call s:hi("ToolbarButton", s:my_gray_darker, s:my_gold, "bold", "bold")
 
 " === Текст/Символы ===
 " Символы конца буфера (~)
@@ -111,7 +108,7 @@ call s:hi("NonText", s:my_blue, "NONE", "NONE", "NONE")
 " Специальные символы (например, пробелы)
 call s:hi("SpecialKey", s:my_green_light, "NONE", "NONE", "NONE")
 " Свернутый текст
-call s:hi("Folded", s:my_yellow, s:gray_dark_2, "NONE", "NONE")
+call s:hi("Folded", s:my_yellow, s:my_gray_dark, "NONE", "NONE")
 
 " === Выделение ===
 " Визуальное выделение
@@ -121,9 +118,9 @@ call s:hi("VisualNOS", s:my_yellow_light, s:my_blue, "NONE", "NONE")
 
 " === Номера строк ===
 " Номера строк
-call s:hi("LineNr", s:gray_dark_2, "NONE", "NONE", "NONE")
+call s:hi("LineNr", s:my_gray_dark, "NONE", "NONE", "NONE")
 " Колонка сворачивания
-call s:hi("FoldColumn", s:fg_dim, s:bg_main, "NONE", "NONE")
+call s:hi("FoldColumn", s:my_gray_lighter, s:bg_main, "NONE", "NONE")
 
 " === Курсор ===
 " Линия курсора
@@ -135,7 +132,7 @@ call s:hi("CursorLineNr", s:my_orange, s:my_gray_darker, "bold", "bold")
 
 " === Быстрое исправление ===
 " Линия быстрого исправления
-call s:hi("QuickFixLine", s:gray_dark, s:my_yellow_light, "NONE", "NONE")
+call s:hi("QuickFixLine", s:my_gray_darker, s:my_yellow_light, "NONE", "NONE")
 
 " === Колонка знаков ===
 " Колонка для знаков (git, ошибки, маркеры)
@@ -163,13 +160,13 @@ call s:hi("Todo", s:my_red, s:my_yellow, "NONE", "NONE")
 
 " === Поиск/Совпадения ===
 " Парные скобки
-call s:hi("MatchParen", s:gray_dark_3, s:my_khaki, "NONE", "NONE")
+call s:hi("MatchParen", s:my_gray_light, s:my_khaki, "NONE", "NONE")
 " Результаты поиска
-call s:hi("Search", s:my_yellow_light, s:gray_dark_3, "NONE", "NONE")
+call s:hi("Search", s:my_yellow_light, s:my_gray_light, "NONE", "NONE")
 " Инкрементальный поиск
 call s:hi("IncSearch", s:my_yellow_light, s:my_peru, "NONE", "NONE")
 " Дикое меню (автодополнение)
-call s:hi("WildMenu", s:gray_dark, s:my_yellow, "NONE", "NONE")
+call s:hi("WildMenu", s:my_gray_darker, s:my_yellow, "NONE", "NONE")
 
 " === Колонки ===
 " Цветная колонка (например, >80 символов)
@@ -177,9 +174,9 @@ call s:hi("ColorColumn", s:my_white, s:my_red_indian, "NONE", "NONE")
 
 " === Курсоры ===
 " Основной курсор
-call s:hi("Cursor", s:gray_dark, s:my_yellow_light, "NONE", "NONE")
+call s:hi("Cursor", s:my_gray_darker, s:my_yellow_light, "NONE", "NONE")
 " Локализованный курсор
-call s:hi("lCursor", s:gray_dark, s:my_red, "NONE", "NONE")
+call s:hi("lCursor", s:my_gray_darker, s:my_red, "NONE", "NONE")
 
 " === Отладка ===
 " Точка выполнения при отладке
@@ -227,7 +224,7 @@ call s:hi("DiffAdd", s:my_white, s:my_green, "NONE", "NONE")
 " Измененные строки
 call s:hi("DiffChange", s:my_white, s:my_blue_steel, "NONE", "NONE")
 " Текст изменений
-call s:hi("DiffText", s:my_black, s:bg_difftext, "NONE", "NONE")
+call s:hi("DiffText", s:my_black, s:my_gray_lightest, "NONE", "NONE")
 " Удаленные строки
 call s:hi("DiffDelete", s:my_white, s:my_purple, "NONE", "NONE")
 

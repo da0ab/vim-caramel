@@ -11,7 +11,7 @@ let g:startify_use_devicons = 1
 
 " Цитата при старте
 function! GetWelcomeMessage()
-  let l:file = expand("~/.vim/start-help.vim")
+  let l:file = expand("~/.vim/help/start-help.vim")
   if filereadable(l:file)
     let l:lines = readfile(l:file)
     if !empty(l:lines)
@@ -52,12 +52,11 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
       \ { 'p': '~/prompts.txt' },
       \ { 'b': '~/.bash_profile' },
-      \ { 'h': '~/.vim/my-help.vim' },
+      \ { 'h': '~/.vim/help/my-help.vim' },
       \ { 's': '~/.vim/start-help.vim' },
       \ { 'v': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML' },
       \ { '.v': '~/.vimrc' },
-      \ { 'c': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML/dict/css.dict' },
-
+      \ { 'c': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML/dict/css.dict' }
       \ ]
 
 " Раскраска файлов списка
