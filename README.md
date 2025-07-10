@@ -1,4 +1,4 @@
-# .vimrc-TURBO-HTML
+# .vimrc-caramel
 
 ### F горячие клавиши
 
@@ -138,6 +138,14 @@
 Строки: всего ∙  курсор на строке ∙ % строк | Символы: всего ∙  в строке ∙ курсор на символе | Кодировка
 ```
 
+### Тема dark_puerh.vim
+
+[dark_puerh.vim](https://github.com/da0ab/dark_puerh.vim)
+
+### Инсталляционный скрипт
+
+``install_vim-caramel.sh``
+
 #### Python скрипты размещены в
 
 ```HTML
@@ -145,7 +153,8 @@
 ```
 ####  Python скрипт сборки и копирования
 
-- **VIMRC-COMPLIT.py**  - собирает и перезаписывает~/.vimrc делая бекап ~/.vimrc~
+- **vimrc-complit.py**  - собирает и записывает ~/.vimrc.compiled делая бекап ~/.vimrc~ удаляет комментарии
+
 
 ### Плагины
 
@@ -159,42 +168,55 @@
 - [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
 
 ``git clone https://github.com/mhinz/vim-startify.git ~/.vim/bundle/vim-startify``
+
 ``git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree``
+
 ``git clone https://github.com/tiagofumo/vim-nerdtree-syntax-highlight.git ~/.vim/bundle/vim-nerdtree-syntax-highlight``
+
 ``git clone https://github.com/ryanoasis/vim-devicons.git ~/.vim/bundle/vim-devicons``
+
 ``git clone https://github.com/ap/vim-css-color.git ~/.vim/bundle/vim-devicons``
+
 ``git clone https://github.com/kshenoy/vim-signature.git ~/.vim/bundle/vim-signature``
 
 
-### Тема dark_puerh.vim
 
-[dark_puerh.vim](https://github.com/da0ab/dark_puerh.vim)
-
-### Инсталляционный скрипт
-
-``install_vim-turbo.sh``
 
 #### Файлы
-- **_scripts_** - скрипты
-  - **clean_html.py** - очистка текста
-  - **div.py**  - оборачиваем абзацы в ``div``
-  - **li.py** - оборачиваем в ``ul``
-  - **p.py** - оборачиваем в ``p``
-- **_dict_** - словари
-  - **universal-css.dict**
-  - **css.dict**
-- **base.vim** - основной
-- **key-ru-fix.vim** - исправление русской раскладки
-- **face.vim** - морда
-- **cursor.vim** - курсор
-- **statusline.vim** - строка состояния
-- **search.vim** - поиск
-- **backup.vim** - резервное копирование
-- **content.vim** - содержимое файла
-- **keys.vim** - комбинации горячих клавиш
-- **html.vim** - css/html
-- **py-script.vim** - Python скрипты для работы с текстом
-- **my-help.vim** - памятка
-- **install_vim-turbo.sh** - инсталляционный скрипт
-- **VIMRC-COMPLIT.py** - скрипт сборки
+
+``
+├── 01-core.vim
+├── 02-backup_swap.vim
+├── 03-cursor_behavior.vim
+├── 04-completion.vim
+├── 05-text_editing.vim
+├── 06-ui_statusline.vim
+├── 07-ui_search.vim
+├── 08-ui_appearance.vim
+├── 09-key_russian_layout.vim
+├── 10-key_mappings.vim
+├── 11-key_mappings-html.vim
+├── 12-key_mappings-py-script.vim
+├── plugins
+│   ├── 01-pathogen.vim
+│   ├── 03-nerdtree.vim
+│   ├── 04-vim-signature.vim
+│   └── 05-vim-startify.vim
+├── _scripts_
+│   ├── clean_html.py
+│   ├── div.py
+│   ├── li.py
+│   └── p.py
+├── _dict_
+│   ├── universal-css.dict
+│   └── css.dict
+├── help
+│   ├── my-help.vim
+│   └── start-help.vim
+├── py-script.vim
+├── install_vim-caramel.sh
+└── vimrc-complit.py
+``
+
+
 
