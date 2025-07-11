@@ -1,5 +1,7 @@
 # >[ VIM-CARAMEL ]<
 
+![screenshot](screenshot.png)
+
 ### [F] горячие клавиши
 
 - `F1` : Сохранить
