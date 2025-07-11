@@ -1,4 +1,4 @@
-# .vimrc-caramel
+# >[ VIM-CARAMEL ]<
 
 ### F горячие клавиши
 
