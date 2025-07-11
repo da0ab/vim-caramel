@@ -153,7 +153,7 @@
 ```
 ####  Python скрипт сборки и копирования
 
-- **vimrc-complit.py**  - собирает, удаляет комментарии и записывает ~/.vimrc.compiled делая бекап ~/.vimrc
+- **complit_vim-caramel.py**  - собирает, удаляет комментарии и записывает ~/.vimrc.compiled делая бекап ~/.vimrc
 
 
 ### Плагины
@@ -215,7 +215,7 @@
 │   ├── my-help.vim
 │   └── start-help.vim
 ├── install_vim-caramel.sh
-└── vimrc-complit.py
+└── complit_vim-caramel.py
 ```
 
 
