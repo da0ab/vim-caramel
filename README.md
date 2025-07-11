@@ -185,7 +185,7 @@
 #### Файлы
 
 ```
-├── vimrc.d
+├── [vimrc.d]
 │   ├── 01-core.vim
 │   ├── 02-backup_swap.vim
 │   ├── 03-cursor_behavior.vim
@@ -198,20 +198,20 @@
 │   ├── 10-key_mappings.vim
 │   ├── 11-key_mappings-html.vim
 │   ├── 12-key_mappings-py-script.vim
-│   ├── plugins
+│   ├── _plugins_
 │      ├── 01-pathogen.vim
 │      ├── 03-nerdtree.vim
 │      ├── 04-vim-signature.vim
 │      └── 05-vim-startify.vim
-├── scripts
+├── [scripts]
 │   ├── clean_html.py
 │   ├── div.py
 │   ├── li.py
 │   └── p.py
-├── _dict_
+├── [dict]
 │   ├── universal-css.dict
 │   └── css.dict
-├── help
+├── [help]
 │   ├── my-help.vim
 │   └── start-help.vim
 ├── install_vim-caramel.sh
