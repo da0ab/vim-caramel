@@ -17,22 +17,22 @@ if os.path.exists(vimrc_path):
 
 # Список файлов для добавления в ~/.vimrc.compiled
 files_to_add = [
-    "01-core.vim",
-    "02-backup_swap.vim",
-    "03-cursor_behavior.vim",
-    "04-completion.vim",
-    "05-text_editing.vim",
-    "06-ui_statusline.vim",
-    "07-ui_search.vim",
-    "08-ui_appearance.vim",
-    "09-key_russian_layout.vim",
-    "10-key_mappings.vim",
-    "11-key_mappings-html.vim",
-    "12-key_mappings-py-script.vim",
-    "plugins/01-pathogen.vim",
-    "plugins/03-nerdtree.vim",
-    "plugins/04-vim-signature.vim",
-    "plugins/05-vim-startify.vim"
+    "vimrc.d/01-core.vim",
+    "vimrc.d/02-backup_swap.vim",
+    "vimrc.d/03-cursor_behavior.vim",
+    "vimrc.d/04-completion.vim",
+    "vimrc.d/05-text_editing.vim",
+    "vimrc.d/06-ui_statusline.vim",
+    "vimrc.d/07-ui_search.vim",
+    "vimrc.d/08-ui_appearance.vim",
+    "vimrc.d/09-key_russian_layout.vim",
+    "vimrc.d/10-key_mappings.vim",
+    "vimrc.d/11-key_mappings-html.vim",
+    "vimrc.d/12-key_mappings-py-script.vim",
+    "vimrc.d/plugins/01-pathogen.vim",
+    "vimrc.d/plugins/03-nerdtree.vim",
+    "vimrc.d/plugins/04-vim-signature.vim",
+    "vimrc.d/plugins/05-vim-startify.vim"
 ]
 
 def process_lines(lines):
@@ -77,8 +77,8 @@ def copy_files(copy_map):
 
 # Файлы для копирования: (относительный путь из проекта, относительный путь в ~/.vim)
 files_to_copy = [
-    ("my-help.vim", "help/my-help.vim"),
-    ("start-help.vim", "help/start-help.vim"),
+    ("help/my-help.vim", "help/my-help.vim"),
+    ("help/start-help.vim", "help/start-help.vim"),
     ("dict/css.dict", "dict/css.dict"),
     ("scripts/div.py", "scripts/div.py"),
     ("scripts/li.py", "scripts/li.py"),

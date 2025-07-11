@@ -8,6 +8,133 @@ set clipboard=unnamed
 let mapleader = "."
 set timeoutlen=800
 
+if version >= 700
+    set history=64
+    set undodir=~/.vim/tmp/
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif
+set noswapfile
+
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+set cursorline
+set ruler
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+set mousemodel=popup
+set mouse=a
+set mousehide
+
+set fileencoding=utf-8
+set fileencodings=utf-8,cp1251,koi8-r
+set iskeyword+=192-255,:,;,(,),-
+set complete=.,k
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+set wildmenu
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
+autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict
+
+syntax on
+set wrap
+set linebreak
+set nu
+set smartindent
+set tabstop=4
+set shiftwidth=1
+set softtabstop=4
+set expandtab
+set autoindent
+set nofoldenable
+set foldmethod=manual
+set showmatch
+imap [ []<LEFT>
+imap ( ()<LEFT>
+imap { {<CR>}<C-O>O
+function InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+imap <tab> <c-r>=InsertTabWrapper()<cr>
+autocmd BufWritePre * silent! %s/[\r \t]\+$//
+
+let g:angle_chars = {
+      \ 'left': '',
+      \ 'right': '',
+      \ 'left_thin': '',
+      \ 'right_thin': ''
+      \}
+autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#0b0b14
+autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#0b0b14 gui=bold
+autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#161623
+autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#161623
+autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#161623 gui=bold
+autocmd VimEnter * highlight! Angle_1 guifg=#222222 guibg=#444444
+autocmd VimEnter * highlight! Space_2 guifg=#444444 guibg=#444444
+autocmd VimEnter * highlight! Text_2 guifg=#FFFFFF guibg=#444444 gui=bold
+autocmd VimEnter * highlight! Angle_2 guifg=#444444 guibg=#666666
+autocmd VimEnter * highlight! Angle_5 guifg=#222222 guibg=#666666
+set showmode
+set wildmenu
+set laststatus=2
+set statusline=
+set statusline+=%#Space_0#\
+set statusline+=%h%#Text_0#%{&modified?'СОХРАНИ':''}%*%r
+set statusline+=%#Space_0#\
+set statusline+=%#Angle_0#%{g:angle_chars.right}
+set statusline+=%#Text_1#\ Строки\ %L\ ∙\ \%l\ ∙\ \%p%%
+set statusline+=%#Space_1#\
+set statusline+=%#Angle_1#%{g:angle_chars.right}
+set statusline+=%#Text_2#\ Символы\ %{CharCount()}\ ∙\ \%{virtcol('$')-1}\ ∙\ \%v
+set statusline+=%#Space_2#\
+set statusline+=%#Angle_2#%{g:angle_chars.right}
+function! CharCount()
+    if !exists("b:charcount")
+        let b:charcount = join(getline(1, '$'), '')->strlen()
+    endif
+    return '' . b:charcount
+endfunction
+autocmd BufWritePost,TextChanged,TextChangedI * unlet! b:charcount
+set statusline+=%=
+set statusline+=%#Angle_5#%{g:angle_chars.left}
+set statusline+=%#Space_1#\
+set statusline+=%#Text_1#\ \%{&fileencoding}
+set statusline+=%#Space_1#\
+
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set nowrapscan
+set infercase
+set hlsearch
+nohlsearch
+
+set shm+=I
+colorscheme dark_puerh
+set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
+set lines=75
+set columns=210
+set ch=1
+set cursorline
+set termguicolors
+set foldcolumn=1
+set fillchars+=eob:.
+
 map ё `
 map й q
 map ц w
@@ -77,121 +204,6 @@ map Б <
 map Ю >
 map , ?
 
-set shm+=I
-colorscheme dark_puerh
-set guifont=AnonymicePro\ Nerd\ Font\ Propo:h14
-set lines=75
-set columns=210
-set ch=1
-set cursorline
-set termguicolors
-set foldcolumn=1
-set fillchars+=eob:.
-
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
-set cursorline
-set ruler
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
-set mousemodel=popup
-set mouse=a
-set mousehide
-
-let g:angle_chars = {
-      \ 'left': '',
-      \ 'right': '',
-      \ 'left_thin': '',
-      \ 'right_thin': ''
-      \}
-autocmd VimEnter * highlight! Space_0 guifg=#000000 guibg=#0b0b14
-autocmd VimEnter * highlight! Text_0 guifg=#cd5c54 guibg=#0b0b14 gui=bold
-autocmd VimEnter * highlight! Angle_0 guifg=#000000 guibg=#161623
-autocmd VimEnter * highlight! Space_1 guifg=#222222 guibg=#161623
-autocmd VimEnter * highlight! Text_1 guifg=#FFFFFF guibg=#161623 gui=bold
-autocmd VimEnter * highlight! Angle_1 guifg=#222222 guibg=#444444
-autocmd VimEnter * highlight! Space_2 guifg=#444444 guibg=#444444
-autocmd VimEnter * highlight! Text_2 guifg=#FFFFFF guibg=#444444 gui=bold
-autocmd VimEnter * highlight! Angle_2 guifg=#444444 guibg=#666666
-autocmd VimEnter * highlight! Angle_5 guifg=#222222 guibg=#666666
-set showmode
-set wildmenu
-set laststatus=2
-set statusline=
-set statusline+=%#Space_0#\
-set statusline+=%h%#Text_0#%{&modified?'СОХРАНИ':''}%*%r
-set statusline+=%#Space_0#\
-set statusline+=%#Angle_0#%{g:angle_chars.right}
-set statusline+=%#Text_1#\ Строки\ %L\ ∙\ \%l\ ∙\ \%p%%
-set statusline+=%#Space_1#\
-set statusline+=%#Angle_1#%{g:angle_chars.right}
-set statusline+=%#Text_2#\ Символы\ %{CharCount()}\ ∙\ \%{virtcol('$')-1}\ ∙\ \%v
-set statusline+=%#Space_2#\
-set statusline+=%#Angle_2#%{g:angle_chars.right}
-function! CharCount()
-    if !exists("b:charcount")
-        let b:charcount = join(getline(1, '$'), '')->strlen()
-    endif
-    return '' . b:charcount
-endfunction
-autocmd BufWritePost,TextChanged,TextChangedI * unlet! b:charcount
-set statusline+=%=
-set statusline+=%#Angle_5#%{g:angle_chars.left}
-set statusline+=%#Space_1#\
-set statusline+=%#Text_1#\ \%{&fileencoding}
-set statusline+=%#Space_1#\
-
-set hlsearch
-set ignorecase
-set incsearch
-set smartcase
-set nowrapscan
-set infercase
-
-if version >= 700
-    set history=64
-    set undodir=~/.vim/tmp/
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
-endif
-set noswapfile
-
-syntax on
-set wrap
-set linebreak
-set nu
-set smartindent
-set tabstop=4
-set shiftwidth=1
-set softtabstop=4
-set expandtab
-set autoindent
-set nofoldenable
-set foldmethod=manual
-set showmatch
-imap [ []<LEFT>
-imap ( ()<LEFT>
-imap { {<CR>}<C-O>O
-function InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-imap <tab> <c-r>=InsertTabWrapper()<cr>
-autocmd BufWritePre * silent! %s/[\r \t]\+$//
-
 map <C-Q> <Esc>:q!<cr>
 nnoremap <Space> <PageDown>
 nnoremap <S-Space> <PageUp>
@@ -222,10 +234,10 @@ augroup auto_source_vimrc
   autocmd BufWritePost $MYVIMRC source $MYVIMRC | echo "✅ .vimrc reloaded"
 augroup END
 nmap <F2> ^vg_
-nnoremap <F4> vit
-inoremap <F4> <C-O>vit
-nnoremap <F5> vat
-inoremap <F5> <C-O>vat
+nnoremap <F3> vit
+inoremap <F3> <C-O>vit
+nnoremap <F4> vat
+inoremap <F4> <C-O>vat
 nmap <F6> :g/^s*$/d
 nnoremap <S-F6> :%s/\v\n(\s*\n)+/\r\r/<CR>:noh<CR>
 set wildmenu
@@ -443,16 +455,6 @@ inoremap \s <style type="text/css"><cr><cr></style>
 inoremap \j <script type="text/javascript" src="js"><cr><cr></script>
 inoremap \css <link rel="stylesheet" href="css/ProTo.min.css?v=0.0.1">
 
-set fileencoding=utf-8
-set fileencodings=utf-8,cp1251,koi8-r
-set iskeyword+=192-255,:,;,(,),-
-set complete=.,k
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
-set wildmenu
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (col('.') > 1 && getline('.')[col('.') - 2]  =~ '\k') ? "\<C-n>" : "\<Tab>"
-autocmd FileType css,html setlocal dictionary+=~/.vim/dict/css.dict
-
 vnoremap <silent> sp :%!python3 ~/.vim/scripts/p.py<CR>
 vnoremap <silent> sdd :%!python3 ~/.vim/scripts/div.py<CR>
 vnoremap <silent> su :%!python3 ~/.vim/scripts/li.py<CR>
@@ -462,70 +464,6 @@ vmap <F7> <Esc>:%!python3 ~/.vim/scripts/clean_html.py<CR>
 
 execute pathogen#infect()
 syntax on
-
-let g:startify_change_to_vcs_root = 1
-let g:startify_enable_special = 1
-let g:startify_use_devicons = 1
-function! GetWelcomeMessage()
-  let l:file = expand("~/.vim/start-help.vim")
-  if filereadable(l:file)
-    let l:lines = readfile(l:file)
-    if !empty(l:lines)
-      let quote = l:lines[rand() % len(l:lines)]
-      let len_quote = len(quote) + 6
-      let top = '┌' . repeat('─', len_quote) . '┐'
-      let middle = '   ' . quote . '   '
-      let bottom = '└' . repeat('─', len_quote) . '┘'
-      return [
-            \ '',
-            \ top,
-            \ middle,
-            \ bottom,
-            \ ''
-            \ ]
-    endif
-  endif
-  return ['   (Цитата не найдена)']
-endfunction
-autocmd FileType startify syntax match StartifyHotkey /"\s\zs\(\S\{2,4}\):/ containedin=StartifyHeader
-highlight StartifyHotkey guifg=#fabd2f ctermfg=214 gui=bold
-let g:startify_custom_header = GetWelcomeMessage()
-let g:startify_lists = [
-      \ { 'type': 'files', 'header': ['   A few moments earlier...'] },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
-      \ ]
-let g:startify_bookmarks = [
-      \ { 'p': '~/prompts.txt' },
-      \ { 'b': '~/.bash_profile' },
-      \ { 'h': '~/.vim/my-help.vim' },
-      \ { 's': '~/.vim/start-help.vim' },
-      \ { 'v': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML' },
-      \ { '.v': '~/.vimrc' },
-      \ { 'c': '~/Dropbox/worck/GIT/vimrc-TURBO-HTML/dict/css.dict' },
-      \ ]
-augroup StartifySyntax
-  autocmd!
-  autocmd FileType startify syntax match StartifyBracketLeft /\[/ contained
-  autocmd FileType startify syntax match StartifyBracketRight /\]/ contained
-  autocmd FileType startify :
-    \ syntax match StartifyFile /\[[^\]]\+\]/ containedin=StartifySection |
-    \ syntax match StartifyPath /\/[^\/]*$/ containedin=StartifyFile
-  autocmd FileType startify :
-    \ syntax match StartifyExt /\.\w\+\($\|\[\)/ containedin=StartifyFile |
-    \ syntax match StartifyExt /\/\.[^\/]\+\// containedin=StartifyPath
-augroup END
-highlight StartifyExt   guifg=#83a598 ctermfg=109  " Общий цвет расширений (голубой)
-highlight StartifyExtVim guifg=#b16286 ctermfg=132  " .vim (фиолетовый)
-highlight StartifyExtPy  guifg=#458588 ctermfg=66   " .py (синий)
-highlight StartifyExtJs  guifg=#d79921 ctermfg=172  " .js (оранжевый)
-highlight StartifyExtMd  guifg=#8ec07c ctermfg=108  " .md (зелёный)
-highlight StartifyBracketLeft  guifg=#444444 ctermfg=240
-highlight StartifyBracketRight guifg=#444444 ctermfg=240
-autocmd FileType startify :
-  \ syntax match StartifyExtVim /\.vim\($\|\[\)/ containedin=StartifyFile |
-  \ syntax match StartifyExtPy  /\.py\($\|\[\)/ containedin=StartifyFile |
-  \ syntax match StartifyExtJs  /\.js\($\|\[\)/ containedin=StartifyFile |
-  \ syntax match StartifyExtMd  /\.md\($\|\[\)/ containedin=StartifyFile
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -568,6 +506,67 @@ function! FixSignatureColors()
 endfunction
 autocmd VimEnter,ColorScheme * call FixSignatureColors()
 
-set hlsearch
-nohlsearch
+let g:startify_change_to_vcs_root = 1
+let g:startify_enable_special = 1
+let g:startify_use_devicons = 1
+function! GetWelcomeMessage()
+  let l:file = expand("~/.vim/help/start-help.vim")
+  if filereadable(l:file)
+    let l:lines = readfile(l:file)
+    if !empty(l:lines)
+      let quote = l:lines[rand() % len(l:lines)]
+      let len_quote = len(quote) + 6
+      let top = '┌' . repeat('─', len_quote) . '┐'
+      let middle = '   ' . quote . '   '
+      let bottom = '└' . repeat('─', len_quote) . '┘'
+      return [
+            \ '',
+            \ top,
+            \ middle,
+            \ bottom,
+            \ ''
+            \ ]
+    endif
+  endif
+  return ['   (Цитата не найдена)']
+endfunction
+autocmd FileType startify syntax match StartifyHotkey /"\s\zs\(\S\{2,4}\):/ containedin=StartifyHeader
+highlight StartifyHotkey guifg=#fabd2f ctermfg=214 gui=bold
+let g:startify_custom_header = GetWelcomeMessage()
+let g:startify_lists = [
+      \ { 'type': 'files', 'header': ['   A few moments earlier...'] },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
+      \ ]
+let g:startify_bookmarks = [
+      \ { 'p': '~/prompts.txt' },
+      \ { 'b': '~/.bash_profile' },
+      \ { 'h': '~/.vim/help/my-help.vim' },
+      \ { 's': '~/.vim/start-help.vim' },
+      \ { 'v': '~/Dropbox/worck/GIT/vim-caramel' },
+      \ { '.v': '~/.vimrc' },
+      \ { 'c': '~/Dropbox/worck/GIT/vim-caramel/dict/css.dict' }
+      \ ]
+augroup StartifySyntax
+  autocmd!
+  autocmd FileType startify syntax match StartifyBracketLeft /\[/ contained
+  autocmd FileType startify syntax match StartifyBracketRight /\]/ contained
+  autocmd FileType startify :
+    \ syntax match StartifyFile /\[[^\]]\+\]/ containedin=StartifySection |
+    \ syntax match StartifyPath /\/[^\/]*$/ containedin=StartifyFile
+  autocmd FileType startify :
+    \ syntax match StartifyExt /\.\w\+\($\|\[\)/ containedin=StartifyFile |
+    \ syntax match StartifyExt /\/\.[^\/]\+\// containedin=StartifyPath
+augroup END
+highlight StartifyExt   guifg=#83a598 ctermfg=109  " Общий цвет расширений (голубой)
+highlight StartifyExtVim guifg=#b16286 ctermfg=132  " .vim (фиолетовый)
+highlight StartifyExtPy  guifg=#458588 ctermfg=66   " .py (синий)
+highlight StartifyExtJs  guifg=#d79921 ctermfg=172  " .js (оранжевый)
+highlight StartifyExtMd  guifg=#8ec07c ctermfg=108  " .md (зелёный)
+highlight StartifyBracketLeft  guifg=#444444 ctermfg=240
+highlight StartifyBracketRight guifg=#444444 ctermfg=240
+autocmd FileType startify :
+  \ syntax match StartifyExtVim /\.vim\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtPy  /\.py\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtJs  /\.js\($\|\[\)/ containedin=StartifyFile |
+  \ syntax match StartifyExtMd  /\.md\($\|\[\)/ containedin=StartifyFile
 
