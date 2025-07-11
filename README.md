@@ -198,7 +198,7 @@
 │   ├── 10-key_mappings.vim
 │   ├── 11-key_mappings-html.vim
 │   ├── 12-key_mappings-py-script.vim
-│   ├── _plugins_
+│   ├── [plugins]
 │      ├── 01-pathogen.vim
 │      ├── 03-nerdtree.vim
 │      ├── 04-vim-signature.vim
